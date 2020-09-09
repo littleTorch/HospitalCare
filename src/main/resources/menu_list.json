@@ -1,0 +1,178 @@
+[
+  {
+    "children": [],
+    "icon": "el-icon-date",
+    "id": 1,
+    "label": "床位管理",
+    "name": "bedManage",
+    "orderNum": 0,
+    "parentId": 0,
+    "path": "/bedManage",
+    "type": "1",
+    "url": "/BedManage/BedManage"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "icon": "el-icon-date",
+        "id": 21,
+        "label": "护理级别",
+        "name": "history",
+        "orderNum": 0,
+        "parentId": 2,
+        "path": "/history",
+        "type": "1",
+        "url": "/register/History/History"
+      },
+      {
+        "children": [],
+        "icon": "el-icon-document-copy",
+        "id": 22,
+        "label": "护理内容",
+        "name": "visit",
+        "orderNum": 1,
+        "parentId": 2,
+        "path": "/visit",
+        "type": "1",
+        "url": "/register/Visit/Visit"
+      },
+      {
+        "children": [],
+        "icon": "el-icon-s-goods",
+        "id": 23,
+        "label": "护理记录",
+        "name": "valuables",
+        "orderNum": 2,
+        "parentId": 2,
+        "path": "/valuables",
+        "type": "1",
+        "url": "/register/Valuables/Valuables"
+      }
+    ],
+    "icon": "el-icon-edit-outline",
+    "id": 2,
+    "label": "护理相关管理",
+    "orderNum": 1,
+    "parentId": 0,
+    "path": "/register",
+    "type": "0"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "icon": "el-icon-school",
+        "id": 31,
+        "label": "膳食日历",
+        "name": "college",
+        "orderNum": 0,
+        "parentId": 3,
+        "path": "/college",
+        "type": "1",
+        "url": "/other/College/College"
+      },
+      {
+        "children": [],
+        "icon": "el-icon-pie-chart",
+        "id": 32,
+        "label": "膳食管理",
+        "name": "query",
+        "orderNum": 1,
+        "parentId": 3,
+        "path": "/query",
+        "type": "1",
+        "url": "/other/Query/Query"
+      }
+    ],
+    "icon": "el-icon-menu",
+    "id": 3,
+    "label": "膳食管理",
+    "orderNum": 2,
+    "parentId": 0,
+    "path": "/other",
+    "type": "0"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "icon": "el-icon-files",
+        "id": 41,
+        "label": "入住管理",
+        "name": "systemCode",
+        "orderNum": 0,
+        "parentId": 4,
+        "path": "/systemCode",
+        "type": "1",
+        "url": "/system/config/systemCode"
+      },
+      {
+        "children": [],
+        "icon": "el-icon-s-operation",
+        "id": 42,
+        "label": "退住管理",
+        "name": "document",
+        "orderNum": 1,
+        "parentId": 4,
+        "path": "/document",
+        "type": "1",
+        "url": "/system/config/systemDocument"
+      }
+    ],
+    "icon": "el-icon-receiving",
+    "id": 4,
+    "label": "住宿与外出",
+    "orderNum": 3,
+    "parentId": 0,
+    "path": "/system",
+    "type": "0"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "icon": "el-icon-files",
+        "id": 51,
+        "label": "设置服务对象",
+        "name": "systemCode",
+        "orderNum": 0,
+        "parentId": 5,
+        "path": "/systemCode",
+        "type": "1",
+        "url": "/system/config/systemCode"
+      },
+      {
+        "children": [],
+        "icon": "el-icon-s-operation",
+        "id": 52,
+        "label": "服务关注",
+        "name": "document",
+        "orderNum": 1,
+        "parentId": 5,
+        "path": "/document",
+        "type": "1",
+        "url": "/system/config/systemDocument"
+      },
+      {
+        "children": [],
+        "icon": "el-icon-s-operation",
+        "id": 52,
+        "label": "用户管理",
+        "name": "document",
+        "orderNum": 1,
+        "parentId": 5,
+        "path": "/document",
+        "type": "1",
+        "url": "/system/config/systemDocument"
+      }
+    ],
+    "icon": "el-icon-receiving",
+    "id": 5,
+    "label": "服务与用户",
+    "orderNum": 4,
+    "parentId": 0,
+    "path": "/system",
+    "type": "0"
+  }
+]
