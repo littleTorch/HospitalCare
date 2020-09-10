@@ -18,36 +18,36 @@
         "icon": "el-icon-date",
         "id": 21,
         "label": "护理级别",
-        "name": "history",
+        "name": "nurseLevel",
         "orderNum": 0,
         "parentId": 2,
-        "path": "/history",
+        "path": "/nurseLevel",
         "type": "1",
-        "url": "/register/History/History"
+        "url": "/nurseManage/nurseLevel/NurseLevel"
       },
       {
         "children": [],
         "icon": "el-icon-document-copy",
         "id": 22,
         "label": "护理内容",
-        "name": "visit",
+        "name": "nurseProject",
         "orderNum": 1,
         "parentId": 2,
-        "path": "/visit",
+        "path": "/nurseProject",
         "type": "1",
-        "url": "/register/Visit/Visit"
+        "url": "/nurseManage/nurseProject/NurseProject"
       },
       {
         "children": [],
         "icon": "el-icon-s-goods",
         "id": 23,
         "label": "护理记录",
-        "name": "valuables",
+        "name": "nurseRecord",
         "orderNum": 2,
         "parentId": 2,
-        "path": "/valuables",
+        "path": "/nurseRecord",
         "type": "1",
-        "url": "/register/Valuables/Valuables"
+        "url": "/nurseManage/nurseRecord/NurseRecord"
       }
     ],
     "icon": "el-icon-edit-outline",
@@ -55,7 +55,7 @@
     "label": "护理相关管理",
     "orderNum": 1,
     "parentId": 0,
-    "path": "/register",
+    "path": "/nurseManage",
     "type": "0"
   },
   {
@@ -65,24 +65,24 @@
         "icon": "el-icon-school",
         "id": 31,
         "label": "膳食日历",
-        "name": "college",
+        "name": "foodDate",
         "orderNum": 0,
         "parentId": 3,
-        "path": "/college",
+        "path": "/foodDate",
         "type": "1",
-        "url": "/other/College/College"
+        "url": "/foodManage/foodDate/FoodDate"
       },
       {
         "children": [],
         "icon": "el-icon-pie-chart",
         "id": 32,
         "label": "膳食管理",
-        "name": "query",
+        "name": "foodManage",
         "orderNum": 1,
         "parentId": 3,
-        "path": "/query",
+        "path": "/foodManage",
         "type": "1",
-        "url": "/other/Query/Query"
+        "url": "/foodManage/foodManage/FoodManage"
       }
     ],
     "icon": "el-icon-menu",
@@ -90,7 +90,7 @@
     "label": "膳食管理",
     "orderNum": 2,
     "parentId": 0,
-    "path": "/other",
+    "path": "/foodManage",
     "type": "0"
   },
   {
@@ -100,24 +100,24 @@
         "icon": "el-icon-files",
         "id": 41,
         "label": "入住管理",
-        "name": "systemCode",
+        "name": "checkin",
         "orderNum": 0,
         "parentId": 4,
-        "path": "/systemCode",
+        "path": "/checkin",
         "type": "1",
-        "url": "/system/config/systemCode"
+        "url": "/checkinOut/checkin/Checkin"
       },
       {
         "children": [],
         "icon": "el-icon-s-operation",
         "id": 42,
         "label": "退住管理",
-        "name": "document",
+        "name": "exits",
         "orderNum": 1,
         "parentId": 4,
-        "path": "/document",
+        "path": "/exits",
         "type": "1",
-        "url": "/system/config/systemDocument"
+        "url": "/checkinOut/exits/Exits"
       }
     ],
     "icon": "el-icon-receiving",
@@ -125,7 +125,7 @@
     "label": "住宿与外出",
     "orderNum": 3,
     "parentId": 0,
-    "path": "/system",
+    "path": "/checkinOut",
     "type": "0"
   },
   {
@@ -135,36 +135,36 @@
         "icon": "el-icon-files",
         "id": 51,
         "label": "设置服务对象",
-        "name": "systemCode",
+        "name": "serviceObj",
         "orderNum": 0,
         "parentId": 5,
-        "path": "/systemCode",
+        "path": "/serviceObj",
         "type": "1",
-        "url": "/system/config/systemCode"
+        "url": "/serviceUser/serviceObj/ServiceObj"
       },
       {
         "children": [],
         "icon": "el-icon-s-operation",
         "id": 52,
         "label": "服务关注",
-        "name": "document",
+        "name": "serviceSer",
         "orderNum": 1,
         "parentId": 5,
-        "path": "/document",
+        "path": "/serviceSer",
         "type": "1",
-        "url": "/system/config/systemDocument"
+        "url": "/serviceUser/serviceSer/ServiceSer"
       },
       {
         "children": [],
         "icon": "el-icon-s-operation",
         "id": 52,
         "label": "用户管理",
-        "name": "document",
+        "name": "user",
         "orderNum": 1,
         "parentId": 5,
-        "path": "/document",
+        "path": "/user",
         "type": "1",
-        "url": "/system/config/systemDocument"
+        "url": "/serviceUser/user/User"
       }
     ],
     "icon": "el-icon-receiving",
@@ -172,7 +172,7 @@
     "label": "服务与用户",
     "orderNum": 4,
     "parentId": 0,
-    "path": "/system",
+    "path": "/serviceUser",
     "type": "0"
   }
 ]
