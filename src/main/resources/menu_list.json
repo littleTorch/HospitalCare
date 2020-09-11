@@ -99,7 +99,7 @@
         "children": [],
         "icon": "el-icon-files",
         "id": 41,
-        "label": "入住管理",
+        "label": "入住登记",
         "name": "checkin",
         "orderNum": 0,
         "parentId": 4,
@@ -111,13 +111,25 @@
         "children": [],
         "icon": "el-icon-s-operation",
         "id": 42,
-        "label": "退住管理",
+        "label": "退住登记",
         "name": "exits",
         "orderNum": 1,
         "parentId": 4,
         "path": "/exits",
         "type": "1",
         "url": "/checkinOut/exits/Exits"
+      },
+      {
+        "children": [],
+        "icon": "el-icon-s-operation",
+        "id": 42,
+        "label": "外出登记",
+        "name": "out",
+        "orderNum": 1,
+        "parentId": 4,
+        "path": "/out",
+        "type": "1",
+        "url": "/checkinOut/out/Out"
       }
     ],
     "icon": "el-icon-receiving",
@@ -173,6 +185,41 @@
     "orderNum": 4,
     "parentId": 0,
     "path": "/serviceUser",
+    "type": "0"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "icon": "el-icon-s-operation",
+        "id": 52,
+        "label": "角色管理",
+        "name": "role",
+        "orderNum": 1,
+        "parentId": 5,
+        "path": "/role",
+        "type": "1",
+        "url": "/system/role/Role"
+      },
+      {
+        "children": [],
+        "icon": "el-icon-s-operation",
+        "id": 52,
+        "label": "权限管理",
+        "name": "permission",
+        "orderNum": 1,
+        "parentId": 5,
+        "path": "/permission",
+        "type": "1",
+        "url": "/system/permission/Permission"
+      }
+    ],
+    "icon": "el-icon-receiving",
+    "id": 5,
+    "label": "系统管理",
+    "orderNum": 4,
+    "parentId": 0,
+    "path": "/system",
     "type": "0"
   }
 ]
