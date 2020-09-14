@@ -55,14 +55,14 @@ public class CustomerUserDetailsService implements UserDetailsService {
         List<Permission> codeList = permissionService.getPermissionListByRoleId(userRole.getRoleId());
         //4.把code交给Spring Security
         //4.1获取code
-        //List<String> collect = codeList.stream().filter(item -> item != null).map(item -> item.getCode()).collect(Collectors.toList());
+        List<String> collect = codeList.stream().filter(item -> item != null).map(item -> item.getCode()).collect(Collectors.toList());
         //4.2转成数组
-        //String[] strings = collect.toArray(new String[collect.size()]);
+        String[] strings = collect.toArray(new String[collect.size()]);
         //4.3把codes转成List<GrantedAuthority>
-        //List<GrantedAuthority> authorityList = AuthorityUtils.createAuthorityList(strings);
-        //authorityList.forEach(System.out::println);
+        List<GrantedAuthority> authorityList = AuthorityUtils.createAuthorityList(strings);
+        authorityList.forEach(System.out::println);
         //4.4设置权限
-        //user.setAuthorities(authorityList);
+        user.setAuthorities(authorityList);
         //5.把菜单封装到user
         user.setPermissionList(codeList);
         return user;

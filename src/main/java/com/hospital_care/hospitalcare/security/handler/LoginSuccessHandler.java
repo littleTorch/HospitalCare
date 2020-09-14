@@ -52,10 +52,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         //3.获取用户菜单权限
         List<Permission> permissionList = user.getPermissionList();
         //4.获取code字段，返回给前端使用
-        //List<String> auth = permissionList.stream().filter(item -> item != null)
-        //        .map(item -> item.getCode())
-        //        .collect(Collectors.toList());
-        //vo.setAuthList(auth);
+        List<String> auth = permissionList.stream().filter(item -> item != null)
+                .map(item -> item.getCode())
+                .collect(Collectors.toList());
+        vo.setAuthList(auth);
         //5.生成菜单数据树
         List<Permission> permissions = permissionList.stream().filter(item -> item != null && !item.getType().equals("2")).collect(Collectors.toList());
         List<Permission> listMenu = MakeMenuTree.makeTree(permissions, 0);

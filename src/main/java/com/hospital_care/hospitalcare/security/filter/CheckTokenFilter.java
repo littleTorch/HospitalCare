@@ -55,7 +55,7 @@ public class CheckTokenFilter extends OncePerRequestFilter {
             //验证token,验证码请求不需要验证token
             if(!url.equals(icon) &&!url.equals(imgUrl)){
                 try{
-                    //validateToken(request);
+                    validateToken(request);
                 }catch (AuthenticationException e){
                     loginFailureHandler.onAuthenticationFailure(request,response,e);
                     return;
