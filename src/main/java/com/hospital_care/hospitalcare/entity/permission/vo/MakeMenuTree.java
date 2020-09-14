@@ -28,7 +28,7 @@ public class MakeMenuTree {
             });
         }
 
-        if (pid == 0){
+        /*if (pid == 0){
             if (successor.size()>0){
                 List<Permission> successor2 = successor.stream().filter(x -> {
                     for (Permission child : children) {
@@ -56,7 +56,7 @@ public class MakeMenuTree {
                     }
                 });
             }
-        }
+        }*/
 
         return children;
     }

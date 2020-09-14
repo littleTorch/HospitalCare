@@ -47,9 +47,9 @@ logging:
 
 # mybatis
 mybatis-plus:
-  mapper-locations: classpath:com/example/station_platform/mapper/*Mapper.xml
+  mapper-locations: classpath:com/hospital_care/hospitalcare/mapper/xml/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.example.station_platform.entity
+  typeAliasesPackage: com.hospital_care.hospitalcare.entity
   #typeEnumsPackage: org.springblade.dashboard.entity.enums
   global-config:
     # 关闭MP3.0自带的banner

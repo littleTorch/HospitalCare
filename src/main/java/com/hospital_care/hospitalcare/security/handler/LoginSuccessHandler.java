@@ -3,6 +3,8 @@ package com.hospital_care.hospitalcare.security.handler;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.hospital_care.hospitalcare.entity.User;
+import com.hospital_care.hospitalcare.entity.permission.Permission;
+import com.hospital_care.hospitalcare.entity.permission.vo.MakeMenuTree;
 import com.hospital_care.hospitalcare.entity.permission.vo.MenuVo;
 import com.hospital_care.hospitalcare.jwt.JwtUtils;
 import com.hospital_care.hospitalcare.result.ResultUtils;
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 登录认证成功处理器
@@ -45,6 +49,21 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         //vo.setUserName(user.getUsername());
         //vo.setIsAdmin(user.getIsAdmin());
 
+        //3.获取用户菜单权限
+        List<Permission> permissionList = user.getPermissionList();
+        //4.获取code字段，返回给前端使用
+        //List<String> auth = permissionList.stream().filter(item -> item != null)
+        //        .map(item -> item.getCode())
+        //        .collect(Collectors.toList());
+        //vo.setAuthList(auth);
+        //5.生成菜单数据树
+        List<Permission> permissions = permissionList.stream().filter(item -> item != null && !item.getType().equals("2")).collect(Collectors.toList());
+        List<Permission> listMenu = MakeMenuTree.makeTree(permissions, 0);
+        vo.setMenuList(listMenu);
+        //6.查询路由url
+        List<Permission> routerList = permissionList.stream().filter(item -> item != null && item.getType().equals("1")).collect(Collectors.toList());
+        vo.setRouterList(routerList);
+
         String res = JSONObject.toJSONString(ResultUtils.success("认证成功",vo), SerializerFeature.DisableCircularReferenceDetect);
         httpServletResponse.setContentType("application/json;charset=UTF-8");
         ServletOutputStream out = httpServletResponse.getOutputStream();
@@ -52,7 +71,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         out.flush();
         out.close();
 
-        String ipAddresses = getIpAddresses(request);
+        //String ipAddresses = getIpAddresses(request);
 
         //LoginLog loginLog = new LoginLog();
         //loginLog.setLoginPerson(user.getUsername());

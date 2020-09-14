@@ -1,5 +1,6 @@
 package com.hospital_care.hospitalcare.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.hospital_care.hospitalcare.entity.User;
 import com.hospital_care.hospitalcare.mapper.UserMapper;
 import com.hospital_care.hospitalcare.service.UserService;
@@ -19,6 +20,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User getUserByUserName(String username) {
-        return null;
+        return this.baseMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername,username));
     }
 }
