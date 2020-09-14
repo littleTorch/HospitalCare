@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 14/09/2020 20:27:47
+ Date: 14/09/2020 21:19:18
 */
 
 SET NAMES utf8mb4;
@@ -330,25 +330,25 @@ CREATE TABLE `permission`  (
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
-INSERT INTO `permission` VALUES (1, 0, NULL, '床位管理', NULL, '/bedManage', 'bedManage', '/BedManage/BedManage', 0, '1', 'el-icon-date', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (2, 0, NULL, '护理相关管理', NULL, '/nurseManage', NULL, NULL, 1, '0', 'el-icon-edit-outline', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (3, 2, NULL, '护理级别', NULL, '/nurseLevel', 'nurseLevel', '/nurseManage/nurseLevel/NurseLevel', 0, '1', 'el-icon-date', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (4, 2, NULL, '护理内容', NULL, '/nurseProject', 'nurseProject', '/nurseManage/nurseProject/NurseProject', 1, '1', 'el-icon-document-copy', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (5, 2, NULL, '护理记录', NULL, '/nurseRecord', 'nurseRecord', '/nurseManage/nurseRecord/NurseRecord', 2, '1', 'el-icon-s-goods', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (6, 0, NULL, '膳食管理', NULL, '/foodManage', NULL, NULL, 2, '0', 'el-icon-menu', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (7, 6, NULL, '膳食日历', NULL, '/foodDate', 'foodDate', '/foodManage/foodDate/FoodDate', 0, '1', 'el-icon-school', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (8, 6, NULL, '膳食管理', NULL, '/foodManage', 'foodManage', '/foodManage/foodManage/FoodManage', 1, '1', 'el-icon-pie-chart', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (9, 0, NULL, '住宿与外出', NULL, '/checkinOut', NULL, NULL, 3, '0', 'el-icon-receiving', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (10, 9, NULL, '入住登记', NULL, '/checkin', 'checkin', '/checkinOut/checkin/Checkin', 0, '1', 'el-icon-files', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (11, 9, NULL, '退住登记', NULL, '/exits', 'exits', '/checkinOut/exits/Exits', 1, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (12, 9, NULL, '外出登记', NULL, '/out', 'out', '/checkinOut/out/Out', 2, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (13, 0, NULL, '服务与用户', NULL, '/serviceUser', NULL, NULL, 4, '0', 'el-icon-receiving', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (14, 13, NULL, '设置服务对象', NULL, '/serviceObj', 'serviceObj', '/serviceUser/serviceObj/ServiceObj', 0, '1', 'el-icon-files', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (15, 13, NULL, '服务关注', NULL, '/serviceSer', 'serviceSer', '/serviceUser/serviceSer/ServiceSer', 1, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (16, 13, NULL, '用户管理', NULL, '/user', 'user', '/serviceUser/user/User', 2, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (17, 0, NULL, '系统管理', NULL, '/system', NULL, NULL, 5, '0', 'el-icon-receiving', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (18, 17, NULL, '角色管理', NULL, '/role', 'role', '/system/role/Role', 0, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (19, 17, NULL, '权限管理', NULL, '/permission', 'permission', '/system/permission/Permission', 1, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (1, 0, NULL, '床位管理', 'hc:bedManage', '/bedManage', 'bedManage', '/BedManage/BedManage', 0, '1', 'el-icon-date', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (2, 0, NULL, '护理相关管理', 'hc:nurseManage', '/nurseManage', NULL, NULL, 1, '0', 'el-icon-edit-outline', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (3, 2, NULL, '护理级别', 'hc:nurseLevel', '/nurseLevel', 'nurseLevel', '/nurseManage/nurseLevel/NurseLevel', 0, '1', 'el-icon-date', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (4, 2, NULL, '护理内容', 'hc:nurseProject', '/nurseProject', 'nurseProject', '/nurseManage/nurseProject/NurseProject', 1, '1', 'el-icon-document-copy', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (5, 2, NULL, '护理记录', 'hc:nurseRecord', '/nurseRecord', 'nurseRecord', '/nurseManage/nurseRecord/NurseRecord', 2, '1', 'el-icon-s-goods', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (6, 0, NULL, '膳食管理', 'hc:foodManage', '/foodManage', NULL, NULL, 2, '0', 'el-icon-menu', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (7, 6, NULL, '膳食日历', 'hc:foodDate', '/foodDate', 'foodDate', '/foodManage/foodDate/FoodDate', 0, '1', 'el-icon-school', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (8, 6, NULL, '膳食管理', 'hc:foodManage', '/foodManage', 'foodManage', '/foodManage/foodManage/FoodManage', 1, '1', 'el-icon-pie-chart', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (9, 0, NULL, '住宿与外出', 'hc:checkinOut', '/checkinOut', NULL, NULL, 3, '0', 'el-icon-receiving', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (10, 9, NULL, '入住登记', 'hc:checkin', '/checkin', 'checkin', '/checkinOut/checkin/Checkin', 0, '1', 'el-icon-files', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (11, 9, NULL, '退住登记', 'hc:exits', '/exits', 'exits', '/checkinOut/exits/Exits', 1, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (12, 9, NULL, '外出登记', 'hc:out', '/out', 'out', '/checkinOut/out/Out', 2, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (13, 0, NULL, '服务与用户', 'hc:serviceUser', '/serviceUser', NULL, NULL, 4, '0', 'el-icon-receiving', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (14, 13, NULL, '设置服务对象', 'hc:serviceObj', '/serviceObj', 'serviceObj', '/serviceUser/serviceObj/ServiceObj', 0, '1', 'el-icon-files', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (15, 13, NULL, '服务关注', 'hc:serviceSer', '/serviceSer', 'serviceSer', '/serviceUser/serviceSer/ServiceSer', 1, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (16, 13, NULL, '用户管理', 'hc:user', '/user', 'user', '/serviceUser/user/User', 2, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (17, 0, NULL, '系统管理', 'hc:system', '/system', NULL, NULL, 5, '0', 'el-icon-receiving', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (18, 17, NULL, '角色管理', 'hc:role', '/role', 'role', '/system/role/Role', 0, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (19, 17, NULL, '权限管理', 'hc:permission', '/permission', 'permission', '/system/permission/Permission', 1, '1', 'el-icon-s-operation', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for role
