@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 11/09/2020 20:31:58
+ Date: 14/09/2020 20:27:47
 */
 
 SET NAMES utf8mb4;
@@ -36,7 +36,7 @@ CREATE TABLE `bed`  (
   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) NULL DEFAULT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of bed
@@ -95,7 +95,7 @@ CREATE TABLE `customer`  (
   `blood_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '血型',
   `head_img` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '头像存储',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of customer
@@ -126,7 +126,7 @@ CREATE TABLE `emp`  (
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '联系号码',
   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of emp
@@ -325,7 +325,7 @@ CREATE TABLE `permission`  (
   `update_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '修改时间',
   `is_home` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of permission
@@ -366,6 +366,7 @@ CREATE TABLE `role`  (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
+INSERT INTO `role` VALUES (1, '超级管理员', '拥有所有的权限', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for role_permission
@@ -381,6 +382,25 @@ CREATE TABLE `role_permission`  (
 -- ----------------------------
 -- Records of role_permission
 -- ----------------------------
+INSERT INTO `role_permission` VALUES (1, 1, 1);
+INSERT INTO `role_permission` VALUES (2, 1, 2);
+INSERT INTO `role_permission` VALUES (3, 1, 3);
+INSERT INTO `role_permission` VALUES (4, 1, 4);
+INSERT INTO `role_permission` VALUES (5, 1, 5);
+INSERT INTO `role_permission` VALUES (6, 1, 6);
+INSERT INTO `role_permission` VALUES (7, 1, 7);
+INSERT INTO `role_permission` VALUES (8, 1, 8);
+INSERT INTO `role_permission` VALUES (9, 1, 9);
+INSERT INTO `role_permission` VALUES (10, 1, 10);
+INSERT INTO `role_permission` VALUES (11, 1, 11);
+INSERT INTO `role_permission` VALUES (12, 1, 12);
+INSERT INTO `role_permission` VALUES (13, 1, 13);
+INSERT INTO `role_permission` VALUES (14, 1, 14);
+INSERT INTO `role_permission` VALUES (15, 1, 15);
+INSERT INTO `role_permission` VALUES (16, 1, 16);
+INSERT INTO `role_permission` VALUES (17, 1, 17);
+INSERT INTO `role_permission` VALUES (18, 1, 18);
+INSERT INTO `role_permission` VALUES (19, 1, 19);
 
 -- ----------------------------
 -- Table structure for service_obj
@@ -437,7 +457,7 @@ CREATE TABLE `user`  (
   `update_by` varchar(11) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '0' COMMENT '修改者',
   `is_deleted` int(11) NULL DEFAULT 0 COMMENT '0未删除（默认），1已删除',
   `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
   `sex` int(1) NULL DEFAULT NULL COMMENT '0男，1女',
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
@@ -448,6 +468,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES (1, NULL, '0', NULL, '0', 0, 'root', '$2a$10$WK3SjM1S0j5rSh1.3u2iruLWVxoUiX1Ve76cBAMO9S2rre4/mqJzS', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for user_role
@@ -463,5 +484,6 @@ CREATE TABLE `user_role`  (
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
+INSERT INTO `user_role` VALUES (1, 1, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
