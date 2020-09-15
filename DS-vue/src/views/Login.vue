@@ -10,7 +10,7 @@
                     label-position="left"
             >
                 <el-form-item>
-                    <div class="login-title">学生宿舍后台管理系统</div>
+                    <div class="login-title">广东理工职业颐养院管理系统</div>
                 </el-form-item>
 
                 <el-form-item label=""  prop="username">

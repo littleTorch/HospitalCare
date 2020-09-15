@@ -2,7 +2,7 @@
   <el-container class="home">
     <!--头部-->
     <el-header class="header ub main-justify cross-center ">
-      <div class="header-left-text">学生宿舍后台管理项目</div>
+      <div class="header-left-text">广东理工职业颐养院系统</div>
       <div class="ub main-center cross-center">
       <el-dropdown placement="bottom-start">
         <el-avatar class="user-img" :size="50" :src="circleUrl"></el-avatar>
@@ -31,7 +31,7 @@
           <tabs></tabs>
           <router-view></router-view>
         </el-main>
-        <el-footer>广东理工职业颐养院</el-footer>
+        <el-footer class="foot" height="35px">广东理工职业颐养院</el-footer>
       </el-container>
     </el-container>
   </el-container>
@@ -48,7 +48,7 @@ export default {
     tabs
   },
   created() {
-    this.username=JSON.parse(sessionStorage.getItem("user")).userNickname;
+    this.username=JSON.parse(sessionStorage.getItem("user")).username;
     let date=new Date();
     this.nowDate=date.getFullYear()+"年"+(1+date.getMonth())+"月"+date.getDate()+"日";
   },
@@ -129,5 +129,11 @@ export default {
 }
 .header-time{
   font-size: 14px;
+}
+.foot{
+  background: #409eff;
+  line-height: 35px;
+  color: #fff;
+  font-size: 12px;
 }
 </style>
