@@ -17,6 +17,7 @@ public class MenuVo implements Serializable {
     private String token;
     private Integer roleId;
     private Integer userId;
-    private String userNickname;
+    private String userName;
+    //private String userNickname;
 }
 
