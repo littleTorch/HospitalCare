@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-09-15
  */
 @RestController
-@RequestMapping("/nurseLevel")
-public class NurseLevelController {
+@RequestMapping("/checkout")
+public class CheckoutController {
 
 }
 

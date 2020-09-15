@@ -1,8 +1,10 @@
 package com.hospital_care.hospitalcare.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -16,12 +18,13 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author hostpital_care
- * @since 2020-09-10
+ * @since 2020-09-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="Out对象", description="")
-public class Out implements Serializable {
+@TableName("t_leave")
+@ApiModel(value="Leave对象", description="")
+public class Leave implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -46,10 +49,10 @@ public class Out implements Serializable {
     private Integer cusId;
 
     @ApiModelProperty(value = "外出事由")
-    private String outReason;
+    private String leaveReason;
 
     @ApiModelProperty(value = "外出时间")
-    private String outTime;
+    private String leaveTime;
 
     @ApiModelProperty(value = "预计回院时间")
     private String expectTime;
@@ -74,6 +77,9 @@ public class Out implements Serializable {
 
     @ApiModelProperty(value = "排序")
     private Integer sort;
+
+    @TableLogic
+    private Integer isDeleted;
 
 
 }

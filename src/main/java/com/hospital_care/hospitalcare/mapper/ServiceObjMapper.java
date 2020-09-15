@@ -1,6 +1,6 @@
 package com.hospital_care.hospitalcare.mapper;
 
-import com.hospital_care.hospitalcare.entity.Bed;
+import com.hospital_care.hospitalcare.entity.ServiceObj;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author hostpital_care
  * @since 2020-09-15
  */
-public interface BedMapper extends BaseMapper<Bed> {
+public interface ServiceObjMapper extends BaseMapper<ServiceObj> {
 
 }

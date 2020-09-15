@@ -1,5 +1,6 @@
 package com.hospital_care.hospitalcare.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.FieldFill;
@@ -17,10 +18,11 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author hostpital_care
- * @since 2020-09-10
+ * @since 2020-09-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@TableName("t_emp")
 @ApiModel(value="Emp对象", description="")
 public class Emp implements Serializable {
 
@@ -42,11 +44,14 @@ public class Emp implements Serializable {
     @TableLogic
     private Integer isDeleted;
 
-    @ApiModelProperty(value = "员工类型")
-    private String empType;
+    @ApiModelProperty(value = "员工类型（0管理人员、1医务人员、2护理人员）")
+    private Integer empType;
 
-    @ApiModelProperty(value = "员工号")
-    private String empNo;
+    @ApiModelProperty(value = "员工名")
+    private String empName;
+
+    @ApiModelProperty(value = "性别（默认0男、1女）")
+    private Integer sex;
 
     @ApiModelProperty(value = "入职日期")
     private String entryDate;

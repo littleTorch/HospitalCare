@@ -1,8 +1,10 @@
 package com.hospital_care.hospitalcare.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -16,12 +18,13 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author hostpital_care
- * @since 2020-09-10
+ * @since 2020-09-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="Exits对象", description="")
-public class Exits implements Serializable {
+@TableName("t_service_obj")
+@ApiModel(value="ServiceObj对象", description="")
+public class ServiceObj implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -42,32 +45,17 @@ public class Exits implements Serializable {
     @ApiModelProperty(value = "更新者")
     private String updateBy;
 
-    @ApiModelProperty(value = "客户id")
+    @ApiModelProperty(value = "管家id")
+    private Integer empId;
+
+    @ApiModelProperty(value = "用户id")
     private Integer cusId;
-
-    @ApiModelProperty(value = "退住时间")
-    private String exitDate;
-
-    @ApiModelProperty(value = "退住类型（0回家、1逝世、2换院）")
-    private Integer exitType;
-
-    @ApiModelProperty(value = "退住原因")
-    private String exitReason;
-
-    @ApiModelProperty(value = "0处理中、1已退住")
-    private Integer status;
-
-    @ApiModelProperty(value = "审核人")
-    private String auditPerson;
-
-    @ApiModelProperty(value = "审核情况（0未审核、1审核通过、2审核不通过）")
-    private Integer audit;
-
-    @ApiModelProperty(value = "审核时间")
-    private String auditTime;
 
     @ApiModelProperty(value = "排序")
     private Integer sort;
+
+    @TableLogic
+    private Integer isDeleted;
 
 
 }

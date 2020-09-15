@@ -22,13 +22,12 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("t_bed")
-@ApiModel(value="Bed对象", description="")
-public class Bed implements Serializable {
+@TableName("t_service_focus")
+@ApiModel(value="ServiceFocus对象", description="")
+public class ServiceFocus implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "床位id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -46,20 +45,17 @@ public class Bed implements Serializable {
     @ApiModelProperty(value = "更新者")
     private String updateBy;
 
-    @ApiModelProperty(value = "所属楼房")
-    private String floor;
+    @ApiModelProperty(value = "护理项目id")
+    private Integer projectId;
 
-    @ApiModelProperty(value = "房间号码")
-    private String roomNo;
+    @ApiModelProperty(value = "用户id")
+    private Integer cusId;
 
-    @ApiModelProperty(value = "床位号")
-    private String bedNo;
+    @ApiModelProperty(value = "服务购买日期")
+    private String serveStart;
 
-    @ApiModelProperty(value = "类型（0普通（默认）、1特殊）")
-    private Integer positionType;
-
-    @ApiModelProperty(value = "床位状态（0空（默认），1使用中）")
-    private Integer bedStatus;
+    @ApiModelProperty(value = "服务到期日期")
+    private String serveEnd;
 
     @ApiModelProperty(value = "备注")
     private String remark;
@@ -67,7 +63,6 @@ public class Bed implements Serializable {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
-    @ApiModelProperty(value = "逻辑删除")
     @TableLogic
     private Integer isDeleted;
 

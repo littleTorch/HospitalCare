@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author hostpital_care
- * @since 2020-09-10
+ * @since 2020-09-15
  */
 public interface NurseRecordService extends IService<NurseRecord> {
 

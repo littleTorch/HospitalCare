@@ -1,6 +1,6 @@
 package com.hospital_care.hospitalcare.mapper;
 
-import com.hospital_care.hospitalcare.entity.Exits;
+import com.hospital_care.hospitalcare.entity.ServiceFocus;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author hostpital_care
- * @since 2020-09-10
+ * @since 2020-09-15
  */
-public interface ExitsMapper extends BaseMapper<Exits> {
+public interface ServiceFocusMapper extends BaseMapper<ServiceFocus> {
 
 }

@@ -1,5 +1,6 @@
 package com.hospital_care.hospitalcare.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.FieldFill;
@@ -17,10 +18,11 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author hostpital_care
- * @since 2020-09-10
+ * @since 2020-09-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@TableName("t_customer")
 @ApiModel(value="Customer对象", description="")
 public class Customer implements Serializable {
 

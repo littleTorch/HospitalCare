@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author hostpital_care
- * @since 2020-09-10
+ * @since 2020-09-15
  */
 @RestController
-@RequestMapping("/exits")
-public class ExitsController {
+@RequestMapping("/serviceFocus")
+public class ServiceFocusController {
 
 }
 

@@ -24,7 +24,7 @@ import java.util.Scanner;
 // 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
 public class CodeGenerator {
 
-    //bed,checkin,customer,emp,exits,food_date,food_manage,nurse_level,nurse_project,nurse_record,out,permission,role,role_permission,serve_obj,serve_serve,user,user_role
+    //permission,role,role_permission,t_bed,t_checkin,t_checkout,t_customer,t_emp,t_food_date,t_food_manage,t_leave,t_nurse_level,t_nurse_project,t_nurse_record,t_service_focus,t_service_obj,user,user_role
 
     /**
      * 读取控制台内容
@@ -56,7 +56,7 @@ public class CodeGenerator {
         gc.setAuthor("hostpital_care");    //设置作者
         //生成代码后，是否打开文件夹
         gc.setOpen(false);
-        gc.setFileOverride(false);  //是否覆盖原来代码，个人建议设置为false,别覆盖，危险系数太高
+        gc.setFileOverride(true);  //是否覆盖原来代码，个人建议设置为false,别覆盖，危险系数太高
         gc.setServiceName("%sService");   //去掉service的I前缀,一般只需要设置service就行
         gc.setMapperName("%sMapper");
         gc.setXmlName("%sMapper");
@@ -91,7 +91,7 @@ public class CodeGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));    //设置映射的表名，可以设置多个表
         //表前缀设置  cxyxs_student
-        //strategy.setTablePrefix(new String[]{"cxyxs_"});
+        strategy.setTablePrefix(new String[]{"t_"}); //去掉表名前缀
         //包的命名规则，使用驼峰规则
         strategy.setNaming(NamingStrategy.underline_to_camel);
         //列的名称，使用驼峰规则

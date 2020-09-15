@@ -1,6 +1,6 @@
 package com.hospital_care.hospitalcare.service;
 
-import com.hospital_care.hospitalcare.entity.Exits;
+import com.hospital_care.hospitalcare.entity.Checkout;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author hostpital_care
- * @since 2020-09-10
+ * @since 2020-09-15
  */
-public interface ExitsService extends IService<Exits> {
+public interface CheckoutService extends IService<Checkout> {
 
 }

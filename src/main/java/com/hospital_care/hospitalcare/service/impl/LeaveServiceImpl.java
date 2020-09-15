@@ -1,8 +1,8 @@
 package com.hospital_care.hospitalcare.service.impl;
 
-import com.hospital_care.hospitalcare.entity.Emp;
-import com.hospital_care.hospitalcare.mapper.EmpMapper;
-import com.hospital_care.hospitalcare.service.EmpService;
+import com.hospital_care.hospitalcare.entity.Leave;
+import com.hospital_care.hospitalcare.mapper.LeaveMapper;
+import com.hospital_care.hospitalcare.service.LeaveService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-09-15
  */
 @Service
-public class EmpServiceImpl extends ServiceImpl<EmpMapper, Emp> implements EmpService {
+public class LeaveServiceImpl extends ServiceImpl<LeaveMapper, Leave> implements LeaveService {
 
 }
