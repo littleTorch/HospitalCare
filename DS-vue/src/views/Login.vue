@@ -168,21 +168,21 @@
                                 if (recode == 200) {
                                     let menuList = result.data.data.menuList;
                                     // //路由数据
-                                    let routerList = [];
-                                    let chi = [];
-                                    for (let i = 0; i < menuList.length; i++) {
-                                        chi.push(menuList[i].children);
-                                    }
-                                    for (let i = 0; i < chi.length; i++) {
-                                        for (let j = 0; j < chi[i].length; j++) {
-                                            if (chi[i][j].children){
-                                                for (let k=0;k<chi[i][j].children.length;k++){
-                                                    routerList.push(chi[i][j].children[k]);
-                                                }
-                                            }
-                                            routerList.push(chi[i][j]);
-                                        }
-                                    }
+                                    // let routerList = [];
+                                    // let chi = [];
+                                    // for (let i = 0; i < menuList.length; i++) {
+                                    //     chi.push(menuList[i].children);
+                                    // }
+                                    // for (let i = 0; i < chi.length; i++) {
+                                    //     for (let j = 0; j < chi[i].length; j++) {
+                                    //         if (chi[i][j].children){
+                                    //             for (let k=0;k<chi[i][j].children.length;k++){
+                                    //                 routerList.push(chi[i][j].children[k]);
+                                    //             }
+                                    //         }
+                                    //         routerList.push(chi[i][j]);
+                                    //     }
+                                    // }
                                     let user=result.data.data;
                                     console.log(user);
                                     //存储用户信息
@@ -191,7 +191,7 @@
                                     //存储菜单数据
                                     sessionStorage.setItem("menuList", JSON.stringify(menuList));
                                     //存储路由数据
-                                    sessionStorage.setItem("routerList", JSON.stringify(routerList));
+                                    sessionStorage.setItem("routerList", JSON.stringify(user.routerList));
                                     //提交的store
                                     this.$store.commit("getMenuList", this.$router);
                                     // 登录成功跳转到首页
