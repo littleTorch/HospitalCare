@@ -21,7 +21,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     @Override
     // @Cacheable(value = "permissions",key = "#userId")
-    public List<Permission> getPermissionByUserId(Long userId) {
+    public List<Permission> getPermissionByUserId(Integer userId) {
         return this.baseMapper.selectPermissionByUserId(userId);
     }
     @Override

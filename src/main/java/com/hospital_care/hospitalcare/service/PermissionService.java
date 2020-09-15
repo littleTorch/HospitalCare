@@ -21,7 +21,7 @@ public interface PermissionService extends IService<Permission> {
      * @param userId
      * @return
      */
-    List<Permission> getPermissionByUserId(Long userId);
+    List<Permission> getPermissionByUserId(Integer userId);
     /**
      * 根据角色id查询所有的权限
      * @param roleId
