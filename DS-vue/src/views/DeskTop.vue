@@ -2,7 +2,7 @@
   <div class="dashboard-editor-container">
     <el-row :gutter="20" style="margin: 20px">
       <el-carousel :interval="4000" type="card" height="300px" v-if="user!='admin'">
-        <el-carousel-item v-for="item in 7" :key="item" >
+        <el-carousel-item v-for="item in 7" :key="item" style="text-align: center;width: 600px">
           <div class="food-class" span="4">
             <h1 style="" >早餐</h1>
             <img style="height:100px;" src="../assets/images/zc.jpg"/>
