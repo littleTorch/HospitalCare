@@ -24,7 +24,7 @@ import java.util.Scanner;
 // 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
 public class CodeGenerator {
 
-    //permission,role,role_permission,t_bed,t_checkin,t_checkout,t_customer,t_emp,t_food_date,t_food_manage,t_leave,t_nurse_level,t_nurse_project,t_nurse_record,t_service_focus,t_service_obj,user,user_role
+    //permission,role,role_permission,t_bed,t_checkin,t_checkout,t_customer,t_emp,t_food,t_food_date,t_food_manage,t_leave,t_nurse_level,t_nurse_project,t_nurse_record,t_service_focus,t_service_obj,user,user_role
 
     /**
      * 读取控制台内容
