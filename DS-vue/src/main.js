@@ -35,12 +35,12 @@ router.beforeEach((to, from, next) => {
             next({path: '/desktop'})
         } else {
             if (!menuData && to.name !== 'login') {
-                next({path: '/'})
+                //next({path: '/'})
             }
         }
     } else {
         if (!menuData && to.name !== 'login') {
-            next({path: '/'})
+            //next({path: '/'})
         }else if(to.path === '/home'){
             next({path: '/desktop'})
         } else {
