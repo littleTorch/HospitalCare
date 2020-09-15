@@ -51,20 +51,8 @@ public class FoodDate implements Serializable {
     @ApiModelProperty(value = "早中晚012")
     private Integer day;
 
-    @ApiModelProperty(value = "食品名")
-    private String foodName;
-
-    @ApiModelProperty(value = "食品标签")
-    private String foodTag;
-
-    @ApiModelProperty(value = "食品价格")
-    private Integer foodPrice;
-
-    @ApiModelProperty(value = "食品图片")
-    private String foodPic;
-
-    @ApiModelProperty(value = "是否清真0否1是")
-    private Integer isSteam;
+    @ApiModelProperty(value = "食物id")
+    private Integer foodId;
 
     @ApiModelProperty(value = "排序")
     private Integer sort;

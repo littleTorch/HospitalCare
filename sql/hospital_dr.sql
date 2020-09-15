@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2020-09-15 20:39:08
+Date: 2020-09-15 21:06:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -60,6 +60,7 @@ INSERT INTO `permission` VALUES ('16', '13', null, '用户管理', 'hc:user', '/
 INSERT INTO `permission` VALUES ('17', '0', null, '系统管理', 'hc:system', '/system', null, null, '5', '0', 'el-icon-receiving', null, null, null, null);
 INSERT INTO `permission` VALUES ('18', '17', null, '角色管理', 'hc:role', '/role', 'role', '/system/role/Role', '0', '1', 'el-icon-s-operation', null, null, null, null);
 INSERT INTO `permission` VALUES ('19', '17', null, '权限管理', 'hc:permission', '/permission', 'permission', '/system/permission/Permission', '1', '1', 'el-icon-s-operation', null, null, null, null);
+INSERT INTO `permission` VALUES ('20', '6', null, '食物管理', 'hc:food', '/food', 'food', '/foodManage/food/Food', null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `role`
@@ -88,7 +89,7 @@ CREATE TABLE `role_permission` (
   `role_id` int(11) DEFAULT NULL,
   `permission_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of role_permission
@@ -112,6 +113,7 @@ INSERT INTO `role_permission` VALUES ('16', '1', '16');
 INSERT INTO `role_permission` VALUES ('17', '1', '17');
 INSERT INTO `role_permission` VALUES ('18', '1', '18');
 INSERT INTO `role_permission` VALUES ('19', '1', '19');
+INSERT INTO `role_permission` VALUES ('20', '1', '20');
 
 -- ----------------------------
 -- Table structure for `t_bed`
@@ -486,7 +488,7 @@ CREATE TABLE `user` (
   `sex` int(1) DEFAULT NULL COMMENT '0男，1女',
   `email` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `user_code` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `user_head` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '用户头像存储路径',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
