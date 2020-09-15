@@ -57,7 +57,7 @@
             </el-form>
         </el-col>
         <el-col :span="8" class="login-container">
-          
+
         </el-col>
 
       
@@ -148,62 +148,70 @@
             },
             submit() {
                 this.$refs.loginForm.validate((valid) => {
-                    if (valid) {
-                        //后台登录成功返回的菜单数据
-                        var data = new FormData();
-                        data.append('username', this.loginForm.username);
-                        data.append('password', this.loginForm.password);
-                        data.append('code', this.loginForm.code);
-                        this.$axios({
-                            method: "post",
-                            url: "api/login",
-                            data: data,
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        }).then((result) => {
-                            let recode = "404";
-                            recode = result.data.code;
-                            if (recode == 200) {
-                                let menuList = result.data.data.menuList;
-                                // //路由数据
-                                let routerList = [];
-                                let chi = [];
-                                for (let i = 0; i < menuList.length; i++) {
-                                    chi.push(menuList[i].children);
+                    if(this.code){
+                        if (valid) {
+                            //后台登录成功返回的菜单数据
+                            var data = new FormData();
+                            data.append('username', this.loginForm.username);
+                            data.append('password', this.loginForm.password);
+                            data.append('code', this.loginForm.code);
+                            this.$axios({
+                                method: "post",
+                                url: "api/login",
+                                data: data,
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
                                 }
-                                for (let i = 0; i < chi.length; i++) {
-                                    for (let j = 0; j < chi[i].length; j++) {
-                                        if (chi[i][j].children){
-                                            for (let k=0;k<chi[i][j].children.length;k++){
-                                                routerList.push(chi[i][j].children[k]);
-                                            }
-                                        }
-                                        routerList.push(chi[i][j]);
+                            }).then((result) => {
+                                let recode = "404";
+                                recode = result.data.code;
+                                if (recode == 200) {
+                                    let menuList = result.data.data.menuList;
+                                    // //路由数据
+                                    let routerList = [];
+                                    let chi = [];
+                                    for (let i = 0; i < menuList.length; i++) {
+                                        chi.push(menuList[i].children);
                                     }
+                                    for (let i = 0; i < chi.length; i++) {
+                                        for (let j = 0; j < chi[i].length; j++) {
+                                            if (chi[i][j].children){
+                                                for (let k=0;k<chi[i][j].children.length;k++){
+                                                    routerList.push(chi[i][j].children[k]);
+                                                }
+                                            }
+                                            routerList.push(chi[i][j]);
+                                        }
+                                    }
+                                    let user=result.data.data;
+                                    console.log(user);
+                                    //存储用户信息
+                                    sessionStorage.setItem("user", JSON.stringify(user));
+                                    sessionStorage.setItem("token", result.data.data.token);
+                                    //存储菜单数据
+                                    sessionStorage.setItem("menuList", JSON.stringify(menuList));
+                                    //存储路由数据
+                                    sessionStorage.setItem("routerList", JSON.stringify(routerList));
+                                    //提交的store
+                                    this.$store.commit("getMenuList", this.$router);
+                                    // 登录成功跳转到首页
+                                    this.$router.push("home");
+                                } else {
+                                    this.$message({
+                                        showClose: true,
+                                        message: result.data.msg,
+                                        type: 'error'
+                                    });
+                                    this.renewalImage();
+                                    this.$refs['loginForm'].resetFields();
                                 }
-                                let user=result.data.data;
-                                console.log(user);
-                                //存储用户信息
-                                sessionStorage.setItem("user", JSON.stringify(user));
-                                sessionStorage.setItem("token", result.data.data.token);
-                                //存储菜单数据
-                                sessionStorage.setItem("menuList", JSON.stringify(menuList));
-                                //存储路由数据
-                                sessionStorage.setItem("routerList", JSON.stringify(routerList));
-                                //提交的store
-                                this.$store.commit("getMenuList", this.$router);
-                                // 登录成功跳转到首页
-                                this.$router.push("home");
-                            } else {
-                                this.$message({
-                                    showClose: true,
-                                    message: result.data.msg,
-                                    type: 'error'
-                                });
-                                this.renewalImage();
-                                this.$refs['loginForm'].resetFields();
-                            }
+                            });
+                        }
+                    }else{
+                        this.$message({
+                            showClose: true,
+                            message: '请拖动验证码到指定位置完成验证！',
+                            type: 'error'
                         });
                     }
                 });

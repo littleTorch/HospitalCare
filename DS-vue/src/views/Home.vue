@@ -31,7 +31,7 @@
           <tabs></tabs>
           <router-view></router-view>
         </el-main>
-        <!--<el-footer>Footer</el-footer>-->
+        <el-footer>广东理工职业颐养院</el-footer>
       </el-container>
     </el-container>
   </el-container>
