@@ -99,7 +99,7 @@
                 img:null,
                 trail:null,
                
-                imageUrl: 'http://localhost:8081/login/image?t=' + new Date().getTime(),
+                // imageUrl: 'http://localhost:8081/login/image?t=' + new Date().getTime(),
                 backgroundDiv: {
                     backgroundImage: "url(" + require("@/assets/images/bg.png") + ")",
                     backgroundRepeat: "no-repeat",
@@ -143,9 +143,9 @@
             this.init();
         },    
         methods: {
-            renewalImage() {
-                this.imageUrl = 'http://localhost:8081/login/image?t=' + new Date().getTime();
-            },
+            // renewalImage() {
+            //     this.imageUrl = 'http://localhost:8081/login/image?t=' + new Date().getTime();
+            // },
             submit() {
                 this.$refs.loginForm.validate((valid) => {
                     if(this.code){
