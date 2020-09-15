@@ -126,11 +126,11 @@
                             message: "请输入密码",
                         },
                     ],
-                    code: {
-                        required: true,
-                        trigger: "change",
-                        message: "请滑动验证",
-                    },
+                    // code: {
+                    //     required: true,
+                    //     trigger: "change",
+                    //     message: "请滑动验证",
+                    // },
                 },
             };
         

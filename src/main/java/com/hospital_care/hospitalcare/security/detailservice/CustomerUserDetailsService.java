@@ -53,6 +53,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
         UserRole userRole = roleService.getRoleIdByUserId(user.getId());
         System.out.println("UserRole>>>"+userRole);
         List<Permission> codeList = permissionService.getPermissionListByRoleId(userRole.getRoleId());
+        System.out.println(">>>>>>>>>>codeList"+codeList.toString());
         //4.把code交给Spring Security
         //4.1获取code
         List<String> collect = codeList.stream().filter(item -> item != null).map(item -> item.getCode()).collect(Collectors.toList());
