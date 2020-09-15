@@ -46,7 +46,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         MenuVo vo = new MenuVo();
         vo.setToken(token);
         vo.setUserId(user.getId());
-        //vo.setUserName(user.getUsername());
+        vo.setUserName(user.getUsername());
         //vo.setIsAdmin(user.getIsAdmin());
 
         //3.获取用户菜单权限
