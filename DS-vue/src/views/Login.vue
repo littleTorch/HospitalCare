@@ -108,7 +108,6 @@
                 loginForm: {
                     username: "",
                     password: "",
-                    code: "",
                 },
                 dialogVisible : false,
                 submitRules: {

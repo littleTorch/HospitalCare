@@ -66,8 +66,11 @@ public class User implements Serializable, UserDetails {
 
     private String phone;
 
+    @ApiModelProperty(value = "员工id")
+    private int empId;
+
     @ApiModelProperty(value = "用户头像路径")
-    private String userHead;
+    private String userIcon;
 
     //用户权限列表,不属于用户表字段，需要排除
     @ApiModelProperty(value = "用户权限列表")

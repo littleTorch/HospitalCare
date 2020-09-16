@@ -48,7 +48,7 @@ export default {
     tabs
   },
   created() {
-    this.username=JSON.parse(sessionStorage.getItem("user")).username;
+    this.username=JSON.parse(sessionStorage.getItem("user")).userName;
     let date=new Date();
     this.nowDate=date.getFullYear()+"年"+(1+date.getMonth())+"月"+date.getDate()+"日";
   },
@@ -61,7 +61,7 @@ export default {
       return {
         nowDate:'',
         username:'',
-        circleUrl: 'http://localhost:8081/my/icon?userId='+JSON.parse(sessionStorage.getItem("user")).userId,
+        circleUrl: 'http://localhost:8282/my/icon?userId='+JSON.parse(sessionStorage.getItem("user")).userId,
       }
     },
     methods:{

@@ -39,4 +39,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             setUpdateFieldValByName("updateTime", sdf.format(new Date()), metaObject);
         }
     }
+
+
 }
