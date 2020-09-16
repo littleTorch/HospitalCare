@@ -1,7 +1,23 @@
 <template>
 
+
+
     <el-main >
-        <el-carousel height="430px"  :interval="3000" direction="vertical" >
+
+        <el-header height="50px" >
+            <el-form size="mini" :model="stuFrom" label-width="50px">
+                <el-row>
+                    <el-col :span="5">
+                        <el-form-item style="font-size: 15px" label="姓名:">
+                            <el-input  placeholder="请输入患者姓名"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-button  style="margin-left: 20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
+                </el-row>
+            </el-form>
+        </el-header>
+
+        <el-carousel height="380px"  :interval="3000" direction="vertical" v-if="user!=''" >
            <el-carousel-item v-for="item in 7" :key="item" style="text-align: center;">
 
                <h4 style="margin: 5px;">这是本周第{{item}}天的膳食</h4>
@@ -13,7 +29,7 @@
                                <el-col  >
                                    <img style="height: 80px;width: 80px;margin: 10px" src=""/>
                                    <div style="width: 70px;">
-                                       <el-tag style="margin: 3px;" type="warning">多糖</el-tag>
+                                       <el-tag style="margin: 3px;" type="warning">素菜</el-tag>
                                        <el-tag style="margin: 3px;" type="success">多脂</el-tag>
                                        <el-tag style="margin: 3px;" type="info">清蒸</el-tag>
                                    </div>
@@ -22,7 +38,7 @@
                                <el-col  >
                                    <img style="height: 80px;width: 80px;margin: 10px" src=""/>
                                    <div style="width: 70px;">
-                                       <el-tag style="margin: 3px;" type="warning">多糖</el-tag>
+                                       <el-tag style="margin: 3px;" type="warning">素菜</el-tag>
                                        <el-tag style="margin: 3px;" type="success">多脂</el-tag>
                                        <el-tag style="margin: 3px;" type="info">清蒸</el-tag>
                                    </div>
@@ -31,7 +47,7 @@
                                <el-col  >
                                    <img style="height: 80px;width: 80px;margin: 10px" src=""/>
                                    <div style="width: 70px;">
-                                       <el-tag style="margin: 3px;" type="warning">多糖</el-tag>
+                                       <el-tag style="margin: 3px;" type="warning">素菜</el-tag>
                                        <el-tag style="margin: 3px;" type="success">多脂</el-tag>
                                        <el-tag style="margin: 3px;" type="info">清蒸</el-tag>
                                    </div>
@@ -45,7 +61,7 @@
                                <el-col  >
                                    <img style="height: 80px;width: 80px;margin: 10px" src=""/>
                                    <div style="width: 70px;">
-                                       <el-tag style="margin: 3px;" type="warning">多糖</el-tag>
+                                       <el-tag style="margin: 3px;" type="warning">素菜</el-tag>
                                        <el-tag style="margin: 3px;" type="success">多脂</el-tag>
                                        <el-tag style="margin: 3px;" type="info">清蒸</el-tag>
                                    </div>
@@ -54,7 +70,7 @@
                                <el-col  >
                                    <img style="height: 80px;width: 80px;margin: 10px" src=""/>
                                    <div style="width: 70px;">
-                                       <el-tag style="margin: 3px;" type="warning">多糖</el-tag>
+                                       <el-tag style="margin: 3px;" type="warning">素菜</el-tag>
                                        <el-tag style="margin: 3px;" type="success">多脂</el-tag>
                                        <el-tag style="margin: 3px;" type="info">清蒸</el-tag>
                                    </div>
@@ -63,7 +79,7 @@
                                <el-col  >
                                    <img style="height: 80px;width: 80px;margin: 10px" src=""/>
                                    <div style="width: 70px;">
-                                       <el-tag style="margin: 3px;" type="warning">多糖</el-tag>
+                                       <el-tag style="margin: 3px;" type="warning">素菜</el-tag>
                                        <el-tag style="margin: 3px;" type="success">多脂</el-tag>
                                        <el-tag style="margin: 3px;" type="info">清蒸</el-tag>
                                    </div>
@@ -77,7 +93,7 @@
                                <el-col  >
                                    <img style="height: 80px;width: 80px;margin: 10px" src=""/>
                                    <div style="width: 70px;">
-                                       <el-tag style="margin: 3px;" type="warning">多糖</el-tag>
+                                       <el-tag style="margin: 3px;" type="warning">素菜</el-tag>
                                        <el-tag style="margin: 3px;" type="success">多脂</el-tag>
                                        <el-tag style="margin: 3px;" type="info">清蒸</el-tag>
                                    </div>
@@ -86,7 +102,7 @@
                                <el-col  >
                                    <img style="height: 80px;width: 80px;margin: 10px" src=""/>
                                    <div style="width: 70px;">
-                                       <el-tag style="margin: 3px;" type="warning">多糖</el-tag>
+                                       <el-tag style="margin: 3px;" type="warning">素菜</el-tag>
                                        <el-tag style="margin: 3px;" type="success">多脂</el-tag>
                                        <el-tag style="margin: 3px;" type="info">清蒸</el-tag>
                                    </div>
@@ -95,7 +111,7 @@
                                <el-col  >
                                    <img style="height: 80px;width: 80px;margin: 10px" src=""/>
                                    <div style="width: 70px;">
-                                       <el-tag style="margin: 3px;" type="warning">多糖</el-tag>
+                                       <el-tag style="margin: 3px;" type="warning">素菜</el-tag>
                                        <el-tag style="margin: 3px;" type="success">多脂</el-tag>
                                        <el-tag style="margin: 3px;" type="info">清蒸</el-tag>
                                    </div>
@@ -135,6 +151,7 @@
             return {
                 updateFoodVisible: false,
                 foodData: [],
+                user: "",
             }
         },
         methods: {
