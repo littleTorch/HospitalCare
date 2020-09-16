@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
@@ -18,13 +19,14 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         boolean createTime = metaObject.hasSetter("createTime");
         boolean controlTime = metaObject.hasSetter("controlTime");
         boolean loginTime = metaObject.hasSetter("loginTime");
+        boolean updateBy = metaObject.hasSetter("updateBy");
         if (createTime){
             System.out.println("insertFill~~");
-            setInsertFieldValByName("createTime", sdf.format(LocalDateTime.now()), metaObject);
+            setInsertFieldValByName("createTime", sdf.format(new Date()), metaObject);
         } else if (controlTime){
-            setInsertFieldValByName("controlTime", sdf.format(LocalDateTime.now()), metaObject);
+            setInsertFieldValByName("controlTime", sdf.format(new Date()), metaObject);
         } else if (loginTime){
-            setInsertFieldValByName("loginTime", sdf.format(LocalDateTime.now()), metaObject);
+            setInsertFieldValByName("loginTime", sdf.format(new Date()), metaObject);
         }
     }
 
@@ -34,7 +36,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         boolean updateTime = metaObject.hasSetter("updateTime");
         if (updateTime){
             System.out.println("updateFill~~");
-            setUpdateFieldValByName("updateTime", sdf.format(LocalDateTime.now()), metaObject);
+            setUpdateFieldValByName("updateTime", sdf.format(new Date()), metaObject);
         }
     }
 }

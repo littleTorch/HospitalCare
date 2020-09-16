@@ -97,10 +97,7 @@ public class UserController {
         }
     }
 
-    /**
-     * 根据用户id删除
-     * @return
-     */
+    @ApiOperation("根据用户id删除")
     @GetMapping("/deleteUserById")
     public ResultVo deleteUserById(String userId){
         boolean b = userService.removeById(userId);
