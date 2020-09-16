@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2020-09-15 21:06:30
+Date: 2020-09-16 14:57:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,7 +36,7 @@ CREATE TABLE `permission` (
   `update_time` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '修改时间',
   `is_home` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of permission
@@ -60,7 +60,6 @@ INSERT INTO `permission` VALUES ('16', '13', null, '用户管理', 'hc:user', '/
 INSERT INTO `permission` VALUES ('17', '0', null, '系统管理', 'hc:system', '/system', null, null, '5', '0', 'el-icon-receiving', null, null, null, null);
 INSERT INTO `permission` VALUES ('18', '17', null, '角色管理', 'hc:role', '/role', 'role', '/system/role/Role', '0', '1', 'el-icon-s-operation', null, null, null, null);
 INSERT INTO `permission` VALUES ('19', '17', null, '权限管理', 'hc:permission', '/permission', 'permission', '/system/permission/Permission', '1', '1', 'el-icon-s-operation', null, null, null, null);
-INSERT INTO `permission` VALUES ('20', '6', null, '食物管理', 'hc:food', '/food', 'food', '/foodManage/food/Food', null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `role`
@@ -89,7 +88,7 @@ CREATE TABLE `role_permission` (
   `role_id` int(11) DEFAULT NULL,
   `permission_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of role_permission
@@ -113,7 +112,6 @@ INSERT INTO `role_permission` VALUES ('16', '1', '16');
 INSERT INTO `role_permission` VALUES ('17', '1', '17');
 INSERT INTO `role_permission` VALUES ('18', '1', '18');
 INSERT INTO `role_permission` VALUES ('19', '1', '19');
-INSERT INTO `role_permission` VALUES ('20', '1', '20');
 
 -- ----------------------------
 -- Table structure for `t_bed`
@@ -134,11 +132,12 @@ CREATE TABLE `t_bed` (
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_bed
 -- ----------------------------
+INSERT INTO `t_bed` VALUES ('3', null, null, null, null, '1', '101', '1', '0', '0', null, null, '0');
 
 -- ----------------------------
 -- Table structure for `t_checkin`
@@ -488,14 +487,15 @@ CREATE TABLE `user` (
   `sex` int(1) DEFAULT NULL COMMENT '0男，1女',
   `email` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `user_head` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '用户头像存储路径',
+  `user_code` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `user_icon` varchar(255) COLLATE utf8_bin DEFAULT 'tx.png',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', null, '0', null, '0', '0', 'root', '$2a$10$WK3SjM1S0j5rSh1.3u2iruLWVxoUiX1Ve76cBAMO9S2rre4/mqJzS', null, null, null, null);
+INSERT INTO `user` VALUES ('1', null, '0', null, '0', '0', 'root', '$2a$10$WK3SjM1S0j5rSh1.3u2iruLWVxoUiX1Ve76cBAMO9S2rre4/mqJzS', null, null, null, null, 'tx.png');
 
 -- ----------------------------
 -- Table structure for `user_role`
