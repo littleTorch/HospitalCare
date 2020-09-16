@@ -51,9 +51,6 @@ public class NurseLevel implements Serializable {
     @ApiModelProperty(value = "项目编号")
     private Integer projectId;
 
-    @ApiModelProperty(value = "护理项目名称")
-    private String projectName;
-
     @ApiModelProperty(value = "状态")
     private Integer status;
 

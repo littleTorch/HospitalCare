@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2020-09-16 20:31:47
+Date: 2020-09-16 20:43:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -485,7 +485,7 @@ CREATE TABLE `user` (
   `sex` int(1) DEFAULT NULL COMMENT '0男，1女',
   `email` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `emp_id` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '员工id',
+  `emp_id` int(11) DEFAULT NULL COMMENT '员工id',
   `user_icon` varchar(255) COLLATE utf8_bin DEFAULT 'tx.png',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
