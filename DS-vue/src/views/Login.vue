@@ -57,11 +57,7 @@
             </el-form>
         </el-col>
         <el-col :span="8" class="login-container">
-
         </el-col>
-
-      
-        
     </el-row>
 
 

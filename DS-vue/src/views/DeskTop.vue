@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-editor-container">
     <el-row :gutter="20" style="margin: 20px">
-      <el-carousel :interval="4000" type="card" height="300px" v-if="user!='admin'">
+      <el-carousel :interval="2000" type="card" height="400px" v-if="user!='admin'">
         <el-carousel-item v-for="item in 7" :key="item" style="text-align: center;width: 600px">
           <div class="food-class" span="4">
             <h1 style="" >早餐</h1>
@@ -15,7 +15,7 @@
             <h1 >晚餐</h1>
             <img style="height:100px;" src="../assets/images/wc.jpg"/>
           </div>
-          <h4 style="margin-left:20px;">今天是本周的第{{item}}天！
+          <h4 style="margin-left:20px;">这是本周的第{{item}}天的膳食！
             健康提醒：三餐按时搭配吃，疾病好得快....</h4>
         </el-carousel-item>
     </el-carousel>
