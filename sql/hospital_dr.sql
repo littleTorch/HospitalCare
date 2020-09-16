@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2020-09-16 20:43:53
+Date: 2020-09-16 21:38:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,12 +36,12 @@ CREATE TABLE `permission` (
   `update_time` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '修改时间',
   `is_home` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
-INSERT INTO `permission` VALUES ('1', '0', null, '床位管理', 'hc:bedManage', '/bedManage', 'bedManage', '/bedManage/BedManage', '0', '1', 'el-icon-date', null, null, null, null);
+INSERT INTO `permission` VALUES ('1', '20', null, '床位管理', 'hc:bedManage', '/bedManage', 'bedManage', '/clientAbout/bedManage/BedManage', '0', '1', 'el-icon-date', null, null, null, null);
 INSERT INTO `permission` VALUES ('2', '0', null, '护理相关管理', 'hc:nurseManage', '/nurseManage', null, null, '1', '0', 'el-icon-edit-outline', null, null, null, null);
 INSERT INTO `permission` VALUES ('3', '2', null, '护理级别', 'hc:nurseLevel', '/nurseLevel', 'nurseLevel', '/nurseManage/nurseLevel/NurseLevel', '0', '1', 'el-icon-date', null, null, null, null);
 INSERT INTO `permission` VALUES ('4', '2', null, '护理内容', 'hc:nurseProject', '/nurseProject', 'nurseProject', '/nurseManage/nurseProject/NurseProject', '1', '1', 'el-icon-document-copy', null, null, null, null);
@@ -60,6 +60,9 @@ INSERT INTO `permission` VALUES ('16', '13', null, '用户管理', 'hc:user', '/
 INSERT INTO `permission` VALUES ('17', '0', null, '系统管理', 'hc:system', '/system', null, null, '5', '0', 'el-icon-receiving', null, null, null, null);
 INSERT INTO `permission` VALUES ('18', '17', null, '角色管理', 'hc:role', '/role', 'role', '/system/role/Role', '0', '1', 'el-icon-s-operation', null, null, null, null);
 INSERT INTO `permission` VALUES ('19', '17', null, '权限管理', 'hc:permission', '/permission', 'permission', '/system/permission/Permission', '1', '1', 'el-icon-s-operation', null, null, null, null);
+INSERT INTO `permission` VALUES ('20', '0', null, '客户相关', 'hc:clientAbout', '/clientAbout', '', null, '6', '0', 'el-icon-receiving', null, null, null, null);
+INSERT INTO `permission` VALUES ('21', '20', null, '客户管理', 'hc:client', '/client', null, '/clientAbout/client/Client', '1', '1', 'el-icon-s-operation', null, null, null, null);
+INSERT INTO `permission` VALUES ('22', '6', null, '食物管理', 'hc:food', '/food', 'food', '/foodManage/food/Food', '2', '1', 'el-icon-s-operation', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `role`
@@ -88,7 +91,7 @@ CREATE TABLE `role_permission` (
   `role_id` int(11) DEFAULT NULL,
   `permission_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of role_permission
@@ -112,6 +115,9 @@ INSERT INTO `role_permission` VALUES ('16', '1', '16');
 INSERT INTO `role_permission` VALUES ('17', '1', '17');
 INSERT INTO `role_permission` VALUES ('18', '1', '18');
 INSERT INTO `role_permission` VALUES ('19', '1', '19');
+INSERT INTO `role_permission` VALUES ('20', '1', '20');
+INSERT INTO `role_permission` VALUES ('21', '1', '21');
+INSERT INTO `role_permission` VALUES ('22', '1', '22');
 
 -- ----------------------------
 -- Table structure for `t_bed`
@@ -132,12 +138,156 @@ CREATE TABLE `t_bed` (
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_bed
 -- ----------------------------
 INSERT INTO `t_bed` VALUES ('3', null, null, null, null, '1', '101', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('4', '2020-09-16 21:04:53', 'root', null, null, '1', '101', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('5', '2020-09-16 21:04:54', 'root', null, null, '1', '101', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('6', '2020-09-16 21:04:54', 'root', null, null, '1', '101', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('7', '2020-09-16 21:04:54', 'root', null, null, '1', '101', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('8', '2020-09-16 21:04:54', 'root', null, null, '1', '102', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('9', '2020-09-16 21:04:54', 'root', null, null, '1', '102', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('10', '2020-09-16 21:04:54', 'root', null, null, '1', '102', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('11', '2020-09-16 21:04:54', 'root', null, null, '1', '102', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('12', '2020-09-16 21:04:54', 'root', null, null, '1', '103', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('13', '2020-09-16 21:04:54', 'root', null, null, '1', '103', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('14', '2020-09-16 21:04:54', 'root', null, null, '1', '103', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('15', '2020-09-16 21:04:54', 'root', null, null, '1', '103', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('16', '2020-09-16 21:04:54', 'root', null, null, '1', '104', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('17', '2020-09-16 21:04:54', 'root', null, null, '1', '104', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('18', '2020-09-16 21:04:54', 'root', null, null, '1', '104', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('19', '2020-09-16 21:04:54', 'root', null, null, '1', '104', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('20', '2020-09-16 21:04:54', 'root', null, null, '1', '105', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('21', '2020-09-16 21:04:54', 'root', null, null, '1', '105', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('22', '2020-09-16 21:04:54', 'root', null, null, '1', '105', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('23', '2020-09-16 21:04:54', 'root', null, null, '1', '105', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('24', '2020-09-16 21:04:54', 'root', null, null, '1', '106', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('25', '2020-09-16 21:04:54', 'root', null, null, '1', '106', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('26', '2020-09-16 21:04:54', 'root', null, null, '1', '106', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('27', '2020-09-16 21:04:54', 'root', null, null, '1', '106', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('28', '2020-09-16 21:04:54', 'root', null, null, '1', '107', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('29', '2020-09-16 21:04:54', 'root', null, null, '1', '107', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('30', '2020-09-16 21:04:54', 'root', null, null, '1', '107', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('31', '2020-09-16 21:04:54', 'root', null, null, '1', '107', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('32', '2020-09-16 21:04:54', 'root', null, null, '1', '108', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('33', '2020-09-16 21:04:54', 'root', null, null, '1', '108', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('34', '2020-09-16 21:04:54', 'root', null, null, '1', '108', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('35', '2020-09-16 21:04:54', 'root', null, null, '1', '108', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('36', '2020-09-16 21:04:54', 'root', null, null, '1', '109', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('37', '2020-09-16 21:04:54', 'root', null, null, '1', '109', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('38', '2020-09-16 21:04:54', 'root', null, null, '1', '109', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('39', '2020-09-16 21:04:54', 'root', null, null, '1', '109', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('40', '2020-09-16 21:04:54', 'root', null, null, '2', '201', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('41', '2020-09-16 21:04:54', 'root', null, null, '2', '201', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('42', '2020-09-16 21:04:54', 'root', null, null, '2', '201', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('43', '2020-09-16 21:04:54', 'root', null, null, '2', '201', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('44', '2020-09-16 21:04:54', 'root', null, null, '2', '202', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('45', '2020-09-16 21:04:54', 'root', null, null, '2', '202', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('46', '2020-09-16 21:04:54', 'root', null, null, '2', '202', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('47', '2020-09-16 21:04:54', 'root', null, null, '2', '202', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('48', '2020-09-16 21:04:54', 'root', null, null, '2', '203', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('49', '2020-09-16 21:04:54', 'root', null, null, '2', '203', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('50', '2020-09-16 21:04:54', 'root', null, null, '2', '203', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('51', '2020-09-16 21:04:54', 'root', null, null, '2', '203', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('52', '2020-09-16 21:04:54', 'root', null, null, '2', '204', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('53', '2020-09-16 21:04:54', 'root', null, null, '2', '204', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('54', '2020-09-16 21:04:54', 'root', null, null, '2', '204', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('55', '2020-09-16 21:04:54', 'root', null, null, '2', '204', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('56', '2020-09-16 21:04:54', 'root', null, null, '2', '205', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('57', '2020-09-16 21:04:54', 'root', null, null, '2', '205', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('58', '2020-09-16 21:04:54', 'root', null, null, '2', '205', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('59', '2020-09-16 21:04:54', 'root', null, null, '2', '205', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('60', '2020-09-16 21:04:54', 'root', null, null, '2', '206', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('61', '2020-09-16 21:04:54', 'root', null, null, '2', '206', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('62', '2020-09-16 21:04:54', 'root', null, null, '2', '206', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('63', '2020-09-16 21:04:54', 'root', null, null, '2', '206', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('64', '2020-09-16 21:04:54', 'root', null, null, '2', '207', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('65', '2020-09-16 21:04:54', 'root', null, null, '2', '207', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('66', '2020-09-16 21:04:54', 'root', null, null, '2', '207', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('67', '2020-09-16 21:04:54', 'root', null, null, '2', '207', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('68', '2020-09-16 21:04:54', 'root', null, null, '2', '208', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('69', '2020-09-16 21:04:54', 'root', null, null, '2', '208', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('70', '2020-09-16 21:04:54', 'root', null, null, '2', '208', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('71', '2020-09-16 21:04:54', 'root', null, null, '2', '208', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('72', '2020-09-16 21:04:54', 'root', null, null, '2', '209', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('73', '2020-09-16 21:04:54', 'root', null, null, '2', '209', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('74', '2020-09-16 21:04:54', 'root', null, null, '2', '209', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('75', '2020-09-16 21:04:54', 'root', null, null, '2', '209', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('76', '2020-09-16 21:04:54', 'root', null, null, '3', '301', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('77', '2020-09-16 21:04:54', 'root', null, null, '3', '301', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('78', '2020-09-16 21:04:54', 'root', null, null, '3', '301', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('79', '2020-09-16 21:04:54', 'root', null, null, '3', '301', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('80', '2020-09-16 21:04:54', 'root', null, null, '3', '302', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('81', '2020-09-16 21:04:54', 'root', null, null, '3', '302', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('82', '2020-09-16 21:04:54', 'root', null, null, '3', '302', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('83', '2020-09-16 21:04:54', 'root', null, null, '3', '302', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('84', '2020-09-16 21:04:54', 'root', null, null, '3', '303', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('85', '2020-09-16 21:04:54', 'root', null, null, '3', '303', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('86', '2020-09-16 21:04:54', 'root', null, null, '3', '303', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('87', '2020-09-16 21:04:54', 'root', null, null, '3', '303', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('88', '2020-09-16 21:04:54', 'root', null, null, '3', '304', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('89', '2020-09-16 21:04:54', 'root', null, null, '3', '304', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('90', '2020-09-16 21:04:54', 'root', null, null, '3', '304', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('91', '2020-09-16 21:04:54', 'root', null, null, '3', '304', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('92', '2020-09-16 21:04:54', 'root', null, null, '3', '305', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('93', '2020-09-16 21:04:54', 'root', null, null, '3', '305', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('94', '2020-09-16 21:04:54', 'root', null, null, '3', '305', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('95', '2020-09-16 21:04:54', 'root', null, null, '3', '305', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('96', '2020-09-16 21:04:54', 'root', null, null, '3', '306', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('97', '2020-09-16 21:04:54', 'root', null, null, '3', '306', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('98', '2020-09-16 21:04:54', 'root', null, null, '3', '306', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('99', '2020-09-16 21:04:54', 'root', null, null, '3', '306', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('100', '2020-09-16 21:04:54', 'root', null, null, '3', '307', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('101', '2020-09-16 21:04:54', 'root', null, null, '3', '307', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('102', '2020-09-16 21:04:54', 'root', null, null, '3', '307', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('103', '2020-09-16 21:04:54', 'root', null, null, '3', '307', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('104', '2020-09-16 21:04:54', 'root', null, null, '3', '308', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('105', '2020-09-16 21:04:54', 'root', null, null, '3', '308', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('106', '2020-09-16 21:04:54', 'root', null, null, '3', '308', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('107', '2020-09-16 21:04:54', 'root', null, null, '3', '308', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('108', '2020-09-16 21:04:54', 'root', null, null, '3', '309', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('109', '2020-09-16 21:04:54', 'root', null, null, '3', '309', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('110', '2020-09-16 21:04:54', 'root', null, null, '3', '309', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('111', '2020-09-16 21:04:54', 'root', null, null, '3', '309', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('112', '2020-09-16 21:04:54', 'root', null, null, '4', '401', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('113', '2020-09-16 21:04:54', 'root', null, null, '4', '401', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('114', '2020-09-16 21:04:54', 'root', null, null, '4', '401', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('115', '2020-09-16 21:04:54', 'root', null, null, '4', '401', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('116', '2020-09-16 21:04:54', 'root', null, null, '4', '402', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('117', '2020-09-16 21:04:54', 'root', null, null, '4', '402', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('118', '2020-09-16 21:04:54', 'root', null, null, '4', '402', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('119', '2020-09-16 21:04:54', 'root', null, null, '4', '402', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('120', '2020-09-16 21:04:54', 'root', null, null, '4', '403', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('121', '2020-09-16 21:04:54', 'root', null, null, '4', '403', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('122', '2020-09-16 21:04:54', 'root', null, null, '4', '403', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('123', '2020-09-16 21:04:54', 'root', null, null, '4', '403', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('124', '2020-09-16 21:04:54', 'root', null, null, '4', '404', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('125', '2020-09-16 21:04:54', 'root', null, null, '4', '404', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('126', '2020-09-16 21:04:54', 'root', null, null, '4', '404', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('127', '2020-09-16 21:04:54', 'root', null, null, '4', '404', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('128', '2020-09-16 21:04:54', 'root', null, null, '4', '405', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('129', '2020-09-16 21:04:54', 'root', null, null, '4', '405', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('130', '2020-09-16 21:04:54', 'root', null, null, '4', '405', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('131', '2020-09-16 21:04:54', 'root', null, null, '4', '405', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('132', '2020-09-16 21:04:54', 'root', null, null, '4', '406', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('133', '2020-09-16 21:04:54', 'root', null, null, '4', '406', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('134', '2020-09-16 21:04:54', 'root', null, null, '4', '406', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('135', '2020-09-16 21:04:54', 'root', null, null, '4', '406', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('136', '2020-09-16 21:04:54', 'root', null, null, '4', '407', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('137', '2020-09-16 21:04:54', 'root', null, null, '4', '407', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('138', '2020-09-16 21:04:54', 'root', null, null, '4', '407', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('139', '2020-09-16 21:04:54', 'root', null, null, '4', '407', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('140', '2020-09-16 21:04:54', 'root', null, null, '4', '408', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('141', '2020-09-16 21:04:54', 'root', null, null, '4', '408', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('142', '2020-09-16 21:04:54', 'root', null, null, '4', '408', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('143', '2020-09-16 21:04:54', 'root', null, null, '4', '408', '4', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('144', '2020-09-16 21:04:54', 'root', null, null, '4', '409', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('145', '2020-09-16 21:04:54', 'root', null, null, '4', '409', '2', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('146', '2020-09-16 21:04:54', 'root', null, null, '4', '409', '3', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('147', '2020-09-16 21:04:54', 'root', null, null, '4', '409', '4', '0', '0', null, null, '0');
 
 -- ----------------------------
 -- Table structure for `t_checkin`
@@ -271,6 +421,7 @@ CREATE TABLE `t_food` (
   `is_deleted` int(11) DEFAULT NULL COMMENT '逻辑删除',
   `food_name` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '食物名称',
   `food_type` int(1) DEFAULT NULL COMMENT '食物类型（0-1大小荤、2素菜、3甜点、4水果、5套餐）',
+  `food_tag` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '食物标签',
   `food_price` mediumint(9) DEFAULT NULL COMMENT '食物价格',
   `food_pic` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '食物图片',
   `is_steam` int(11) DEFAULT NULL COMMENT '是否清真0否1是',
@@ -314,7 +465,7 @@ CREATE TABLE `t_food_manage` (
   `create_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '创建者',
   `update_time` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '更新时间',
   `update_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '更新者',
-  `food_id` int(11) DEFAULT NULL COMMENT '膳食日历id',
+  `food_date_id` int(11) DEFAULT NULL COMMENT '膳食日历id',
   `cus_id` int(11) DEFAULT NULL COMMENT '客户id',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
