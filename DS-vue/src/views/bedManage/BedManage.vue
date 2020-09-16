@@ -39,6 +39,7 @@
             <el-table-column align="center" type="selection"></el-table-column>
             <el-table-column align="center" prop="floor" label="宿舍楼层"></el-table-column>
             <el-table-column align="center" prop="roomNo" label="宿舍号"></el-table-column>
+            <el-table-column align="center" prop="bedNo" label="床位号"></el-table-column>
             <el-table-column
                     align="center"
                     :formatter="stateFormat"
@@ -55,7 +56,7 @@
                             title="您确定删除吗？"
                             icon="el-icon-info"
                             iconColor="red"
-                            @onConfirm="deleteOne(scope.row.roomId)"
+                            @onConfirm="deleteOne(scope.row.id)"
                     >
                         <el-button size="mini" type="danger" slot="reference">删除</el-button>
                     </el-popconfirm>
@@ -72,41 +73,41 @@
                 layout="total, prev, pager, next"
         ></el-pagination>
 
-        <el-dialog title="新增宿舍" :visible.sync="addOneRoomVisible" width="40%">
+        <el-dialog title="新增宿舍" :visible.sync="addOneRoomVisible" width="30%">
             <el-form
                     ref="addOneForm"
                     size="mini"
                     style="text-align:center"
                     :model="addOneForm"
                     :inline="true"
-                    label-width="130px"
+                    label-width="100px"
             >
-                <el-form-item label="宿舍号">
-                    <el-input v-model="addOneForm.roomNo" placeholder="请输入宿舍号"></el-input>
+                <el-form-item label="所属楼房：">
+                    <el-input v-model="addOneForm.floor" placeholder="请输入宿舍号"></el-input>
                 </el-form-item>
-                <el-form-item label="宿舍楼">
-                    <el-input v-model="addOneForm.roomBld" placeholder="请输入居住最大人数"></el-input>
+                <el-form-item label="房间号码：">
+                    <el-input v-model="addOneForm.roomNo" placeholder="请输入居住最大人数"></el-input>
                 </el-form-item>
-                <el-form-item label="房间分布（楼层）">
-                    <el-input v-model="addOneForm.roomAddress" placeholder="请输入房间所在楼层"></el-input>
-                </el-form-item>
-                <el-form-item label="宿舍费用">
-                    <el-input v-model="addOneForm.roomCost" placeholder="宿舍费用"></el-input>
+                <el-form-item label="床位号：">
+                    <el-input v-model="addOneForm.bedNo" placeholder="请输入房间所在楼层"></el-input>
                 </el-form-item>
                 <br/>
-                <el-form-item label="房间类型">
-                    <el-radio-group v-model="addOneForm.roomType">
-                        <el-radio :label="0">4人间</el-radio>
-                        <el-radio :label="1">6人间</el-radio>
-                        <el-radio :label="2">8人间</el-radio>
+                <el-form-item label="房间类型：">
+                    <el-radio-group v-model="addOneForm.positionType">
+                        <el-radio :label="0">普通</el-radio>
+                        <el-radio :label="1">特殊</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <br/>
-                <el-form-item label="是否满员">
-                    <el-radio-group v-model="addOneForm.roomState">
-                        <el-radio :label="1">是</el-radio>
-                        <el-radio :label="0">否</el-radio>
+                <el-form-item label="房间类型：">
+                    <el-radio-group v-model="addOneForm.bedStatus">
+                        <el-radio :label="0">空</el-radio>
+                        <el-radio :label="1">使用中</el-radio>
                     </el-radio-group>
+                </el-form-item>
+                <br/>
+                <el-form-item label="备注：">
+                    <el-input type="textarea" v-model="addOneForm.remark"/>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -123,33 +124,32 @@
                     :inline="true"
                     label-width="100px"
             >
-                <el-form-item label="宿舍号">
-                    <el-input v-model="updateOneForm.roomNo" placeholder="请输入宿舍号"></el-input>
+                <el-form-item label="所属楼房：">
+                    <el-input v-model="updateOneForm.floor" placeholder="请输入宿舍号"></el-input>
                 </el-form-item>
-                <el-form-item label="宿舍楼">
-                    <el-input v-model="updateOneForm.roomBld" placeholder="请输入居住最大人数"></el-input>
+                <el-form-item label="房间号码：">
+                    <el-input v-model="updateOneForm.roomNo" placeholder="请输入居住最大人数"></el-input>
                 </el-form-item>
-                <el-form-item label="宿舍类型">
-                    <el-input v-model="updateOneForm.roomAddress" placeholder="请输入居住最大人数"></el-input>
-                </el-form-item>
-                <el-form-item label="宿舍费用">
-                    <el-input v-model="updateOneForm.roomCost" placeholder="宿舍费用"></el-input>
+                <el-form-item label="床位号：">
+                    <el-input v-model="updateOneForm.bedNo" placeholder="请输入房间所在楼层"></el-input>
                 </el-form-item>
                 <br/>
-                <el-form-item label="房间类型">
-                    <el-radio-group v-model="updateOneForm.roomType">
-                        <el-radio :label="0">4人间</el-radio>
-                        <el-radio :label="1">6人间</el-radio>
-                        <el-radio :label="2">8人间</el-radio>
+                <el-form-item label="房间类型：">
+                    <el-radio-group v-model="updateOneForm.positionType">
+                        <el-radio :label="0">普通</el-radio>
+                        <el-radio :label="1">特殊</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <br/>
-                <el-form-item label="是否满员">
-                    <el-radio-group v-model="updateOneForm.roomState">
+                <el-form-item label="房间类型：">
+                    <el-radio-group v-model="updateOneForm.bedStatus">
                         <el-radio :label="0">空</el-radio>
-                        <el-radio :label="1">满</el-radio>
-                        <el-radio :label="2">未满</el-radio>
+                        <el-radio :label="1">使用中</el-radio>
                     </el-radio-group>
+                </el-form-item>
+                <br/>
+                <el-form-item label="备注：">
+                    <el-input type="textarea" v-model="updateOneForm.remark"/>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -167,53 +167,34 @@
                     label-width="100px"
                     disabled
             >
-                <el-form-item label="宿舍号">
-                    <el-input v-model="bed.roomNo" placeholder="请输入宿舍号"></el-input>
+                <el-form-item label="所属楼房：">
+                    <el-input v-model="bed.floor" placeholder="请输入宿舍号"></el-input>
                 </el-form-item>
-                <el-form-item label="宿舍楼">
-                    <el-input v-model="bed.roomBld" placeholder="请输入居住最大人数"></el-input>
+                <el-form-item label="房间号码：">
+                    <el-input v-model="bed.roomNo" placeholder="请输入居住最大人数"></el-input>
                 </el-form-item>
-                <el-form-item label="宿舍类型">
-                    <el-input v-model="bed.roomAddress" placeholder="请输入居住最大人数"></el-input>
-                </el-form-item>
-                <el-form-item label="宿舍费用">
-                    <el-input v-model="bed.roomCost" placeholder="宿舍费用"></el-input>
+                <el-form-item label="床位号：">
+                    <el-input v-model="bed.bedNo" placeholder="请输入房间所在楼层"></el-input>
                 </el-form-item>
                 <br/>
-                <el-form-item label="房间类型">
-                    <el-radio-group v-model="bed.roomType">
-                        <el-radio :label="0">4人间</el-radio>
-                        <el-radio :label="1">6人间</el-radio>
-                        <el-radio :label="2">8人间</el-radio>
+                <el-form-item label="房间类型：">
+                    <el-radio-group v-model="bed.positionType">
+                        <el-radio :label="0">普通</el-radio>
+                        <el-radio :label="1">特殊</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <br/>
-                <el-form-item label="是否满员">
-                    <el-radio-group v-model="bed.roomState">
+                <el-form-item label="房间类型：">
+                    <el-radio-group v-model="bed.bedStatus">
                         <el-radio :label="0">空</el-radio>
-                        <el-radio :label="1">满</el-radio>
-                        <el-radio :label="2">未满</el-radio>
+                        <el-radio :label="1">使用中</el-radio>
                     </el-radio-group>
+                </el-form-item>
+                <br/>
+                <el-form-item label="备注：">
+                    <el-input type="textarea" v-model="bed.remark"/>
                 </el-form-item>
             </el-form>
-            <el-row style="text-align: center">
-                <el-popover
-                        placement="top"
-                        width="300"
-                        trigger="click">
-                    <el-table
-                            :data="bed.stu"
-                            size="mini"
-                            style="width: 100%"
-                            tooltip-effect="dark">
-                        <el-table-column  property="chStuNo" label="学号"></el-table-column>
-                        <el-table-column  property="chStuName" label="姓名"></el-table-column>
-                        <el-table-column  property="chBed" label="床位"></el-table-column>
-                    </el-table>
-                    <el-button slot="reference">居住学生详情</el-button>
-                </el-popover>
-            </el-row>
-
             <span slot="footer" class="dialog-footer">
         <el-button @click="roomVisible = false">取 消</el-button>
         <el-button @click="roomVisible = false" type="primary">确 定</el-button>
@@ -230,41 +211,38 @@
         methods: {
             //详情
             details(row){
+                console.log(row);
                 this.roomVisible=true;
-                this.$axios({
-                    method: "get",
-                    url: "api/bed/bed",
-                    params:{
-                        chBld:row.roomBld,
-                        chRoom:row.roomNo
-                    }
-                }).then((result) => {
-                    this.bed={
-                        roomNo: row.roomNo,
-                        roomBld: row.roomBld,
-                        roomAddress: row.roomAddress,
-                        roomType: row.roomType,
-                        roomState: row.roomState,
-                        roomCost:row.roomCost,
-                        stu: result.data
-                    };
-                })
+                this.bed={
+                    floor: row.floor,
+                    roomNo: row.roomNo,
+                    bedNo: row.bedNo,
+                    positionType: row.positionType,
+                    bedStatus: row.bedStatus,
+                    remark:row.remark,
+                };
             },
             setOne(){
                 this.$axios({
                     method: "put",
-                    url: "api/bed/updateOneRoom",
+                    url: "api/bed/updateOne",
                     data: JSON.stringify(this.updateOneForm),
                     headers:{'Content-Type':'application/json;charsetset=UTF-8'}
-                }).then((result) => {
-                    if (result.data == "ok") {
+                }).then((res) => {
+                    if (res.data.code == 200){
                         this.updateOneRoomVisible = false;
-                        this.sel();
                         this.$message({
                             type: "success",
                             duration: 1000,
-                            message: "修改成功",
-                        });
+                            message: res.data.msg
+                        })
+                        this.sel(this.page.currentPage);
+                    } else {
+                        this.$message({
+                            type: "error",
+                            duration: 1000,
+                            message: res.data.msg
+                        })
                     }
                 })
             },
@@ -276,7 +254,7 @@
                 }).then(() => {
                     let ids = [];
                     this.tableChecked.forEach(id => {
-                        ids.push(id.roomId);
+                        ids.push(id.id);
                     });
                     this.dele(ids);
                 })
@@ -284,7 +262,7 @@
             dele(ids){
                 this.$axios({
                     method: "delete",
-                    url: "api/bed/delRooms",
+                    url: "api/bed/dels",
                     headers: {
                         'Content-Type': 'application/json;charset=UTF-8'
                     },
@@ -308,21 +286,21 @@
                     }
                 })
             },
-            deleteOne(roomId) {
+            deleteOne(id) {
                 let ids = [];
-                ids.push(roomId);
+                ids.push(id);
                 this.dele(ids);
             },
             addOneRoom() {
                 this.$refs.addOneForm.validate((valid) => {
                     if (valid) {
                         var data = new FormData();
+                        data.append('floor', this.addOneForm.floor);
                         data.append('roomNo', this.addOneForm.roomNo);
-                        data.append('roomBld', this.addOneForm.roomBld);
-                        data.append('roomAddress', this.addOneForm.roomAddress);
-                        data.append('roomCost', this.addOneForm.roomCost);
-                        data.append('roomType', this.addOneForm.roomType);
-                        data.append('roomState', this.addOneForm.roomState);
+                        data.append('bedNo', this.addOneForm.bedNo);
+                        data.append('positionType', this.addOneForm.positionType);
+                        data.append('bedStatus', this.addOneForm.bedStatus);
+                        data.append('remark', this.addOneForm.remark);
                         this.$axios({
                             method: "post",
                             url: "api/bed/addOneRoom",
@@ -376,7 +354,7 @@
 
             //表格格式
             typeFormat(row) {
-                switch (row.roomType) {
+                switch (row.positionType) {
                     case 0:
                         return "普通";
                     case 1:
@@ -384,7 +362,7 @@
                 }
             },
             stateFormat(row) {
-                switch (row.roomState) {
+                switch (row.bedStatus) {
                     case 0:
                         return "空";
                     case 1:
@@ -418,41 +396,38 @@
         data() {
             return {
                 bed:{
-                    roomNo: "",
-                    roomBld: '',
-                    roomAddress: '',
-                    roomType: '',
-                    roomState: '',
-                    roomCost:'',
-                    stu:[],
+                    floor: '',
+                    roomNo: '',
+                    bedNo: '',
+                    positionType: 0,
+                    bedStatus: 0,
+                    remark:''
                 },
                 roomVisible:false,
                 tableChecked: [],
                 addOneRoomVisible: false,
                 updateOneRoomVisible: false,
                 addOneForm: {
-                    roomNo: "",
-                    roomBld: '',
-                    roomAddress: '',
-                    roomType: '',
-                    roomState: '',
-                    roomCost:''
+                    floor: '',
+                    roomNo: '',
+                    bedNo: '',
+                    positionType: 0,
+                    bedStatus: 0,
+                    remark:''
                 },
                 //搜索框数据绑定
                 bedFrom: {
                     floor: "",
                     roomNo:'',
                 },
-                updateOneForm: [
-                    {
-                        roomNo: "",
-                        roomBld: '',
-                        roomAddress: '',
-                        roomType: '',
-                        roomState: '',
-                        roomCost:''
-                    },
-                ],
+                updateOneForm: {
+                    floor: '',
+                    roomNo: '',
+                    bedNo: '',
+                    positionType: 0,
+                    bedStatus: 0,
+                    remark:''
+                },
                 // 表格高度
                 tableHeight: 0,
                 // 表格数据
