@@ -46,9 +46,6 @@ public class NurseProject implements Serializable {
     @ApiModelProperty(value = "更新者")
     private String updateBy;
 
-    @ApiModelProperty(value = "护理等级")
-    private Integer level;
-
     @ApiModelProperty(value = "护理项目名称")
     private String projectName;
 
