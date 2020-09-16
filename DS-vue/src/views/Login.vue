@@ -88,7 +88,7 @@
                     x:0,
                     y:0,
                 },
-                code: false,
+                code: true,
                 canvasCtx:null,
                 blockCtx:null,
                 blockDom:null,
