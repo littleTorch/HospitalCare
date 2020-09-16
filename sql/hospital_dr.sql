@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2020-09-16 14:57:24
+Date: 2020-09-16 20:31:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -248,7 +248,7 @@ CREATE TABLE `t_emp` (
   `phone` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '联系号码',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_emp
@@ -256,6 +256,7 @@ CREATE TABLE `t_emp` (
 INSERT INTO `t_emp` VALUES ('1', '0', '2020-01-01', '0', '2020-01-01', '0', '0', '詹zz', '0', '2020-01-01', '0', '院长', '东软颐养中心院长', '颐养中心创始人', '123456789', null);
 INSERT INTO `t_emp` VALUES ('2', '0', '2020-01-01', '0', '2020-01-01', '0', '1', '张zz', '1', '2020-01-01', '0', '医务人员', '医务组主任', '颐养中心的第一位常驻医生', '123456789', null);
 INSERT INTO `t_emp` VALUES ('3', '0', '2020-01-01', '0', '2020-01-01', '0', '2', '刘zz', '0', '2020-01-01', '0', '护理人员', '护理士长', '颐养中心的组织者，也是第一位常驻护理人员', '1236458979', null);
+INSERT INTO `t_emp` VALUES ('4', '0', '2020-09-16', '0', '2020-09-16', '0', '0', '张大陆', '0', '2020-09-16', '0', '技术管理人员', '打工崽', '给程序员测试数据用的专业打工崽', '10086', null);
 
 -- ----------------------------
 -- Table structure for `t_food`
@@ -365,7 +366,6 @@ CREATE TABLE `t_nurse_level` (
   `update_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '更新者',
   `level` int(11) DEFAULT NULL COMMENT '护理等级',
   `project_id` int(11) DEFAULT NULL COMMENT '项目编号',
-  `project_name` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '护理项目名称',
   `status` int(1) DEFAULT NULL COMMENT '状态',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
@@ -386,7 +386,6 @@ CREATE TABLE `t_nurse_project` (
   `create_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '创建者',
   `update_time` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '更新时间',
   `update_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '更新者',
-  `level` int(11) DEFAULT NULL COMMENT '护理等级',
   `project_name` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '护理项目名称',
   `price` mediumint(9) DEFAULT NULL COMMENT '价格',
   `details` varchar(9) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
@@ -413,7 +412,6 @@ CREATE TABLE `t_nurse_record` (
   `update_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '更新者',
   `cus_id` int(11) DEFAULT NULL COMMENT '客户id',
   `project_id` int(11) DEFAULT NULL COMMENT '护理项目id',
-  `project_time` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '开始护理时间',
   `num` int(11) DEFAULT NULL COMMENT '护理次数',
   `remark` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `emp_id` int(11) DEFAULT NULL COMMENT '护理人员id',
@@ -487,7 +485,7 @@ CREATE TABLE `user` (
   `sex` int(1) DEFAULT NULL COMMENT '0男，1女',
   `email` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `user_code` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `emp_id` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '员工id',
   `user_icon` varchar(255) COLLATE utf8_bin DEFAULT 'tx.png',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
