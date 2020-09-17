@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      img: 'http://localhost:8081/my/icon?userId='+JSON.parse(sessionStorage.getItem("user")).userId,
+      img: 'http://localhost:8282/my/icon?userId='+JSON.parse(sessionStorage.getItem("user")).userId,
       // 是否显示弹出层
       open: false,
       // 是否显示cropper
