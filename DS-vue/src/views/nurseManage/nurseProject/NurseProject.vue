@@ -1,385 +1,416 @@
 <template>
     <el-main>
-    <!--搜索框-->
-    <el-form size="mini" label-width="80px" :model="colFrom">
-      <el-row>
-        <el-col :span="5">
-          <el-form-item label="学院编号:">
-            <el-input v-model="colFrom.collegeNo" placeholder="请输入学院编号"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-button @click="selectByNo(colFrom.collegeNo)" style="margin-left: 20px;" class="btn-left" size="mini" type="primary" icon="el-icon-search">查询</el-button>
-        <el-button @click="addOneCol" size="mini" type="primary" icon="el-icon-plus">新增院系</el-button>
-        <el-button @click="deleteList(tableChecked)" size="mini" type="primary" icon="el-icon-delete">批量删除</el-button>
-
-      </el-row>
-    </el-form>
-    <!--数据表格-->
-    <el-table
-            :data="colData.slice((currentPage-1) * pageSize ,currentPage * pageSize)"
-            size='mini'
-            :height="tableHeight"
-            @selection-change="handleSelectionChange"
-            border
-            style="width: 100%">
-      <el-table-column  align="center" type="selection"></el-table-column>
-      <el-table-column align="center" prop="collegeNo" label="学院编号"></el-table-column>
-      <el-table-column align="center" prop="collegeName" label="学院名称"></el-table-column>
-      <el-table-column align="center" prop="collegeSchool" :formatter="schoolFormat" label="所在校区" show-overflow-tooltip></el-table-column>
-      <el-table-column label="操作" width="400" align="center">
-        <template slot-scope="scope">
-          <el-button @click="details(scope.row.collegeNo)" type="primary" size="mini">所属专业</el-button>
-          <el-button @click="updateSchool(scope.row.collegeId)" type="primary" size="mini">设置所属</el-button>
-          <el-button @click="updateCol(scope.row)" type="success" size="mini">编辑</el-button>
-          <el-popconfirm
-                    style="margin-left: 10px;"
-                    title="您确定删除该院系吗？"
-                    icon="el-icon-info"
-                    iconColor="red"
-                    @onConfirm="deleteOne(scope.row.collegeId)">
-            <el-button size="mini" type="danger" slot="reference">撤销</el-button>
-          </el-popconfirm>
-        </template>
-      </el-table-column>
-    </el-table>
-    <!--分页组件
-      size-change: 当page-sizes 改变时触发事件  
-      current-change：当页数发生变化时触发事件，  
-      current-page：当前是第几页  
-      page-size：页容量，也就是每页多少条数据  
-      total:总共有多少条数据,后台返回数据数值
-    -->
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :page-size="pageSize"
-      layout="total, prev, pager, next"
-      :total="colData.length"
-    ></el-pagination>
-
-<!--        所属专业-->
-        <el-dialog title="所属专业" :visible.sync="majorVisiable" width="30%">
-            <el-table
-                :data="majorData"
-                size="mini"
+        <el-form size="mini" :model="selectFrom" label-width="80px">
+            <el-row>
+                <el-col :span="8">
+                    <el-form-item label="项目名称:">
+                        <el-input v-model="selectFrom.projectName" placeholder="请输入所需查询项目名称"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-button @click="selectByLike" style="margin-left: 20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
+                <el-button @click="addOne" size="mini" type="primary" icon="el-icon-plus">新增护理等级信息</el-button>
+                <el-button
+                        @click="deleteList"
+                        size="mini"
+                        type="primary"
+                        icon="el-icon-delete"
+                        :disabled="this.tableChecked.length === 0"
+                >批量删除</el-button>
+            </el-row>
+        </el-form>
+        <el-table
+                :data="nurseProjectTable"
+                tooltip-effect="dark"
                 style="width: 100%"
-                tooltip-effect="dark">
-                <el-table-column align="center" property="majorNo" label="专业编号"></el-table-column>
-                <el-table-column align="center" property="majorName" label="专业名称"></el-table-column>
-                <el-table-column align="center" property="majorState" :formatter="stateFormat" label="当前使用状态"></el-table-column>
-            </el-table>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="majorVisiable = false">返 回</el-button>
-            </span>
-        </el-dialog>
-
-<!--        新增院系-->
-    <el-dialog title="新增院系" :visible.sync="addOneColVisible" width="30%">
-       <el-form
-               align="center"
-               class="addOne"
-               ref="addOne"
-               size="mini"
-               style="text-align:center"
-               :model="addOne"
-               :inline="true"
-               label-width="100px">
-        <el-form-item label="院系编号">
-          <el-input v-model="addOne.collegeNo" placeholder="请输入新院系编号"></el-input>
-        </el-form-item>
-        <el-form-item label="学院名称">
-          <el-input v-model="addOne.collegeName" placeholder="请输入新院系名称"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="addOneColVisible = false">取 消</el-button>
-        <el-button @click="addSubmit()" type="primary" >确 定</el-button>
-      </span>
-    </el-dialog>
-
-<!--        设置所属-->
-        <el-dialog title="设置所属校区" :visible.sync="schoolVisiable" width="30%">
-            <el-form
-                align="center"
-                :model="updateSch"
+                @selection-change="handleSelectionChange"
                 size="mini"
-                :inline="true"
-                label-width="100px">
-                <el-form-item label="所属校区" prop="collegeSchool">
-                    <el-select v-model="updateSch.collegeSchool" placeholder="请选择所属校区">
-                        <el-option
-                                v-for="item in school"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                        ></el-option>
-                    </el-select>
+                :height="tableHeight"
+                border>
+            <el-table-column type="selection" width="55"></el-table-column>
+            <el-table-column prop="projectName" label="项目名称"></el-table-column>
+            <el-table-column prop="price" label="价格"></el-table-column>
+            <el-table-column prop="details" label="描述" width="200"></el-table-column>
+            <el-table-column prop="addService" label="是否增值" :formatter="addFormat"></el-table-column>
+            <el-table-column prop="status" label="状态" :formatter="statusFormat" ></el-table-column>
+            <el-table-column label="操作" width="250" align="center">
+                <template slot-scope="scope">
+                    <el-button size="mini" type="success" @click="updateValuables(scope.row)">编辑</el-button>
+                    <el-popconfirm
+                            style="margin-left: 30px;"
+                            title="您确定删除吗？"
+                            icon="el-icon-info"
+                            iconColor="red"
+                            @onConfirm="deleteOne(scope.row.id)">
+                        <el-button size="mini" type="danger" slot="reference">删除</el-button>
+                    </el-popconfirm>
+                </template>
+            </el-table-column>
+        </el-table>
+        <!--分页组件
+          size-change: 当page-sizes 改变时触发事件
+          current-change：当页数发生变化时触发事件，
+          current-page：当前是第几页
+          page-size：页容量，也就是每页多少条数据
+          total:总共有多少条数据,后台返回数据数值
+        -->
+        <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="page.currentPage"
+                :page-size="page.pageSize"
+                :total="page.totalCount"
+                layout="total, prev, pager, next"
+        ></el-pagination>
+
+        <el-dialog title="新增护理项目" :visible.sync="Visible" width="25%">
+            <el-form size="mini" ref="addOneData" :model="addOneData" label-width="85px">
+                <el-form-item label="项目名称">
+                    <el-input v-model="addOneData.projectName" placeholder="请输入新护理项目名称"></el-input>
+                </el-form-item>
+                <el-form-item label="价格">
+                    <el-input v-model="addOneData.price" placeholder="请输入项目价格"></el-input>
+                </el-form-item>
+                <el-form-item label="是否增值">
+                    <el-radio-group v-model="addOneData.addService">
+                        <el-radio :label="0">否</el-radio>
+                        <el-radio :label="1">是</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="描述">
+                    <el-input v-model="addOneData.details" type="textarea" placeholder="请输入项目相关描述"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="schoolVisiable = false">取 消</el-button>
-                <el-button @click="updateSchoolSubmit(row)" type="primary" >确 定</el-button>
+                <el-button @click="Visible = false">取 消</el-button>
+                <el-button type="primary" @click="addOneSubmit">确 定</el-button>
             </span>
         </el-dialog>
 
-<!--    修改-->
-    <el-dialog title="修改院系信息" :visible.sync="updateOneColVisible" width="30%">
-       <el-form
-               class="updateData"
-               ref="updateData"
-               size="mini"
-               style="text-align:center"
-               :model="updateData"
-               :inline="true"
-               label-width="100px">
-        <el-form-item label="学院编号">
-          <el-input v-model="updateData.collegeNo" placeholder="请输入学院编号"></el-input>
-        </el-form-item>
-        <el-form-item label="学院名称">
-          <el-input v-model="updateData.collegeName" placeholder="请输入学院名称"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="updateOneColVisible = false">取 消</el-button>
-        <el-button @click="updateSubmit()" type="primary" >确 定</el-button>
-      </span>
-    </el-dialog>
+        <el-dialog title="编辑护理等级信息" :visible.sync="updateOneValuablesVisible" width="30%">
+            <el-form
+                    ref="updateData"
+                    :model="updateData"
+                    size="mini"
+                    style="text-align:center"
+                    :inline="true"
+                    label-width="100px">
+                <el-input type="hidden" v-model="updateData.id"></el-input>
+                <el-form-item label="项目名称">
+                    <el-input v-model="updateData.projectName" placeholder="请输入新护理项目名称"></el-input>
+                </el-form-item>
+                <el-form-item label="价格">
+                    <el-input v-model="updateData.price" placeholder="请输入项目价格"></el-input>
+                </el-form-item>
+                <el-form-item label="描述">
+                    <el-input v-model="updateData.details" type="textarea" placeholder="请输入项目相关描述"></el-input>
+                </el-form-item>
+                <el-form-item label="是否增值">
+                    <el-radio-group v-model="updateData.addService">
+                        <el-radio :label="0">否</el-radio>
+                        <el-radio :label="1">是</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="状态">
+                    <el-switch
+                            v-model="statusVaule"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949">
+                    </el-switch>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="updateOneValuablesVisible = false">取 消</el-button>
+                <el-button type="primary" @click="updateSubmit">确 定</el-button>
+            </span>
+        </el-dialog>
 
-
-  </el-main>
+    </el-main>
 </template>
 
 <script>
 
-export default {
-    created:function(){
-        this.getSchoolList();
-        this.getColData();
-    },
-  methods: {
-      details(id){
-          this.getMajorList(id);
-          this.majorVisiable = true;
-      },
-    addOneCol() {
-       this.addOneColVisible = true;
-    },
-      updateSchool(id){
-          this.updateSch.collegeId = id;
-          this.schoolVisiable = true;
-      },
-    updateCol(row){
-      this.updateData = row;
-      this.updateOneColVisible = true;
-    },
+    import qs from 'qs';
 
-    getColData(){
-        this.$axios({
-            method: "get",
-            url: "api/colleges/collegesList"
-        }).then((result) =>{
-            this.colData = result.data;
-            console.log(this.colData);
-        })
-    },
-      getSchoolList(){
-          this.$axios({
-              methods: "get",
-              url: "api/school/schoolList",
-          }).then((result)=>{
-              this.schoolData = result.data;
-              console.log(this.schoolData);
-              for (let i=0;i<this.schoolData.length;i++){
-                  let schId={
-                      value:this.schoolData[i].schId,
-                      label:this.schoolData[i].schName,
-                  };
-                  this.school.push(schId);
-              }
-          })
-      },
-      getMajorList(id){
-          this.$axios({
-              methods: "get",
-              url: "api/major/selectByCol",
-              params:{
-                  majorCollege: id,
-              }
-          }).then((result)=>{
-              this.majorData = result.data;
-          })
-      },
-      selectByNo(no){
-          if(no==""){
-              this.getColData();
-          }
-          this.$axios({
-              methods: "get",
-              url: "api/colleges/selectByNo",
-              params:{
-                  collegeNo: no,
-              }
-          }).then((result)=>{
-              this.colData = result.data;
-          })
-      },
+    export default {
+        methods: {
+            addOne() {
+                this.Visible = true;
+            },
+            //模糊查询
+            selectByLike() {
+                if(this.selectFrom.projectName == ""){
+                    this.getTableData(1);
+                }else{
+                    let self = this
+                    self.$axios.get('api/nurseProject/selectByLike',{
+                        params: {
+                            projectName: this.selectFrom.projectName,
+                            pageSize: 10,
+                            currentPage: 1
+                        }
+                    }).then((result) => {
+                        if(result.data.code == 200){
+                            self.nurseProjectTable = result.data.data.records;
+                            self.$set(self.page, 'totalCount', result.data.data.total)
+                            self.$set(self.page, 'pageSize', result.data.data.size)
+                            self.$set(self.page, 'currentPage', result.data.data.current)
+                        }
+                    });
+                }
 
-      addSubmit(){
-          this.$refs.addOne.validate((valid)=>{
-              if(valid){
-                  var data = new FormData();
-                  data.append('collegeNo',this.addOne.collegeNo);
-                  data.append('collegeName',this.addOne.collegeName);
-                  this.$axios({
-                      method: "post",
-                      url: "api/colleges/insertOne",
-                      data: data,
-                  }).then(()=>{
-                      alert("添加成功");
-                      this.addOneColVisible = false;
-                      this.$refs.addOne.resetFields();
-                      this.getColData();
-                  })
-              }
-          })
-      },
-
-      updateSchoolSubmit(){
-          var data = new FormData();
-          data.append('collegeId',this.updateSch.collegeId)
-          data.append('collegeSchool',this.updateSch.collegeSchool);
-          this.$axios({
-              method: "post",
-              url: "api/colleges/update",
-              data: data
-          }).then(()=>{
-              this.schoolVisiable = false;
-              this.getColData();
-          })
-      },
-      updateSubmit(){
-          this.$refs.updateData.validate((valid)=>{
-              if(valid){
-                  var data = new FormData();
-                  data.append('collegeId',this.updateData.collegeId);
-                  data.append('collegeName',this.updateData.collegeName);
-                  data.append('collegeNo',this.updateData.collegeNo);
-                  this.$axios({
-                      method: "post",
-                      url: "api/colleges/update",
-                      data: data,
-                  }).then(()=>{
-                      alert("修改操作成功！")
-                      this.updateOneColVisible = false;
-                      this.getColData();
-                  })
-              }
-          })
-      },
-
-      deleteOne(id){
-          this.$axios({
-              method: "get",
-              url: "api/colleges/deleteOne",
-              params: {
-                  collegeId: id,
-              }
-          }).then(()=>{
-              alert("已删除该院系记录！");
-              location.reload();
-          })
-      },
-      deleteList(){
-          if(this.tableChecked.length ===0){
-              alert("您未选择任一院系");
-          }else {
-              this.$confirm('是否删除所选院系信息?', '提示', {
-                  confirmButtonText: '确定',
-                  cancelButtonText: '取消',
-                  type: 'warning',
-              }).then(() => {
-                  this.tableChecked.forEach(id => {
-                      this.ids.push(id.collegeId);
-                  });
-                  this.$axios({
-                      method: "delete",
-                      url: "api/colleges/delete",
-                      headers: {
-                          'Content-Type': 'application/json;charset=UTF-8'
-                      },
-                      data: JSON.stringify(this.ids),
-                  }).then(() => {
-                      alert("批量删除成功！");
-                      location.reload();
-                  })
-              })
-          }
-      },
-
-      //获取选项框的值
-      handleSelectionChange(val){
-          this.tableChecked = val;
-      },
-    //pageSize改变调用
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
-    },
-    // 页数改变调用
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
-      this.currentPage = val;
-    },
-    resetForm(formName) {
-      if (this.$refs[formName]) {
-        this.$refs[formName].resetFields();
-      }
-    },
-      schoolFormat(row){
-        for(var i=0;i<this.schoolData.length;i++){
-            if(this.schoolData[i].schId == row.collegeSchool){
-                return this.schoolData[i].schName;
-            }else if(row.collegeSchool ==0){
-                return "暂无校区";
+            },
+            //确认添加
+            addOneSubmit() {
+                this.$refs.addOneData.validate((valid) => {
+                    if (valid) {
+                        this.$axios.post("api/nurseProject/insertOne", qs.stringify(this.addOneData)).then((result) => {
+                            if (result.data.code == 200) {
+                                this.$message({
+                                    type: "success",
+                                    duration: 1000,
+                                    message: result.data.msg,
+                                });
+                                this.Visible = false;
+                                this.$refs.addOneData.resetFields(); // 刷新表单
+                                let num = parseInt(this.page.totalCount/this.page.pageSize)+1;
+                                this.getTableData(num);
+                            } else {
+                                this.$message({
+                                    type: "error",
+                                    duration: 1000,
+                                    message: result.data.msg,
+                                });
+                            }
+                        });
+                    }
+                });
+            },
+            //确认编辑
+            updateSubmit() {
+                this.updateData.updateBy = JSON.parse(sessionStorage.getItem("user")).userName;
+                if(this.statusVaule == true){
+                    this.updateData.status = 1;
+                }else{
+                    this.updateData.status = 2;
+                }
+                this.$refs.updateData.validate((valid) => {
+                    if (valid) {
+                        this.$axios.put("api/nurseProject/updateOne", qs.stringify(this.updateData)).then((result) => {
+                            if (result.data.code == 200) {
+                                this.$message({
+                                    type: "success",
+                                    duration: 1000,
+                                    message: result.data.msg,
+                                });
+                                this.updateOneValuablesVisible = false;
+                                this.getTableData(this.page.currentPage);
+                            } else {
+                                this.$message({
+                                    type: "error",
+                                    duration: 1000,
+                                    message: result.data.msg,
+                                });
+                            }
+                        });
+                    } else {
+                        return false;
+                    }
+                });
+            },
+            //根据id获取
+            getProjectById(id,level){
+                this.$axios.get('api/nurseProject/selectById',{
+                    params:{
+                        id: id,
+                    }
+                }).then(res=>{
+                    if(res.data.code == 200){
+                        this.detailsData = res.data.data;
+                        if(this.detailsData.status ==1){
+                            this.detailsData.status = "开启"
+                        }else{
+                            this.detailsData.status = "停用"
+                        }
+                        if(this.detailsData.addService == 0){
+                            this.detailsData.addService = "否"
+                        }else{
+                            this.detailsData.addService = "是"
+                        }
+                        this.detailsData.level = level;
+                    }
+                })
+            },
+            //编辑
+            updateValuables(row) {
+                this.updateOneValuablesVisible = true;
+                this.updateData = row;
+                if (row.status ==1){
+                    this.statusVaule = true;
+                } else {
+                    this.statusVaule = false;
+                }
+            },
+            //单个删除
+            deleteOne(valId) {
+                this.$axios({
+                    method: "delete",
+                    url: "api/nurseProject/deleteOne",
+                    params: {
+                        valId: valId,
+                    },
+                }).then((result) => {
+                    if (result.data.code == 200) {
+                        this.$message({
+                            type: "success",
+                            duration: 1000,
+                            message: result.data.msg,
+                        });
+                        if (((this.page.totalCount-1)%this.page.pageSize==0)&&(this.page.currentPage!=1)){
+                            this.getTableData(this.page.currentPage-1);
+                        } else {
+                            this.getTableData(this.page.currentPage);
+                        }
+                    } else {
+                        this.$message({
+                            type: "error",
+                            duration: 1000,
+                            message: result.data.msg,
+                        });
+                    }
+                });
+            },
+            //批量删除
+            deleteList() {
+                this.$confirm("是否删除所选信息?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning",
+                }).then(() => {
+                    this.tableChecked.forEach((row) => {
+                        this.ids.push(row.id);
+                    });
+                    console.log(this.ids);
+                    this.$axios({
+                        method: "delete",
+                        url: "api/nurseProject/delSelected",
+                        headers: {
+                            "Content-Type": "application/json;charset=UTF-8",
+                        },
+                        data: JSON.stringify(this.ids),
+                    }).then((result) => {
+                        if (result.data.code == 200) {
+                            this.$message({
+                                type: "success",
+                                duration: 1000,
+                                message: result.data.msg,
+                            });
+                            if (((this.page.totalCount-this.ids.length)%this.page.pageSize==0)&&(this.page.currentPage!=1)){
+                                this.getTableData(this.page.currentPage-1);
+                            } else {
+                                this.getTableData(this.page.currentPage);
+                            }
+                        } else {
+                            this.$message({
+                                type: "error",
+                                duration: 1000,
+                                message: result.data.msg,
+                            });
+                        }
+                    });
+                });
+            },
+            //复选框事件
+            handleSelectionChange(val) {
+                this.tableChecked = val;
+            },
+            //pageSize改变调用
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            //分页查询
+            getTableData(pageNo) {
+                let self = this
+                self.$axios.get('api/nurseProject/getNurseProjectList', {
+                    params: {
+                        pageSize: 10,
+                        currentPage: pageNo
+                    }
+                }).then(res => {
+                    if (res.data.code == 200) {
+                        self.nurseProjectTable = res.data.data.records;
+                        self.$set(self.page, 'totalCount', res.data.data.total)
+                        self.$set(self.page, 'pageSize', res.data.data.size)
+                        self.$set(self.page, 'currentPage', res.data.data.current)
+                    }
+                });
+            },
+            // 页数改变调用
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+                this.getTableData(val);
+            },
+            //状态显示
+            statusFormat(row){
+                if(row.status == 1){
+                    return "启用"
+                }else{
+                    return "停用"
+                }
+            },
+            //增值显示
+            addFormat(row){
+                if(row.addService == 1){
+                    return "是"
+                }else{
+                    return "否"
+                }
             }
-        }
-      },
-      stateFormat(row){
-          if(row.majorState ==1){
-              return "已开办"
-          }else{
-              return "暂未开办专业"
-          }
-      }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.tableHeight = window.innerHeight - 280;
-    });
-  },
-  data() {
-    return {
-        pageSize:10,
-        currentPage:1,
-      addOneColVisible: false,
-      updateOneColVisible: false,
-        majorVisiable: false,
-        schoolVisiable: false,
-      addOne: [],
-      // 表格高度
-      tableHeight: window.innerHeight,
-      // 表格数据
-      colData: [],
-        tableChecked:[],
-        ids:[],
-        schoolData: [],
-        majorData: [],
-        updateSch: [],
-        school:[],
-        updateData: [],
-        colFrom:[],
+        },
+
+        data() {
+            return {
+                statusVaule: "",
+                username: "",
+                page: {
+                    currentPage: 1, // 当前页
+                    pageSize: 10, // 每页显示条目个数
+                    totalCount: 0 // 总条目数
+                },
+                Visible: false,
+                title: "",
+                addOneData: {
+                    createBy: JSON.parse(sessionStorage.getItem("user")).userName,
+                    status: 1
+                },
+                tableHeight: 0,
+                updateOneValuablesVisible: false,
+                addManyValuablesVisible: false,
+                project: [],
+                detailsData: {},
+                updateData: {
+                    updateBy: "",
+                    status: ""
+                },
+                projectData: [],
+                tableChecked: [], //选中显示的值
+                ids: [],
+                selectFrom: {
+                    projectName: "",},
+                //表格数据
+                nurseProjectTable: [],
+                valuablesDetails: {},
+            };
+        },
+        created: function () {
+            this.getTableData(1);
+            this.addOneData.createBy =JSON.parse(sessionStorage.getItem("user")).userName;
+        },
+        mounted() {
+            this.$nextTick(() => {
+                this.tableHeight = window.innerHeight - 270;
+            });
+        },
     };
-  },
-};
 </script>
 
 <style>

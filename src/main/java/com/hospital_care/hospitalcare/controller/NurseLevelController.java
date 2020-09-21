@@ -60,6 +60,7 @@ public class NurseLevelController {
     @ApiOperation("新增护理等级信息")
     @PostMapping("/insertOne")
     public ResultVo insertOne(NurseLevel nurseLevel){
+
         int count = nurseLevelMapper.insert(nurseLevel);
         if (count > 0){
             return ResultUtils.success("添加成功");
@@ -68,7 +69,7 @@ public class NurseLevelController {
     }
 
     @ApiOperation("修改护理等级信息")
-    @PostMapping("/updateOne")
+    @PutMapping("/updateOne")
     public ResultVo updateOne(NurseLevel nurseLevel){
         int count = nurseLevelMapper.updateById(nurseLevel);
         if (count > 0){
@@ -78,7 +79,7 @@ public class NurseLevelController {
     }
 
     @ApiOperation("删除护理等级信息")
-    @GetMapping("/deleteOne")
+    @DeleteMapping("/deleteOne")
     public ResultVo deleteOne(int valId){
         int count = nurseLevelMapper.deleteById(valId);
         if (count > 0){
