@@ -56,5 +56,9 @@ public class Checkin implements Serializable {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
+    @TableField(exist = false)
+    private Bed bed;
 
+    @TableField(exist = false)
+    private Customer customer;
 }
