@@ -29,7 +29,6 @@
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="level" label="护理等级"></el-table-column>
             <el-table-column prop="projectId" label="项目id"></el-table-column>
-            <el-table-column prop="status" label="状态" :formatter="statusFormat" ></el-table-column>
             <el-table-column label="操作" width="350" align="center">
                 <template slot-scope="scope">
                     <el-button size="mini" type="primary" @click="itemDetails(scope.row)">项目详情</el-button>
@@ -106,13 +105,6 @@
                         ></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="状态">
-                    <el-switch
-                            v-model="statusVaule"
-                            active-color="#13ce66"
-                            inactive-color="#ff4949">
-                    </el-switch>
-                </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="updateOneValuablesVisible = false">取 消</el-button>
@@ -141,9 +133,6 @@
             </el-form-item>
             <el-form-item label="是否增值">
                 <el-input v-model="detailsData.addService" disabled></el-input>
-            </el-form-item>
-            <el-form-item label="状态">
-                <el-input v-model="detailsData.status" :formatter="statusFormat" disabled></el-input>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -233,11 +222,6 @@
             //确认编辑
             updateSubmit() {
                 this.updateData.updateBy = JSON.parse(sessionStorage.getItem("user")).userName;
-                if(this.statusVaule == true){
-                    this.updateData.status = 1;
-                }else{
-                    this.updateData.status = 2;
-                }
                 this.$refs.updateData.validate((valid) => {
                     if (valid) {
                         this.$axios.put("api/nurseLevel/updateOne", qs.stringify(this.updateData)).then((result) => {
@@ -276,11 +260,6 @@
                 }).then(res=>{
                     if(res.data.code == 200){
                         this.detailsData = res.data.data;
-                        if(this.detailsData.status ==1){
-                            this.detailsData.status = "开启"
-                        }else{
-                            this.detailsData.status = "停用"
-                        }
                         if(this.detailsData.addService == 0){
                             this.detailsData.addService = "否"
                         }else{
@@ -294,11 +273,6 @@
             updateValuables(row) {
                 this.updateOneValuablesVisible = true;
                 this.updateData = row;
-                if (row.status ==1){
-                    this.statusVaule = true;
-                } else {
-                    this.statusVaule = false;
-                }
             },
             //单个删除
             deleteOne(valId) {
@@ -399,14 +373,6 @@
                 console.log(`当前页: ${val}`);
                 this.getTableData(val);
             },
-            //状态显示
-            statusFormat(row){
-                if(row.status == 1){
-                    return "启用"
-                }else{
-                    return "停用"
-                }
-            }
         },
 
         data() {
@@ -422,7 +388,6 @@
                 title: "",
                 addOneData: {
                     createBy: JSON.parse(sessionStorage.getItem("user")).userName,
-                    status: 1
                 },
                 tableHeight: 0,
                 detailsVisible: false,
@@ -432,7 +397,6 @@
                 detailsData: {},
                 updateData: {
                     updateBy: "",
-                    status: ""
                 },
                 projectData: [],
                 tableChecked: [], //选中显示的值

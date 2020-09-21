@@ -81,5 +81,7 @@ public class Leave implements Serializable {
     @TableLogic
     private Integer isDeleted;
 
+    @TableField(exist = false)
+    private String cusName;
 
 }
