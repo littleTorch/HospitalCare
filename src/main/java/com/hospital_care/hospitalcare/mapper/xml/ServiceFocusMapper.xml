@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital_care.hospitalcare.mapper.ServiceFocusMapper">
-
+    <select id="findServiceFocusListIfRecordIdNotEmpty"
+            resultType="com.hospital_care.hospitalcare.entity.ServiceFocus">
+        select * from t_service_focus where cus_id in
+        (
+            select id from t_customer where record_id != ''
+        )
+    </select>
 </mapper>

@@ -38,8 +38,6 @@ public class ServiceObjController {
 
     @Autowired
     private CustomerService customerService;
-    @Autowired
-    private ServiceObjService serviceObjService;
 
     @ApiOperation("后端分页获取-t_customer-表信息")
     @GetMapping("/getCustomerList")
