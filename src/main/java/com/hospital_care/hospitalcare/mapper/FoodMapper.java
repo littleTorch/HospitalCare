@@ -14,7 +14,20 @@ import java.util.List;
  * @since 2020-09-15
  */
 public interface FoodMapper extends BaseMapper<Food> {
+    Food selFoodById(int id);
 
-    List<Food> findFoodList();
+    Food findFoodById(String id);
 
+    List<Food> selFoodList();
+
+    List<Food> selLike(String foodName);
+
+    Food selLikeFood(String foodName);
+
+    int addFood(Food food);
+
+    int delFood(String foodId);
+
+    int updateFood(Food food);
+    
 }

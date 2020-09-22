@@ -17,10 +17,7 @@ import java.util.List;
  * @since 2020-09-15
  */
 @Service
-public class FoodServiceImpl extends ServiceImpl<FoodMapper, Food> implements FoodService {
+public class FoodServiceImpl extends ServiceImpl<FoodMapper, Food> {
 
-    @Override
-    public List<Food> findFoodList() {
-        return this.baseMapper.findFoodList();
-    }
+
 }

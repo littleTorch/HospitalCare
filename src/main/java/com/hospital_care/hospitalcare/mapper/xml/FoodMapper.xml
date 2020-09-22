@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital_care.hospitalcare.mapper.FoodMapper">
+    <select id="selFoodById" resultType="com.hospital_care.hospitalcare.entity.Food">
+        select * from t_food where id = #{id}
+    </select>
+
+    <select id="findFoodById" resultType="com.hospital_care.hospitalcare.entity.Food">
+        select * from t_food where id = #{id}
+    </select>
+
+
+    <select id="selFoodList" resultType="com.hospital_care.hospitalcare.entity.Food">
+        select * from t_food
+    </select>
+
+
+    <select id="selLikeFood" resultType="com.hospital_care.hospitalcare.entity.Food">
+        select * from t_food where food_name like '%' #{foodName} '%'
+    </select>
+
+    <select id="selLike" resultType="com.hospital_care.hospitalcare.entity.Food">
+        select * from t_food where food_name like '%' #{foodName} '%'
+    </select>
+
+    <insert id="addFood">
+        insert into t_food(food_name,food_type,food_tag,food_price,food_pic,is_steam)
+        values (food_name=#{foodName},food_type=#{foodType},food_tag=#{foodTag},
+        food_price=#{foodPrice},food_pic=#{foodPic},is_steam=#{isSteam});
+    </insert>
+
+    <delete id="delFood">
+        delete from t_food where id =#{foodId}
+    </delete>
+
+    <update id="updateFood">
+        update t_food set
+        food_name=#{foodName},
+        food_type=#{foodType},
+        food_tag=#{foodTag},
+        food_price=#{foodPrice},food_pic=#{foodPic},is_steam=#{isSteam}
+        where id = #{id}
+    </update>
 
     <select id="findFoodList" resultType="com.hospital_care.hospitalcare.entity.Food">
         select * from t_food

@@ -99,7 +99,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login", "/login/image", "/my/icon", "/swagger-ui/**").permitAll()
+                .antMatchers("/login", "/login/image", "/my/icon","/foodDate/pic", "/swagger-ui/**").permitAll()
                 //跨域请求会先进行一次OPTIONS请求
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()

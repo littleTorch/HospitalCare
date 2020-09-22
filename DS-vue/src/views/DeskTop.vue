@@ -5,7 +5,7 @@
         <el-carousel-item v-for="item in 7" :key="item" style="text-align: center;width: 600px">
           <div class="food-class" span="4">
             <h1 style="" >早餐</h1>
-            <img style="height:100px;" src="../assets/images/zc.jpg"/>
+            <img style="height:100px;" src="../assets/images/breakfast.jpg"/>
           </div>
           <div class="food-class" span="4">
             <h1 >午餐</h1>
@@ -13,7 +13,7 @@
           </div>
           <div class="food-class" span="4">
             <h1 >晚餐</h1>
-            <img style="height:100px;" src="../assets/images/wc.jpg"/>
+            <img style="height:100px;" src="../assets/images/dinner.jpg"/>
           </div>
           <h4 style="margin-left:20px;">这是本周的第{{item}}天的膳食！
             健康提醒：三餐按时搭配吃，疾病好得快....</h4>

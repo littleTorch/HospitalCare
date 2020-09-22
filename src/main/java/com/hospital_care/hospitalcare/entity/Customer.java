@@ -99,6 +99,7 @@ public class Customer implements Serializable {
     private String headImg;
 
     @ApiModelProperty(value = "退住状态（0未退住，2退住中，3已退住）")
+    @TableField(exist = false)
     private Integer checkoutStatus;
 
     @TableField(exist = false)

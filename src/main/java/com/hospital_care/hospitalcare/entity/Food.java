@@ -55,8 +55,11 @@ public class Food implements Serializable {
     @ApiModelProperty(value = "食物类型（0-1大小荤、2素菜、3甜点、4水果、5套餐）")
     private Integer foodType;
 
+    @ApiModelProperty(value = "食物标签")
+    private String foodTag;
+
     @ApiModelProperty(value = "食物价格")
-    private String foodPrice;
+    private Long foodPrice;
 
     @ApiModelProperty(value = "食物图片")
     private String foodPic;

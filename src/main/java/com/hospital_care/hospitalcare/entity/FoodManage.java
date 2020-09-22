@@ -46,7 +46,7 @@ public class FoodManage implements Serializable {
     private String updateBy;
 
     @ApiModelProperty(value = "膳食日历id")
-    private Integer foodId;
+    private Integer foodDateId;
 
     @ApiModelProperty(value = "客户id")
     private Integer cusId;
