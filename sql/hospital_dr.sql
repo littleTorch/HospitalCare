@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2020-09-16 21:38:37
+Date: 2020-09-22 15:46:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -143,7 +143,7 @@ CREATE TABLE `t_bed` (
 -- ----------------------------
 -- Records of t_bed
 -- ----------------------------
-INSERT INTO `t_bed` VALUES ('3', null, null, null, null, '1', '101', '1', '0', '0', null, null, '0');
+INSERT INTO `t_bed` VALUES ('3', null, null, null, null, '1', '101', '1', '0', '0', null, null, '1');
 INSERT INTO `t_bed` VALUES ('4', '2020-09-16 21:04:53', 'root', null, null, '1', '101', '1', '0', '0', null, null, '0');
 INSERT INTO `t_bed` VALUES ('5', '2020-09-16 21:04:54', 'root', null, null, '1', '101', '2', '0', '0', null, null, '0');
 INSERT INTO `t_bed` VALUES ('6', '2020-09-16 21:04:54', 'root', null, null, '1', '101', '3', '0', '0', null, null, '0');
@@ -294,7 +294,7 @@ INSERT INTO `t_bed` VALUES ('147', '2020-09-16 21:04:54', 'root', null, null, '4
 -- ----------------------------
 DROP TABLE IF EXISTS `t_checkin`;
 CREATE TABLE `t_checkin` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_by` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `create_time` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `update_by` varchar(255) COLLATE utf8_bin DEFAULT NULL,
@@ -305,11 +305,21 @@ CREATE TABLE `t_checkin` (
   `checkin_date` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '入住日期',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_checkin
 -- ----------------------------
+INSERT INTO `t_checkin` VALUES ('1', null, null, null, null, '1', '5', '4', '2020-09-21', null);
+INSERT INTO `t_checkin` VALUES ('2', null, null, null, null, '1', '1', '5', '2020-09-21', null);
+INSERT INTO `t_checkin` VALUES ('3', null, '2020-09-21 22:45:47', 'root', null, '1', '2', '6', null, null);
+INSERT INTO `t_checkin` VALUES ('4', null, '2020-09-21 22:55:24', 'root', null, '1', '3', '7', '2020-09-21 22:55:24', null);
+INSERT INTO `t_checkin` VALUES ('5', null, '2020-09-21 23:00:00', 'root', '2020-09-21 23:57:12', '0', '1', '9', '2020-09-26', null);
+INSERT INTO `t_checkin` VALUES ('6', null, '2020-09-21 23:00:06', 'root', null, '0', '2', '5', '2020-09-21 23:00:06', null);
+INSERT INTO `t_checkin` VALUES ('7', null, '2020-09-21 23:00:56', 'root', null, '1', '1', '8', '2020-09-21 23:00:56', null);
+INSERT INTO `t_checkin` VALUES ('8', null, '2020-09-21 23:01:03', 'root', null, '1', '5', '8', '2020-09-21 23:01:03', null);
+INSERT INTO `t_checkin` VALUES ('9', null, '2020-09-21 23:14:43', 'root', null, '0', '3', '6', '2020-09-21 23:14:43', null);
+INSERT INTO `t_checkin` VALUES ('10', null, '2020-09-21 23:14:52', 'root', '2020-09-21 23:57:18', '0', '5', '12', '2020-09-09', null);
 
 -- ----------------------------
 -- Table structure for `t_checkout`
@@ -427,11 +437,21 @@ CREATE TABLE `t_food` (
   `is_steam` int(11) DEFAULT NULL COMMENT '是否清真0否1是',
   `sort` int(1) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_food
 -- ----------------------------
+INSERT INTO `t_food` VALUES ('1', null, null, null, null, null, '早餐套餐', '5', '少脂、少糖', '22', 'breakfast.jpg', '1', null);
+INSERT INTO `t_food` VALUES ('2', null, null, null, null, null, '午餐套餐', '5', '多脂', '40', 'lunch.jpg', '0', null);
+INSERT INTO `t_food` VALUES ('3', null, null, null, null, null, '晚餐套餐', '5', '多脂', '51', 'dinner.jpg', '0', null);
+INSERT INTO `t_food` VALUES ('4', null, null, null, null, null, '早餐套餐', '5', '少脂、少糖', '22', 'breakfast.jpg', '1', null);
+INSERT INTO `t_food` VALUES ('5', null, null, null, null, null, '早餐套餐', '5', '少脂、少糖', '22', 'breakfast.jpg', '1', null);
+INSERT INTO `t_food` VALUES ('6', null, null, null, null, null, '午餐套餐', '5', '多脂', '40', 'lunch.jpg', '0', null);
+INSERT INTO `t_food` VALUES ('7', null, null, null, null, null, '午餐套餐', '5', '多脂', '40', 'lunch.jpg', '0', null);
+INSERT INTO `t_food` VALUES ('8', null, null, null, null, null, '晚餐套餐', '5', '多糖', '51', 'dinner.jpg', '0', null);
+INSERT INTO `t_food` VALUES ('9', null, null, null, null, null, '晚餐套餐', '5', '多脂', '55', 'lunch.jpg', '0', null);
+INSERT INTO `t_food` VALUES ('22', '2020-09-22 13:07:08', null, null, null, null, 'xx', '2', 'xxx', '10', 'undefined', '0', null);
 
 -- ----------------------------
 -- Table structure for `t_food_date`
@@ -443,17 +463,27 @@ CREATE TABLE `t_food_date` (
   `create_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '创建者',
   `update_time` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '更新时间',
   `update_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '更新者',
-  `date` int(11) DEFAULT NULL COMMENT '星期1234567',
+  `date` int(11) DEFAULT NULL COMMENT '星期0123456',
   `day` int(11) DEFAULT NULL COMMENT '早中晚012',
   `food_id` int(11) DEFAULT NULL COMMENT '食物id',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_food_date
 -- ----------------------------
+INSERT INTO `t_food_date` VALUES ('1', null, null, null, null, '0', '0', '1', null, '0');
+INSERT INTO `t_food_date` VALUES ('2', null, null, null, null, '0', '1', '2', null, '0');
+INSERT INTO `t_food_date` VALUES ('3', null, null, null, null, '0', '2', '3', null, '0');
+INSERT INTO `t_food_date` VALUES ('4', null, null, null, null, '0', '0', '4', null, '0');
+INSERT INTO `t_food_date` VALUES ('5', null, null, null, null, '0', '0', '5', null, '0');
+INSERT INTO `t_food_date` VALUES ('6', null, null, null, null, '0', '1', '6', null, '0');
+INSERT INTO `t_food_date` VALUES ('7', null, null, null, null, '0', '1', '7', null, '0');
+INSERT INTO `t_food_date` VALUES ('8', null, null, null, null, '0', '2', '8', null, '0');
+INSERT INTO `t_food_date` VALUES ('9', null, null, null, null, '0', '2', '9', null, '0');
+INSERT INTO `t_food_date` VALUES ('12', '2020-09-22 13:07:08', null, null, null, '0', '0', '22', null, '0');
 
 -- ----------------------------
 -- Table structure for `t_food_manage`
@@ -470,11 +500,21 @@ CREATE TABLE `t_food_manage` (
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_food_manage
 -- ----------------------------
+INSERT INTO `t_food_manage` VALUES ('1', null, null, null, null, '1', '1', null, '0');
+INSERT INTO `t_food_manage` VALUES ('2', null, null, null, null, '2', '1', null, '0');
+INSERT INTO `t_food_manage` VALUES ('3', null, null, null, null, '3', '1', null, '0');
+INSERT INTO `t_food_manage` VALUES ('4', null, null, null, null, '4', '1', null, '0');
+INSERT INTO `t_food_manage` VALUES ('5', null, null, null, null, '5', '1', null, '0');
+INSERT INTO `t_food_manage` VALUES ('6', null, null, null, null, '6', '1', null, '0');
+INSERT INTO `t_food_manage` VALUES ('7', null, null, null, null, '7', '1', null, '0');
+INSERT INTO `t_food_manage` VALUES ('8', null, null, null, null, '8', '1', null, '0');
+INSERT INTO `t_food_manage` VALUES ('9', null, null, null, null, '9', '1', null, '0');
+INSERT INTO `t_food_manage` VALUES ('10', '2020-09-22 13:07:08', null, null, null, '12', '1', null, '0');
 
 -- ----------------------------
 -- Table structure for `t_leave`
@@ -499,11 +539,15 @@ CREATE TABLE `t_leave` (
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_leave
 -- ----------------------------
+INSERT INTO `t_leave` VALUES ('1', '2020-09-21', '0', null, null, '1', '健身运动', '2020-09-21 17:30:00', '2020-09-21 19:00:00', '2020-09-21 18:45:00', '刘大哥', '123456789', '0', '1', '2020-09-21 15:00:00', null, '0');
+INSERT INTO `t_leave` VALUES ('3', '2020-09-22', '0', null, null, '2', '去医院', '2020-09-21 17:30:00', '2020-09-21 19:00:00', '', '张大叔', '123456798', '0', '2', '2020-09-21 15:00:00', null, '0');
+INSERT INTO `t_leave` VALUES ('5', '2020-09-21 21:06:10', 'root', '2020-09-21 21:45:55', 'root', '3', '0.0.', '2020-09-24 00:00:00', '2020-09-26 00:00:00', '', '刘xx', '123564498', '', null, '', null, '0');
+INSERT INTO `t_leave` VALUES ('6', '2020-09-21 21:07:51', 'root', '2020-09-21 21:40:06', '', '3', '13', '2020-08-11 00:00:00', '2020-09-23 00:00:00', '', 'xx', '131654', 'root', '2', '2020-09-21 21:40:06', null, '0');
 
 -- ----------------------------
 -- Table structure for `t_nurse_level`
@@ -517,15 +561,23 @@ CREATE TABLE `t_nurse_level` (
   `update_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '更新者',
   `level` int(11) DEFAULT NULL COMMENT '护理等级',
   `project_id` int(11) DEFAULT NULL COMMENT '项目编号',
-  `status` int(1) DEFAULT NULL COMMENT '状态',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_nurse_level
 -- ----------------------------
+INSERT INTO `t_nurse_level` VALUES ('1', '2020-09-15', '0', '2020-09-15', '0', '1', '1', null, '0');
+INSERT INTO `t_nurse_level` VALUES ('3', '2020-09-15', '0', '2020-09-15', '0', '1', '2', null, '0');
+INSERT INTO `t_nurse_level` VALUES ('4', '2020-09-15', '0', '2020-09-15', '0', '2', '3', null, '1');
+INSERT INTO `t_nurse_level` VALUES ('9', '2020-09-17 19:38:44', 'root', '2020-09-17 20:01:06', '', '3', '3', null, '1');
+INSERT INTO `t_nurse_level` VALUES ('10', '2020-09-17 20:02:43', 'root', null, null, '1', '3', null, '1');
+INSERT INTO `t_nurse_level` VALUES ('11', '2020-09-17 20:04:27', 'root', '2020-09-17 21:19:18', 'root', '1', '3', null, '0');
+INSERT INTO `t_nurse_level` VALUES ('12', '2020-09-17 20:04:31', 'root', '2020-09-17 20:13:41', 'root', '1', '2', null, '1');
+INSERT INTO `t_nurse_level` VALUES ('13', '2020-09-17 20:51:51', 'root', null, null, '5', '4', null, '1');
+INSERT INTO `t_nurse_level` VALUES ('14', '2020-09-22 10:58:28', 'root', null, null, '3', '4', null, '0');
 
 -- ----------------------------
 -- Table structure for `t_nurse_project`
@@ -538,18 +590,22 @@ CREATE TABLE `t_nurse_project` (
   `update_time` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '更新时间',
   `update_by` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '更新者',
   `project_name` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '护理项目名称',
-  `price` mediumint(9) DEFAULT NULL COMMENT '价格',
-  `details` varchar(9) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
+  `price` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '价格',
+  `details` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
   `add_service` int(1) DEFAULT NULL COMMENT '是否增值服务0否1是',
   `status` int(1) DEFAULT NULL COMMENT '状态1启用2停用',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_nurse_project
 -- ----------------------------
+INSERT INTO `t_nurse_project` VALUES ('1', '2020-09-15', '0', '2020-09-15', '0', '理发', '15元/次', '单剪', '0', '1', null, '0');
+INSERT INTO `t_nurse_project` VALUES ('2', '2020-09-15', '0 ', '2020-09-15', '0 ', '指甲护理', '10元/次', '修理手脚指甲', '0', '1', null, '0');
+INSERT INTO `t_nurse_project` VALUES ('3', '2020-09-15', '0', '2020-09-15', '0', '身体清洁', '20元/次', '搓澡', '1', '1', null, '0');
+INSERT INTO `t_nurse_project` VALUES ('4', '2020-09-17 20:51:13', 'root', '2020-09-17 21:04:19', 'root', '三高检查', '50元/次', '检查老人的高血压、高血糖、高血脂项目', '1', '2', null, '0');
 
 -- ----------------------------
 -- Table structure for `t_nurse_record`
@@ -564,16 +620,22 @@ CREATE TABLE `t_nurse_record` (
   `cus_id` int(11) DEFAULT NULL COMMENT '客户id',
   `project_id` int(11) DEFAULT NULL COMMENT '护理项目id',
   `num` int(11) DEFAULT NULL COMMENT '护理次数',
+  `project_time` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '开始护理时间',
   `remark` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `emp_id` int(11) DEFAULT NULL COMMENT '护理人员id',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_nurse_record
 -- ----------------------------
+INSERT INTO `t_nurse_record` VALUES ('1', '2020-02-15', '0', '2020-09-17', '0', '1', '1', '2', '2020-10-05', '隔一个月理一次发', '3', null, '0');
+INSERT INTO `t_nurse_record` VALUES ('2', '2020-09-18', '0', null, null, '2', '1', '1', '2020-10-05', '需要细剪', '3', null, '0');
+INSERT INTO `t_nurse_record` VALUES ('3', '2020-09-21 19:42:01', 'root', null, null, '1', '2', '1', '2020-09-21T16:00:00.000Z', '手脚都需', '3', null, '1');
+INSERT INTO `t_nurse_record` VALUES ('4', '2020-09-21 19:44:39', 'root', null, null, '2', '4', '1', '2020-09-22T02:00:00.000Z', '无', '3', null, '1');
+INSERT INTO `t_nurse_record` VALUES ('5', '2020-09-21 19:47:11', 'root', '2020-09-21 19:51:13', 'root', '3', '1', '2', '2020-09-22 02:02:00', '333', '3', null, '1');
 
 -- ----------------------------
 -- Table structure for `t_service_focus`

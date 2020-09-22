@@ -51,14 +51,10 @@ public class NurseLevel implements Serializable {
     @ApiModelProperty(value = "项目编号")
     private Integer projectId;
 
-    @ApiModelProperty(value = "状态")
-    private Integer status;
-
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
     @TableLogic
     private Integer isDeleted;
-
 
 }

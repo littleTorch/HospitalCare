@@ -50,7 +50,7 @@ public class NurseProject implements Serializable {
     private String projectName;
 
     @ApiModelProperty(value = "价格")
-    private Integer price;
+    private String price;
 
     @ApiModelProperty(value = "描述")
     private String details;
@@ -66,6 +66,5 @@ public class NurseProject implements Serializable {
 
     @TableLogic
     private Integer isDeleted;
-
 
 }

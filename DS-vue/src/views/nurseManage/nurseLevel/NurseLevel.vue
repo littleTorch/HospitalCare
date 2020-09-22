@@ -27,7 +27,7 @@
                 :height="tableHeight"
                 border>
             <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="level" label="护理等级"></el-table-column>
+            <el-table-column prop="level" label="护理等级" sortable></el-table-column>
             <el-table-column prop="projectId" label="项目id"></el-table-column>
             <el-table-column label="操作" width="350" align="center">
                 <template slot-scope="scope">
@@ -112,8 +112,8 @@
             </span>
         </el-dialog>
 
-        <el-dialog title="项目详情信息" :visible.sync="detailsVisible" width="40%">
-        <el-form
+        <el-dialog title="项目详情信息" :visible.sync="detailsVisible" width="30%">
+            <el-form
                 :model="detailsData"
                 size="mini"
                 style="text-align:center"
@@ -129,15 +129,15 @@
                 <el-input v-model="detailsData.price" disabled></el-input>
             </el-form-item>
             <el-form-item label="描述">
-                <el-input v-model="detailsData.details" disabled></el-input>
+                <el-input v-model="detailsData.details" type="textarea" disabled></el-input>
             </el-form-item>
             <el-form-item label="是否增值">
                 <el-input v-model="detailsData.addService" disabled></el-input>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
-        <el-button @click="detailsVisible = false">取 消</el-button>
-      </span>
+            <el-button @click="detailsVisible = false">取 消</el-button>
+        </span>
     </el-dialog>
 
     </el-main>
