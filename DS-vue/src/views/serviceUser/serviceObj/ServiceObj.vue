@@ -22,9 +22,9 @@
               style="width: 100%"
       >
         <el-table-column align="center" prop="cusName" label="客户名"></el-table-column>
-        <el-table-column align="center" prop="cusSex" label="性别"></el-table-column>
+        <el-table-column align="center" prop="cusSex" :formatter="cusSexF" label="性别"></el-table-column>
         <el-table-column align="center" prop="cusAge" label="年龄"></el-table-column>
-        <el-table-column align="center" prop="cusIdcard" label="身份证号" sortable></el-table-column>
+        <el-table-column align="center" prop="cusIdcard" label="身份证号" show-overflow-tooltip sortable></el-table-column>
         <el-table-column align="center" prop="elderType" label="老人类型" show-overflow-tooltip></el-table-column>
         <el-table-column align="center" prop="expirationDate" label="合同到期日期" show-overflow-tooltip></el-table-column>
         <el-table-column align="center" prop="phone" label="联系电话" show-overflow-tooltip></el-table-column>
@@ -271,6 +271,12 @@
   export default {
     name: "ServiceObj",
     methods: {
+      cusSexF(row){
+        switch (row.cusSex) {
+          case "0":return "男";
+          case "1":return "女";
+        }
+      },
       selectByLike() {
         if (this.serviceObjForm.cusName==null||this.serviceObjForm.cusName=="")return;
         this.isSelectByLike = true;

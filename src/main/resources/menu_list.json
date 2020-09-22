@@ -117,7 +117,7 @@
         "parentId": 4,
         "path": "/exits",
         "type": "1",
-        "url": "/checkinOut/exits/Exits"
+        "url": "/checkinOut/checkout/Checkout"
       },
       {
         "children": [],
