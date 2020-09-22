@@ -69,7 +69,7 @@ public class Leave implements Serializable {
     @ApiModelProperty(value = "审批人")
     private String auditPerson;
 
-    @ApiModelProperty(value = "审核状态")
+    @ApiModelProperty(value = "审核状态(0未审核、1审核通过、2审核未批准)")
     private Integer audit;
 
     @ApiModelProperty(value = "审核时间")

@@ -3,8 +3,15 @@
         <el-form size="mini" :model="selectFrom" label-width="80px">
             <el-row>
                 <el-col :span="8">
-                    <el-form-item label="顾客id:">
-                        <el-input v-model="selectFrom.cusId" placeholder="请输入所需查询顾客id"></el-input>
+                    <el-form-item label="顾客姓名:">
+                        <el-select v-model="selectFrom.cusId" placeholder="请选择所需查询顾客姓名">
+                            <el-option
+                                    v-for="item in cus"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                            ></el-option>
+                        </el-select>
                     </el-form-item>
                 </el-col>
                 <el-button @click="selectByLike" style="margin-left: 20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
@@ -29,7 +36,7 @@
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="cusName" label="顾客"></el-table-column>
             <el-table-column prop="projectName" label="项目名称"></el-table-column>
-            <el-table-column prop="projectTime" label="开始护理时间"></el-table-column>
+            <el-table-column prop="projectTime" label="开始护理时间" sortable></el-table-column>
             <el-table-column prop="empName" label="护理人员"></el-table-column>
             <el-table-column label="操作" width="350" align="center">
                 <template slot-scope="scope">
