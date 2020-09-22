@@ -67,6 +67,7 @@ public class ServiceFocusController {
         for (int i = 0; i < records.size(); i++) {
             for (Customer customer : customerList) {
                 if (records.get(i).getCusId().equals(customer.getId())){
+                    records.get(i).setElderType(customer.getElderType());
                     records.get(i).setCusName(customer.getCusName());
                 }
             }
@@ -107,15 +108,20 @@ public class ServiceFocusController {
 
     @ApiOperation("添加一条服务关注信息")
     @GetMapping("/addServiceFocus")
-    public ResultVo addServiceFocus(ServiceFocus serviceFocus){
-        boolean save = serviceFocusService.save(serviceFocus);
-        if (save){
-            return ResultUtils.success("添加成功");
+    public ResultVo addServiceFocus(ServiceFocus serviceFocus, String elderType){
+        if (elderType!=null){
+            boolean save = serviceFocusService.save(serviceFocus);
+            Customer customer = new Customer();
+            customer.setElderType(elderType);
+            boolean update = customerService.update(customer, Wrappers.<Customer>lambdaQuery().eq(Customer::getId, serviceFocus.getCusId()));
+            if (save && update){
+                return ResultUtils.success("添加成功");
+            }
         }
         return ResultUtils.error("添加失败");
     }
 
-    @ApiOperation("购买或续期项目")
+    @ApiOperation("购买项目")
     @PostMapping("/buyProject")
     public ResultVo buyProject(ServiceFocus serviceFocus){
         boolean update = serviceFocusService.update(serviceFocus, Wrappers.<ServiceFocus>lambdaQuery().eq(ServiceFocus::getId, serviceFocus.getId()));

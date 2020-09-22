@@ -67,6 +67,9 @@ public class ServiceFocus implements Serializable {
     private Integer isDeleted;
 
     @TableField(exist = false)
+    private String elderType;
+
+    @TableField(exist = false)
     private String cusName;
 
     @TableField(exist = false)

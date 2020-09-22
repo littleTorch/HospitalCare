@@ -26,7 +26,7 @@
         <el-table-column align="center" prop="projectName" label="护理项目"></el-table-column>
         <el-table-column align="center" prop="serveStart" label="服务购买日期" sortable></el-table-column>
         <el-table-column align="center" prop="serveEnd" label="服务到期日期" sortable></el-table-column>
-        <el-table-column align="center" prop="elderType" label="老人类型"></el-table-column>
+        <el-table-column align="center" prop="elderType" :formatter="elderTypeF" label="老人类型"></el-table-column>
         <el-table-column align="center" prop="remark" label="备注"></el-table-column>
         <el-table-column label="操作" width="300" align="center">
           <template slot-scope="scope">
@@ -73,8 +73,7 @@
                         :key="item.id"
                         :label="item.cusName"
                         :value="item.id"
-                        :disabled="item.disabled"
-                        @change="setCusName(item)">
+                        :disabled="item.disabled">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -83,18 +82,16 @@
             <el-form-item label="护理项目" prop="projectId">
               <el-select v-model="serviceFocusAdd.projectId" placeholder="请选择">
                 <el-option
-                        v-for="item in this.serviceFocusData"
-                        :key="item.projectId"
+                        v-for="item in this.projectNames"
+                        :key="item.id"
                         :label="item.projectName"
-                        :value="item.projectId"
-                        @change="setProjectName(item)">
+                        :value="item.id">
                 </el-option>
               </el-select>
             </el-form-item>
           </el-row>
           <el-row>
-            <el-col span="24">
-              <el-form-item label="服务购买时长" prop="duration">
+              <el-form-item label="服务购买时长" prop="duration" label-width="1">
                 <el-date-picker
                         v-model="serviceFocusAdd.duration"
                         type="datetimerange"
@@ -105,7 +102,18 @@
                         align="right">
                 </el-date-picker>
               </el-form-item>
-            </el-col>
+          </el-row>
+          <el-row>
+            <el-form-item label="老人类型" prop="elderType">
+              <el-select v-model="serviceFocusAdd.elderType" placeholder="请选择">
+                <el-option
+                        v-for="item in elderTypeS"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
           </el-row>
           <el-row>
             <el-form-item label="备注">
@@ -180,10 +188,11 @@
                 style="text-align:left"
                 :inline="true"
                 label-width="100px"
+                :rules="rules"
         >
           <el-row>
-            <el-form-item label="护理项目">
-              <el-select v-model="serviceFocusUpdateData.projectName" placeholder="请选择">
+            <el-form-item label="护理项目" prop="projectId">
+              <el-select v-model="serviceFocusUpdateData.projectId" placeholder="请选择">
                 <el-option
                         v-for="item in projectNames"
                         :key="item.id"
@@ -195,19 +204,17 @@
           </el-row>
 
           <el-row>
-            <el-col span="24">
-              <el-form-item label="服务购买时长">
-                <el-date-picker
-                        v-model="serviceFocusUpdateData.duration"
-                        type="datetimerange"
-                        :picker-options="pickerOptions"
-                        range-separator="至"
-                        start-placeholder="开始日期"
-                        end-placeholder="结束日期"
-                        align="right">
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
+            <el-form-item label="服务购买时长" prop="duration" label-width="1">
+              <el-date-picker
+                      v-model="serviceFocusUpdateData.duration"
+                      type="datetimerange"
+                      :picker-options="pickerOptions"
+                      range-separator="至"
+                      start-placeholder="开始日期"
+                      end-placeholder="结束日期"
+                      align="right">
+              </el-date-picker>
+            </el-form-item>
           </el-row>
 
         </el-form>
@@ -228,11 +235,12 @@
   export default {
     name: "ServiceFocus",
     methods: {
-      setCusName(item){
-        this.serviceFocusAdd.cusName = item.cusName;
-      },
-      setProjectName(item){
-        this.serviceFocusAdd.projectName = item.projectName;
+      elderTypeF(row){
+        switch (row.elderType) {
+          case "0":return "普通老人";
+          case "1":return "残疾老人";
+          default:return row.elderType;
+        }
       },
       dateFormat(fmt, date) {
         let ret;
@@ -261,13 +269,6 @@
         return timestamp;
       },
 
-      isServeEnd(date){
-        if (date == null || date == "") {
-          return true;
-        }
-        return this.dataToTimeStamp(date) > new Date().getTime();
-      },
-
       selectByLike() {
         if (this.serviceFocusForm.cusName==null||this.serviceFocusForm.cusName=="")return;
         this.isSelectByLike = true;
@@ -282,7 +283,6 @@
       },
 
       async addOpen(){
-        this.serviceFocusAddVisible = true;
         await this.$axios("api/serviceFocus/getCustomerList").then(res => {
           this.customerList = res.data;
         });
@@ -294,6 +294,12 @@
             }
           })
         });
+
+        this.$axios("api/serviceFocus/getNurseProjectList").then(res => {
+          this.projectNames = res.data;
+        });
+
+        this.serviceFocusAddVisible = true;
       },
 
       addSumit(){
@@ -322,6 +328,7 @@
                 // serveStart: this.serviceFocusAdd.duration[0],
                 serveEnd: this.dateFormat("yyyy-MM-dd HH:mm:ss", this.serviceFocusAdd.duration[1]),
                 // serveEnd: this.serviceFocusAdd.duration[1],
+                elderType: this.serviceFocusAdd.elderType,
                 remark: this.serviceFocusAdd.remark,
               }
             }).then((result) => {
@@ -350,48 +357,32 @@
       details(row){
         this.serviceFocusDetailsVisible = true;
         this.serviceFocusDetails = row;
-        /*this.$axios("api/serviceFocus/getServiceFocus", {
-          params: {
-            id: id
-          }
-        }).then(res => {
-          this.serviceFocusDetails = res.data;
-        })*/
       },
 
       buyOpen(row) {
-        this.serviceFocusUpdateVisible = true;
         this.serviceFocusUpdateData = row;
-        this.serviceFocusUpdateData.duration[0] = row.serveStart;
-        this.serviceFocusUpdateData.duration[1] = row.serveEnd;
+        // console.log(JSON.stringify(row));
+        this.serviceFocusUpdateData.duration = [row.serveStart, row.serveEnd];
         this.$axios("api/serviceFocus/getNurseProjectList").then(res => {
           this.projectNames = res.data;
-        })
-        /*this.$axios("api/serviceFocus/getCustomer", {
-          params: {
-            id: id
-          }
-        }).then(res => {
-          this.serviceFocusUpdateData = res.data;
-        })*/
+        });
+        this.serviceFocusUpdateVisible = true;
       },
 
       buyProject(){
-        this.$refs.serviceFocusUpdateData.validate(valid => {
+        this.$refs.serviceFocusUpdateData.validate(async valid => {
           if (valid){
-            // console.log(this.serviceFocusUpdateData.projectId);
-            // console.log(this.serviceFocusUpdateData.projectName);
-            // return;
-            // this.serviceFocusUpdateData.projectId = this.serviceFocusUpdateData.projectName;
-            // this.serviceFocusUpdateData.projectId = this.serviceFocusUpdateData.projectName;
-            // let _this = this;
-            // this.projectNames.forEach(x => {
-            //   if (x.id == _this.serviceFocusUpdateData.projectId){
-            //     _this.serviceFocusUpdateData.projectName = x.projectName;
-            //   }
-            // });
-            this.serviceFocusUpdateData.serveStart = this.dateFormat("yyyy-MM-dd HH:mm:ss",this.serviceFocusUpdateData.duration[0]);
-            this.serviceFocusUpdateData.serveEnd = this.dateFormat("yyyy-MM-dd HH:mm:ss",this.serviceFocusUpdateData.duration[1]);
+            await this.$axios("api/serviceFocus/getProjectNameByProjectId",{
+              params: {
+                projectId: this.serviceFocusUpdateData.projectId
+              }
+            }).then(res => {
+              this.serviceFocusUpdateData.projectName = res.data;
+            })
+            // this.serviceFocusUpdateData.serveStart = this.dateFormat("yyyy-MM-dd HH:mm:ss",this.serviceFocusUpdateData.duration[0]);
+            this.serviceFocusUpdateData.serveStart = this.serviceFocusUpdateData.duration[0];
+            // this.serviceFocusUpdateData.serveEnd = this.dateFormat("yyyy-MM-dd HH:mm:ss",this.serviceFocusUpdateData.duration[1]);
+            this.serviceFocusUpdateData.serveEnd = this.serviceFocusUpdateData.duration[1];
             // console.log(JSON.stringify(this.serviceFocusUpdateData));return;
             this.$axios.post("api/serviceFocus/buyProject",  qs.stringify(this.serviceFocusUpdateData)).then(res => {
               if (res.data.code == 200){
@@ -476,8 +467,14 @@
           projectId: [
             { required: true, message: "护理项目不能为空", trigger: "blur" },
           ],
+          projectName: [
+            { required: true, message: "护理项目不能为空", trigger: "blur" },
+          ],
           duration: [
             { required: true, message: "服务购买时长不能为空", trigger: "blur" },
+          ],
+          elderType: [
+            { required: true, message: "老人类型不能为空", trigger: "blur" },
           ],
         },
 

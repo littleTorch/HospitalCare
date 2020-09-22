@@ -5,14 +5,14 @@
       <el-row>
         <el-col :span="5">
           <el-form-item label="客户名:">
-            <el-select v-model="CheckoutForm.cusId" clearable placeholder="请选择">
+            <!--<el-select v-model="CheckoutForm.cusId" clearable placeholder="请选择">
               <el-option
                       v-for="item in cusNames"
                       :key="item.id"
                       :label="item.cusName"
                       :value="item.id">
               </el-option>
-            </el-select>
+            </el-select>-->
           </el-form-item>
         </el-col>
         <el-button
@@ -21,11 +21,8 @@
                 size="mini"
                 type="primary"
                 icon="el-icon-search"
-                @click="sel(1)"
         >查询
         </el-button>
-        <el-button @click="AddOne" size="mini" type="primary" icon="el-icon-plus">单个新增</el-button>
-        <el-button @click="deleteList" size="mini" type="primary" icon="el-icon-delete">批量删除</el-button>
       </el-row>
     </el-form>
     <!--数据表格-->
@@ -39,13 +36,14 @@
             tooltip-effect="dark"
     >
       <el-table-column align="center" type="selection"></el-table-column>
-      <el-table-column align="center" prop="customer.cusName" label="住宿人姓名"></el-table-column>
+      <el-table-column align="center" prop="customer.cusName" label="退住人姓名"></el-table-column>
       <el-table-column align="center" prop="bed.floor" label="宿舍楼层"></el-table-column>
       <el-table-column align="center" prop="bed.roomNo" label="宿舍号"></el-table-column>
       <el-table-column align="center" prop="bed.bedNo" label="床位号"></el-table-column>
-      <el-table-column align="center" prop="checkinDate" label="入住日期" show-overflow-tooltip></el-table-column>
+      <el-table-column align="center" prop="checkoutDate" label="退住日期" show-overflow-tooltip></el-table-column>
+      <el-table-column align="center" prop="customer.checkoutStatus" :formatter="checkoutStatusF" label="退住状态" ></el-table-column>
       <el-table-column label="操作" width="250" align="center">
-        <template slot-scope="scope">
+        <!--<template slot-scope="scope">
           <el-button @click="details(scope.row)" type="primary" size="mini">详情</el-button>
           <el-button @click="updateRoom(scope.row)" type="success" size="mini">编辑</el-button>
           <el-popconfirm
@@ -57,7 +55,7 @@
           >
             <el-button size="mini" type="danger" slot="reference">删除</el-button>
           </el-popconfirm>
-        </template>
+        </template>-->
       </el-table-column>
     </el-table>
 
@@ -70,7 +68,7 @@
             layout="total, prev, pager, next"
     ></el-pagination>
 
-    <el-dialog title="新增宿舍" :visible.sync="addOneRoomVisible" width="30%">
+    <!--<el-dialog title="新增宿舍" :visible.sync="addOneRoomVisible" width="30%">
       <el-form
               ref="addOneForm"
               size="mini"
@@ -207,24 +205,77 @@
         <el-button @click="roomVisible = false">取 消</el-button>
         <el-button @click="roomVisible = false" type="primary">确 定</el-button>
       </span>
-    </el-dialog>
+    </el-dialog>-->
   </el-main>
 </template>
 
 <script>
   export default {
     name: "Checkout",
+    created(){
+      this.getTableData(1);
+    },
     methods: {
-      created(){
+      checkoutStatusF(row){
+        console.log(JSON.stringify(row));return;
+        /*switch(row.customer.checkoutStatus){
+          case 0: return "未退住";
+          case 1: return "退住中";
+          case 2: return "已退住";
+        }*/
+      },
+      //复选框事件
+      handleSelectionChange(val) {
+        // console.log(val);
+        this.batchAuditIds = [];
+        val.forEach((row) => {
+          if (row.moveAudit == "0") {
+            this.batchAuditIds.push(row.moveId);
+          }
+        });
+        this.tableChecked = val;
+      },
+      //pageSize改变调用
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
 
-      }
+      getTableData(pageNo) {
+        let self = this
+        self.$axios('api/checkout/getCheckoutList', {
+          params: {
+            pageSize: 10,
+            currentPage: pageNo
+          }
+        }).then(res => {
+          if (res.data.code == 200) {
+            self.checkoutData = res.data.data.records;
+            self.$set(self.page, 'totalCount', res.data.data.total)
+            self.$set(self.page, 'pageSize', res.data.data.size)
+            self.$set(self.page, 'currentPage', res.data.data.current)
+          }
+        });
+      },
+      // 页数改变调用
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+        this.getTableData(val)
+      },
     },
     data(){
       return{
         CheckoutForm: {
           cusName: ""
         },
-        checkoutData: []
+        tableChecked: [], //选中显示的值
+        checkoutData: [],
+        page: {
+          currentPage: 1, // 当前页
+          pageSize: 10, // 每页显示条目个数
+          totalCount: 0 // 总条目数
+        },
+        // 表格高度
+        tableHeight: window.innerHeight - 280,
       };
     }
   }

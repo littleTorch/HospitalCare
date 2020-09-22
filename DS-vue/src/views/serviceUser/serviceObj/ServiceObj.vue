@@ -25,7 +25,7 @@
         <el-table-column align="center" prop="cusSex" :formatter="cusSexF" label="性别"></el-table-column>
         <el-table-column align="center" prop="cusAge" label="年龄"></el-table-column>
         <el-table-column align="center" prop="cusIdcard" label="身份证号" show-overflow-tooltip sortable></el-table-column>
-        <el-table-column align="center" prop="elderType" label="老人类型" show-overflow-tooltip></el-table-column>
+        <el-table-column align="center" prop="elderType" :formatter="elderTypeF" label="老人类型" show-overflow-tooltip></el-table-column>
         <el-table-column align="center" prop="expirationDate" label="合同到期日期" show-overflow-tooltip></el-table-column>
         <el-table-column align="center" prop="phone" label="联系电话" show-overflow-tooltip></el-table-column>
 
@@ -273,8 +273,15 @@
     methods: {
       cusSexF(row){
         switch (row.cusSex) {
-          case "0":return "男";
-          case "1":return "女";
+          case 0:return "男";
+          case 1:return "女";
+        }
+      },
+      elderTypeF(row){
+        switch (row.elderType) {
+          case "0":return "普通老人";
+          case "1":return "残疾老人";
+          default:return row.elderType;
         }
       },
       selectByLike() {
@@ -422,11 +429,11 @@
         serviceObjUpdateVisible: false,
         elderTypeS:[
           {
-            value: 0,
+            value: "0",
             label: "普通老人"
           },
           {
-            value: 1,
+            value: "1",
             label: "残疾老人"
           }
         ]

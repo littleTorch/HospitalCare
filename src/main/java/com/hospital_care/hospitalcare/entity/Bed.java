@@ -71,5 +71,7 @@ public class Bed implements Serializable {
     @TableLogic
     private Integer isDeleted;
 
+    @TableField(exist = false)
+    private Integer cusId;
 
 }
