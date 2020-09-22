@@ -3,8 +3,15 @@
         <el-form size="mini" :model="selectFrom" label-width="100px">
             <el-row>
                 <el-col :span="6">
-                    <el-form-item label="外出人员id:">
-                        <el-input v-model="selectFrom.cusId" placeholder="请输入所需查询外出人员id"></el-input>
+                    <el-form-item label="外出人员:">
+                        <el-select v-model="selectFrom.cusId" placeholder="请选择所需查询外出人员">
+                        <el-option
+                                v-for="item in cus"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                        ></el-option>
+                    </el-select>
                     </el-form-item>
                 </el-col>
                 <el-button @click="selectByLike" style="margin-left: 20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
@@ -28,15 +35,15 @@
                 border>
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="cusName" label="外出人员姓名"></el-table-column>
-            <el-table-column prop="leaveTime" width="90" label="外出时间"></el-table-column>
-            <el-table-column prop="expectTime" width="90" label="预计回院时间"></el-table-column>
-            <el-table-column prop="actualTime" width="90" label="实际回院时间"></el-table-column>
+            <el-table-column prop="leaveTime" width="95" label="外出时间" sortable></el-table-column>
+            <el-table-column prop="expectTime" width="95" label="预计回院" sortable></el-table-column>
+            <el-table-column prop="actualTime" width="95" label="实际回院" sortable></el-table-column>
             <el-table-column prop="accompany" label="陪同人"></el-table-column>
             <el-table-column prop="accompanyPhone" label="陪同人联系电话"></el-table-column>
             <el-table-column prop="leaveReason" label="外出原因"></el-table-column>
             <el-table-column prop="auditPerson" label="审批人"></el-table-column>
             <el-table-column prop="audit" label="审批状态" :formatter="auditFormat"></el-table-column>
-            <el-table-column prop="auditTime" width="90" label="审批时间"></el-table-column>
+            <el-table-column prop="auditTime" width="95" label="审批时间" sortable></el-table-column>
             <el-table-column label="操作" width="250" align="center">
                 <template slot-scope="scope">
                     <el-button :disabled="scope.row.audit == 0 ? false: true" size="mini" type="success" @click="auditValuables(scope.row)">审核</el-button>
@@ -454,6 +461,7 @@
                 this.auditData = row;
                 this.auditVisible = true;
             },
+            //时间转换
             dateFormat(fmt, date) {
                 let ret;
                 const opt = {
