@@ -1,17 +1,23 @@
 package com.hospital_care.hospitalcare;
 
 import com.hospital_care.hospitalcare.entity.Bed;
+import com.hospital_care.hospitalcare.entity.Food;
 import com.hospital_care.hospitalcare.service.BedService;
+import com.hospital_care.hospitalcare.service.FoodService;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 class HospitalCareApplicationTests {
 
     @Autowired
     BedService bedService;
+    @Autowired
+    FoodService foodService;
 
     @Test
     void contextLoads() {
@@ -28,6 +34,14 @@ class HospitalCareApplicationTests {
                     bedService.save(bed);
                 }
             }
+        }
+    }
+
+    @Test
+    void find(){
+        List<Food> list = foodService.list();
+        for (Food food : list) {
+            System.out.println(food);
         }
     }
 

@@ -25,12 +25,10 @@
                 @selection-change="handleSelectionChange"
                 size="mini"
                 :height="tableHeight"
-                border
-        >
+                border>
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="level" label="护理等级"></el-table-column>
             <el-table-column prop="projectId" label="项目id"></el-table-column>
-            <el-table-column prop="status" label="状态" :formatter="statusFormat" ></el-table-column>
             <el-table-column label="操作" width="350" align="center">
                 <template slot-scope="scope">
                     <el-button size="mini" type="primary" @click="itemDetails(scope.row)">项目详情</el-button>
@@ -68,8 +66,15 @@
                 <el-form-item label="等级">
                     <el-input v-model="addOneData.level" placeholder="请输入新项目所属等级"></el-input>
                 </el-form-item>
-                <el-form-item label="项目id">
-                    <el-input v-model="addOneData.projectId" placeholder="项目id"></el-input>
+                <el-form-item label="项目">
+                    <el-select v-model="addOneData.projectId" placeholder="请选择项目">
+                        <el-option
+                                v-for="item in project"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                        ></el-option>
+                    </el-select>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -78,44 +83,34 @@
             </span>
         </el-dialog>
 
-<!--        <el-dialog title="编辑贵重物品信息" :visible.sync="updateOneValuablesVisible" width="40%">-->
-<!--            <el-form-->
-<!--                    ref="updateData"-->
-<!--                    :model="updateData"-->
-<!--                    size="mini"-->
-<!--                    style="text-align:center"-->
-<!--                    :inline="true"-->
-<!--                    label-width="100px"-->
-<!--            >-->
-<!--                <el-input type="hidden" v-model="updateData.valId"></el-input>-->
-<!--                <el-form-item label="姓名">-->
-<!--                    <el-input v-model="updateData.valStuName"></el-input>-->
-<!--                </el-form-item>-->
-<!--                <el-form-item label="物品名">-->
-<!--                    <el-input v-model="updateData.valName"></el-input>-->
-<!--                </el-form-item>-->
-<!--                <el-form-item label="物品数量">-->
-<!--                    <el-input v-model="updateData.valNum"></el-input>-->
-<!--                </el-form-item>-->
-<!--                <el-form-item label="物品总价">-->
-<!--                    <el-input v-model="updateData.valPrice"></el-input>-->
-<!--                </el-form-item>-->
-<!--                <el-form-item label="物品规格">-->
-<!--                    <el-input v-model="updateData.valSpecs"></el-input>-->
-<!--                </el-form-item>-->
-<!--                <el-form-item label="登记日期">-->
-<!--                    <el-input v-model="updateData.valDate"></el-input>-->
-<!--                </el-form-item>-->
-<!--                <el-form-item label="备注">-->
-<!--                    <el-input v-model="updateData.valRemark"></el-input>-->
-<!--                </el-form-item>-->
-<!--            </el-form>-->
-
-<!--            <span slot="footer" class="dialog-footer">-->
-<!--        <el-button @click="updateOneValuablesVisible = false">取 消</el-button>-->
-<!--        <el-button type="primary" @click="updateSubmit">确 定</el-button>-->
-<!--      </span>-->
-<!--        </el-dialog>-->
+        <el-dialog title="编辑护理等级信息" :visible.sync="updateOneValuablesVisible" width="40%">
+            <el-form
+                    ref="updateData"
+                    :model="updateData"
+                    size="mini"
+                    style="text-align:center"
+                    :inline="true"
+                    label-width="100px">
+                <el-input type="hidden" v-model="updateData.id"></el-input>
+                <el-form-item label="等级">
+                    <el-input v-model="updateData.level"></el-input>
+                </el-form-item>
+                <el-form-item label="护理项目">
+                    <el-select v-model="updateData.projectId">
+                        <el-option
+                                v-for="item in project"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                        ></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="updateOneValuablesVisible = false">取 消</el-button>
+                <el-button type="primary" @click="updateSubmit">确 定</el-button>
+            </span>
+        </el-dialog>
 
         <el-dialog title="项目详情信息" :visible.sync="detailsVisible" width="40%">
         <el-form
@@ -139,9 +134,6 @@
             <el-form-item label="是否增值">
                 <el-input v-model="detailsData.addService" disabled></el-input>
             </el-form-item>
-            <el-form-item label="状态">
-                <el-input v-model="detailsData.status" :formatter="statusFormat" disabled></el-input>
-            </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
         <el-button @click="detailsVisible = false">取 消</el-button>
@@ -159,31 +151,53 @@
         methods: {
             addOne() {
                 this.Visible = true;
-                this.addOne.valNum = 1;
+            },
+            //获取护理项目
+            getProjectData(){
+                this.$axios({
+                    method: "get",
+                    url: "api/nurseProject/nurseProjectList"
+                }).then((res) =>{
+                    if(res.data.code == 200){
+                        this.projectData = res.data.data;
+                        for(let i=0;i<this.projectData.length;i++){
+                            let projectId = {
+                                value:this.projectData[i].id,
+                                label:this.projectData[i].projectName,
+                            }
+                            this.project.push(projectId);
+                        }
+                    }
+                });
             },
             //模糊查询
             selectByLike() {
-                let self = this
-                self.$axios.get('api/nurseLevel/selectByLike2',{
-                    params: {
-                        level: this.selectFrom.level,
-                        pageSize: 10,
-                        currentPage: 1
-                    }
-                }).then((result) => {
-                    if(result.data.code == 200){
-                        self.nurseLevelTable = result.data.data.records;
-                        self.$set(self.page, 'totalCount', result.data.data.total)
-                        self.$set(self.page, 'pageSize', result.data.data.size)
-                        self.$set(self.page, 'currentPage', result.data.data.current)
-                    }
-                });
+                if(this.selectFrom.level == ""){
+                    this.getTableData(1);
+                }else{
+                    let self = this
+                    self.$axios.get('api/nurseLevel/selectByLike2',{
+                        params: {
+                            level: this.selectFrom.level,
+                            pageSize: 10,
+                            currentPage: 1
+                        }
+                    }).then((result) => {
+                        if(result.data.code == 200){
+                            self.nurseLevelTable = result.data.data.records;
+                            self.$set(self.page, 'totalCount', result.data.data.total)
+                            self.$set(self.page, 'pageSize', result.data.data.size)
+                            self.$set(self.page, 'currentPage', result.data.data.current)
+                        }
+                    });
+                }
+
             },
             //确认添加
             addOneSubmit() {
                 this.$refs.addOneData.validate((valid) => {
                     if (valid) {
-                        this.$axios.post("api/valuables/insertOneVal", qs.stringify(this.addOneData)).then((result) => {
+                        this.$axios.post("api/nurseLevel/insertOne", qs.stringify(this.addOneData)).then((result) => {
                             if (result.data.code == 200) {
                                 this.$message({
                                     type: "success",
@@ -207,9 +221,10 @@
             },
             //确认编辑
             updateSubmit() {
+                this.updateData.updateBy = JSON.parse(sessionStorage.getItem("user")).userName;
                 this.$refs.updateData.validate((valid) => {
                     if (valid) {
-                        this.$axios.post("api/valuables/updateOneVal", qs.stringify(this.updateData)).then((result) => {
+                        this.$axios.put("api/nurseLevel/updateOne", qs.stringify(this.updateData)).then((result) => {
                             if (result.data.code == 200) {
                                 this.$message({
                                     type: "success",
@@ -233,10 +248,11 @@
             },
             //详情
             itemDetails(row) {
-                this.getProjectById(row.projectId);
+                this.getProjectById(row.projectId,row.level);
                 this.detailsVisible = true;
             },
-            getProjectById(id){
+            //根据id获取
+            getProjectById(id,level){
                 this.$axios.get('api/nurseProject/selectById',{
                     params:{
                         id: id,
@@ -244,30 +260,25 @@
                 }).then(res=>{
                     if(res.data.code == 200){
                         this.detailsData = res.data.data;
-                        if(this.detailsData.status ==1){
-                            this.detailsData.status = "开启"
-                        }else{
-                            this.detailsData.status = "停用"
-                        }
                         if(this.detailsData.addService == 0){
                             this.detailsData.addService = "否"
                         }else{
                             this.detailsData.addService = "是"
                         }
+                        this.detailsData.level = level;
                     }
                 })
             },
             //编辑
             updateValuables(row) {
-                //console.log(row);
                 this.updateOneValuablesVisible = true;
                 this.updateData = row;
             },
             //单个删除
             deleteOne(valId) {
                 this.$axios({
-                    method: "get",
-                    url: "api/valuables/deleteOne",
+                    method: "delete",
+                    url: "api/nurseLevel/deleteOne",
                     params: {
                         valId: valId,
                     },
@@ -300,12 +311,12 @@
                     type: "warning",
                 }).then(() => {
                     this.tableChecked.forEach((row) => {
-                        this.ids.push(row.valId);
+                        this.ids.push(row.id);
                     });
                     console.log(this.ids);
                     this.$axios({
                         method: "delete",
-                        url: "api/valuables/delSelected",
+                        url: "api/nurseLevel/delSelected",
                         headers: {
                             "Content-Type": "application/json;charset=UTF-8",
                         },
@@ -334,7 +345,6 @@
             },
             //复选框事件
             handleSelectionChange(val) {
-                // console.log(val);
                 this.tableChecked = val;
             },
             //pageSize改变调用
@@ -363,22 +373,12 @@
                 console.log(`当前页: ${val}`);
                 this.getTableData(val);
             },
-            //状态显示
-            statusFormat(row){
-                if(row.status == 1){
-                    return "启用"
-                }else{
-                    return "停用"
-                }
-            }
         },
 
         data() {
             return {
-                //表单验证
-                rules: {
-                    valNum: [{ pattern: /^[1-9]\d*/ }],
-                },
+                statusVaule: "",
+                username: "",
                 page: {
                     currentPage: 1, // 当前页
                     pageSize: 10, // 每页显示条目个数
@@ -386,19 +386,23 @@
                 },
                 Visible: false,
                 title: "",
-                addOneData: { valNum: 1 },
+                addOneData: {
+                    createBy: JSON.parse(sessionStorage.getItem("user")).userName,
+                },
                 tableHeight: 0,
                 detailsVisible: false,
                 updateOneValuablesVisible: false,
                 addManyValuablesVisible: false,
-                files: [],
+                project: [],
                 detailsData: {},
-                updateData: [],
+                updateData: {
+                    updateBy: "",
+                },
+                projectData: [],
                 tableChecked: [], //选中显示的值
                 ids: [],
                 selectFrom: {
-                    level: "",
-                },
+                    level: "",},
                 //表格数据
                 nurseLevelTable: [],
                 valuablesDetails: {},
@@ -406,6 +410,8 @@
         },
         created: function () {
             this.getTableData(1);
+            this.getProjectData();
+            this.addOneData.createBy =JSON.parse(sessionStorage.getItem("user")).userName;
         },
         mounted() {
             this.$nextTick(() => {

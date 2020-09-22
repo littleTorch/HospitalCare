@@ -69,5 +69,13 @@ public class NurseRecord implements Serializable {
     @TableLogic
     private Integer isDeleted;
 
+    @TableField(exist = false)
+    private String cusName;
+
+    @TableField(exist = false)
+    private String projectName;
+
+    @TableField(exist = false)
+    private String empName;
 
 }
