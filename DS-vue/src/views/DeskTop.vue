@@ -93,17 +93,18 @@
           let arr = [];
           this.$axios({
             method: "get",
-            url: "api/echart/echart1"
+            url: "api/echart/echart2"
           }).then((result) => {
             this.e1data = result.data;
 
             let p1 = this.e1data.p1;
             let p2 = this.e1data.p2;
-            arr.push({value: p1, name: '未入宿床位数量'});
-            arr.push({value: p2, name: '入宿床位数量'});
+            console.log(p1+" "+p2)
+            arr.push({value: p1, name: '入宿客户'});
+            arr.push({value: p2, name: '未入宿客户'});
             myChart2.setOption({
               title: {
-                text: '住宿床位情况',
+                text: '住宿客户情况',
                 left: 'center'
               },
               tooltip: {
@@ -113,11 +114,11 @@
               legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['未入宿床位数量', '入宿床位数量']
+                data: ['入宿客户', '未入宿客户']
               },
               series: [
                 {
-                  name: '床位情况',
+                  name: '入宿客户情况',
                   type: 'pie',
                   radius: '75%',
                   center: ['50%', '50%'],
