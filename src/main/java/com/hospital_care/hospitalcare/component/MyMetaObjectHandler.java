@@ -19,6 +19,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         boolean createTime = metaObject.hasSetter("createTime");
         boolean controlTime = metaObject.hasSetter("controlTime");
         boolean loginTime = metaObject.hasSetter("loginTime");
+        boolean updateBy = metaObject.hasSetter("updateBy");
         if (createTime){
             System.out.println("insertFill~~");
             setInsertFieldValByName("createTime", sdf.format(new Date()), metaObject);

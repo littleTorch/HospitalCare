@@ -80,7 +80,7 @@ public class NurseProjectController {
     }
 
     @ApiOperation("修改护理等级信息")
-    @PostMapping("/updateOne")
+    @PutMapping("/updateOne")
     public ResultVo updateOne(NurseProject nurseProject){
         int count = nurseProjectMapper.updateById(nurseProject);
         if (count > 0){
@@ -90,7 +90,7 @@ public class NurseProjectController {
     }
 
     @ApiOperation("删除护理等级信息")
-    @GetMapping("/deleteOne")
+    @DeleteMapping("/deleteOne")
     public ResultVo deleteOne(int id){
         int count = nurseProjectMapper.deleteById(id);
         if (count > 0){
@@ -114,25 +114,16 @@ public class NurseProjectController {
         return ResultUtils.error("批量删除失败");
     }
 
-//    @ApiOperation("根据级别查询")
-//    @GetMapping("/selectByLike")
-//    public List<NurseLevel> selectByLike(int level){
-//        LambdaQueryWrapper<NurseLevel> lambdaQuery = Wrappers.lambdaQuery();
-//        lambdaQuery.eq(NurseLevel::getLevel, level);
-//        List<NurseLevel> nurseLevels = nurseLevelMapper.selectList(lambdaQuery);
-//        return nurseLevels;
-//    }
-//
-//    @ApiOperation("后端分页级别查询")
-//    @GetMapping("/selectByLike2")
-//    public ResultVo selectByLike2(ParmVo parmVo, int level){
-//        IPage<NurseLevel> page = new Page();
-//        QueryWrapper<NurseLevel> wrapper = new QueryWrapper<>();
-//        wrapper.eq("level",level);
-//        page.setSize(parmVo.getPageSize());
-//        page.setCurrent(parmVo.getCurrentPage());
-//        IPage<NurseLevel> valuablesIPage = nurseLevelService.page(page,wrapper);
-//        return ResultUtils.success("查询成功", valuablesIPage);
-//    }
+    @ApiOperation("后端分页级别查询")
+    @GetMapping("/selectByLike")
+    public ResultVo selectByLike2(ParmVo parmVo, String projectName){
+        IPage<NurseProject> page = new Page();
+        QueryWrapper<NurseProject> wrapper = new QueryWrapper<>();
+        wrapper.like("project_name",projectName);
+        page.setSize(parmVo.getPageSize());
+        page.setCurrent(parmVo.getCurrentPage());
+        IPage<NurseProject> valuablesIPage = nurseProjectService.page(page,wrapper);
+        return ResultUtils.success("查询成功", valuablesIPage);
+    }
 }
 

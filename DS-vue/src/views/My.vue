@@ -20,80 +20,75 @@
             <span>
               <i style="font-size: 15px" class="el-icon-s-custom"/>用户昵称
             </span>
-                        <Span>{{user.user.userNickname}}</Span>
+                        <Span>{{user.emp.empName}}</Span>
                     </div>
                     <el-divider></el-divider>
                     <div class="myMessage">
             <span>
-              <i style="font-size: 15px" class="el-icon-location"/>学院
+              <i style="font-size: 15px" class="el-icon-location"/>员工类型
             </span>
-                        <Span>{{user.major.majorName}}</Span>
+                        <Span>{{empType}}</Span>
                     </div>
                     <el-divider></el-divider>
                     <div class="myMessage">
             <span>
-              <i style="font-size: 15px" class="el-icon-message"/>班级
+              <i style="font-size: 15px" class="el-icon-message"/>职务
             </span>
-                        <Span>{{user.student.stuClass}}</Span>
+                        <Span>{{user.emp.duty}}</Span>
                     </div>
                     <el-divider></el-divider>
                     <div class="myMessage">
             <span>
-              <i style="font-size: 15px" class="el-icon-school"/>宿舍楼
+              <i style="font-size: 15px" class="el-icon-school"/>职称
             </span>
-                        <Span>{{user.checkin.chBld}}</Span>
+                        <Span>{{user.emp.possionalName}}</Span>
                     </div>
                     <el-divider></el-divider>
                     <div class="myMessage">
             <span>
-              <i style="font-size: 15px" class="el-icon-house"/>宿舍号
+              <i style="font-size: 15px" class="el-icon-house"/>入职日期
             </span>
-                        <Span>{{user.checkin.chRoom}}</Span>
+                        <Span>{{user.emp.entryDate}}</Span>
                     </div>
                     <el-divider></el-divider>
                     <div class="myMessage">
             <span>
-              <i style="font-size: 15px" class="el-icon-thumb"/>床位
+              <i style="font-size: 15px" :class="user.emp.sex==1?'el-icon-male':'el-icon-female'"/>性别
             </span>
-                        <Span>{{user.checkin.chBed}}</Span>
-                    </div>
-                    <el-divider></el-divider>
-                    <div class="myMessage">
-            <span>
-              <i style="font-size: 15px" :class="user.student.stuSex==1?'el-icon-male':'el-icon-female'"/>性别
-            </span>
-                        <Span>{{user.student.stuSex==1?'男':'女'}}</Span>
+                        <Span>{{user.emp.sex==1?'男':'女'}}</Span>
                     </div>
                     <el-divider></el-divider>
                     <div class="myMessage">
             <span>
               <i style="font-size: 15px" class="el-icon-mobile-phone"/>手机号
             </span>
-                        <Span>{{user.user.userTell}}</Span>
+                        <Span>{{user.emp.phone}}</Span>
                     </div>
                     <el-divider></el-divider>
-
                     <div style="height: 20px"></div>
                 </el-card>
             </el-col>
             <el-col :span="17">
                 <el-card shadow="always">
-                    <span>基本资料</span>
+                    <span>基本资料</span>aq
                     <el-divider></el-divider>
                     <el-tabs v-model="activeName" @tab-click="handleClick">
                         <el-tab-pane label="用户资料" name="用户资料">
                             <el-form :model="msgForm" label-position="right" label-width="80">
                                 <el-form-item label="用户昵称">
-                                    <el-input v-model="msgForm.nickName" placeholder></el-input>
+                                    <el-input v-model="msgForm.empName" placeholder></el-input>
                                 </el-form-item>
                                 <el-form-item label="手机号">
-                                    <el-input v-model="msgForm.tell" placeholder></el-input>
+                                    <el-input v-model="msgForm.phone" placeholder></el-input>
                                 </el-form-item>
                                 <el-form-item label="性别">
                                     <el-radio-group v-model="msgForm.sex">
                                         <el-radio :label="1">男</el-radio>
                                         <el-radio :label="0">女</el-radio>
                                     </el-radio-group>
+                                </el-form-item>
+                                <el-form-item label="简介">
+                                    <el-input type="textarea" v-model="msgForm.brief" placeholder></el-input>
                                 </el-form-item>
                             </el-form>
                             <div class="myButton">
@@ -163,9 +158,10 @@
                 }
             },
             reset(){
-                this.msgForm.nickName=this.user.user.userNickname;
-                this.msgForm.tell=this.user.user.userTell;
-                this.msgForm.sex=this.user.student.stuSex;
+                this.msgForm.empName=this.user.emp.empName;
+                this.msgForm.phone=this.user.emp.phone;
+                this.msgForm.sex=this.user.emp.sex;
+                this.msgForm.brief=this.user.emp.brief;
             },
             updata(){
                 this.$axios({
@@ -198,12 +194,31 @@
                         userId:JSON.parse(sessionStorage.getItem('user')).userId
                     }
                 }).then((result) => {
+                    console.log(result.data)
                     this.user = result.data;
-                    console.log(this.user)
-                    this.msgForm.nickName=result.data.user.userNickname;
-                    this.msgForm.tell=result.data.user.userTell;
-                    this.msgForm.sex=result.data.student.stuSex;
+                    this.msgForm.empName=result.data.emp.empName;
+                    this.msgForm.phone=result.data.emp.phone;
+                    this.msgForm.sex=result.data.emp.sex;
+                    this.msgForm.brief=result.data.emp.brief;
+                    this.a();
                 })
+            },
+            a(){
+                let empType = this.user.emp.empType;
+                // console.log(empType);
+                //（0管理人员、1医务人员、2护理人员）
+                switch (empType) {
+                    case 0:
+                        this.empType= "管理人员";
+                        break;
+                    case 1:
+                        this.empType= "医务人员";
+                        break;
+                    case 2:
+                        this.empType= "护理人员";
+                        break;
+
+                }
             }
         },
         created() {
@@ -214,13 +229,15 @@
         },
         data() {
             return {
+                empType:'',
                 role:JSON.parse(sessionStorage.getItem('user')).roleId,
                 user: {},
                 msgForm: {
                     userId:JSON.parse(sessionStorage.getItem('user')).userId,
-                    nickName: "",
-                    tell: "",
+                    empName: "",
+                    phone: "",
                     sex: 0,
+                    brief:''
                 },
                 passwordForm: {
                     userId:JSON.parse(sessionStorage.getItem('user')).userId,

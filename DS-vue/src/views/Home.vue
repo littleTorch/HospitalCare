@@ -1,5 +1,12 @@
 <template>
   <el-container class="home">
+    <el-container>
+      <!--菜单栏-->
+      <el-aside width="auto" style="background: #545c64">
+        <menu-bar></menu-bar>
+      </el-aside>
+      <!--菜单栏-->
+      <el-container>
     <!--头部-->
     <el-header class="header ub main-justify cross-center ">
       <div class="header-left-text">广东理工职业颐养院系统</div>
@@ -18,13 +25,7 @@
       </div>
     </el-header>
 <!--头部-->
-    <el-container>
-    <!--菜单栏-->
-      <el-aside width="auto">
-        <menu-bar></menu-bar>
-      </el-aside>
-      <!--菜单栏-->
-      <el-container>
+
         <el-main style="padding:0px">
         <!--菜单收缩按钮-->
         <i class="arrowIcon" :class="[isCollapse ? 'el-icon-s-unfold' : ' el-icon-s-fold']" @click="iconClick"></i>
@@ -110,7 +111,7 @@ export default {
   height: 100%;
 }
 .header{
-  background-color: #167bd8;
+  background-color: #545c64;
   color: #fff;
   justify-content: space-between;
 }
@@ -131,7 +132,7 @@ export default {
   font-size: 14px;
 }
 .foot{
-  background: #409eff;
+  background: #545c64;
   line-height: 35px;
   color: #fff;
   font-size: 12px;

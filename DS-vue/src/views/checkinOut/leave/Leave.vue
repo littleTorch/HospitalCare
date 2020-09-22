@@ -1,14 +1,14 @@
 <template>
     <el-main>
-        <el-form size="mini" :model="selectFrom" label-width="80px">
+        <el-form size="mini" :model="selectFrom" label-width="100px">
             <el-row>
-                <el-col :span="8">
-                    <el-form-item label="顾客id:">
-                        <el-input v-model="selectFrom.cusId" placeholder="请输入所需查询顾客id"></el-input>
+                <el-col :span="6">
+                    <el-form-item label="外出人员id:">
+                        <el-input v-model="selectFrom.cusId" placeholder="请输入所需查询外出人员id"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-button @click="selectByLike" style="margin-left: 20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
-                <el-button @click="addOne" size="mini" type="primary" icon="el-icon-plus">新增护理记录</el-button>
+                <el-button @click="addOne" size="mini" type="primary" icon="el-icon-plus">新增外出登记</el-button>
                 <el-button
                         @click="deleteList"
                         size="mini"
@@ -19,7 +19,7 @@
             </el-row>
         </el-form>
         <el-table
-                :data="nurseRecordTable"
+                :data="leaveTable"
                 tooltip-effect="dark"
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
@@ -27,16 +27,22 @@
                 :height="tableHeight"
                 border>
             <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="cusName" label="顾客"></el-table-column>
-            <el-table-column prop="projectName" label="项目名称"></el-table-column>
-            <el-table-column prop="projectTime" label="开始护理时间"></el-table-column>
-            <el-table-column prop="empName" label="护理人员"></el-table-column>
-            <el-table-column label="操作" width="350" align="center">
+            <el-table-column prop="cusName" label="外出人员姓名"></el-table-column>
+            <el-table-column prop="leaveTime" width="90" label="外出时间"></el-table-column>
+            <el-table-column prop="expectTime" width="90" label="预计回院时间"></el-table-column>
+            <el-table-column prop="actualTime" width="90" label="实际回院时间"></el-table-column>
+            <el-table-column prop="accompany" label="陪同人"></el-table-column>
+            <el-table-column prop="accompanyPhone" label="陪同人联系电话"></el-table-column>
+            <el-table-column prop="leaveReason" label="外出原因"></el-table-column>
+            <el-table-column prop="auditPerson" label="审批人"></el-table-column>
+            <el-table-column prop="audit" label="审批状态" :formatter="auditFormat"></el-table-column>
+            <el-table-column prop="auditTime" width="90" label="审批时间"></el-table-column>
+            <el-table-column label="操作" width="250" align="center">
                 <template slot-scope="scope">
-                    <el-button size="mini" type="success" @click="itemDetails(scope.row)">项目详情</el-button>
-                    <el-button style="margin-left: 30px" size="mini" type="success" @click="updateValuables(scope.row)">编辑</el-button>
+                    <el-button :disabled="scope.row.audit == 0 ? false: true" size="mini" type="success" @click="auditValuables(scope.row)">审核</el-button>
+                    <el-button size="mini" type="success" @click="updateValuables(scope.row)">编辑</el-button>
                     <el-popconfirm
-                            style="margin-left: 30px;"
+                            style="margin-left: 10px;"
                             title="您确定删除吗？"
                             icon="el-icon-info"
                             iconColor="red"
@@ -62,9 +68,9 @@
                 layout="total, prev, pager, next"
         ></el-pagination>
 
-        <el-dialog title="新增护理记录" :visible.sync="Visible" width="25%">
-            <el-form size="mini" ref="addOneData" :model="addOneData" label-width="85px">
-                <el-form-item label="顾客姓名">
+        <el-dialog title="新增外出登记" :visible.sync="Visible" width="25%">
+            <el-form size="mini" ref="addOneData" :model="addOneData" label-width="100px">
+                <el-form-item label="外出人员姓名">
                     <el-select v-model="addOneData.cusId" placeholder="请选择顾客">
                         <el-option
                                 v-for="item in cus"
@@ -74,40 +80,32 @@
                         ></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="项目名称">
-                    <el-select v-model="addOneData.projectId" placeholder="请选择项目">
-                        <el-option
-                                v-for="item in project"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                        ></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="数量">
-                    <el-input v-model="addOneData.num" placeholder="请输入购买数量"></el-input>
-                </el-form-item>
-                <el-form-item label="执行时间">
+                <el-form-item label="外出时间">
                     <el-date-picker
-                            v-model="addOneData.projectTime"
+                            v-model="addOneData.leaveTime"
                             type="datetime"
                             format="yyyy-MM-dd HH:mm:ss"
                             value-format="yyyy-MM-dd HH:mm:ss"
-                            placeholder="选择日期时间">
+                            placeholder="外出日期时间">
                     </el-date-picker>
                 </el-form-item>
-                <el-form-item label="护理人员">
-                    <el-select v-model="addOneData.empId" placeholder="请选择护理人员">
-                        <el-option
-                                v-for="item in emp"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                        ></el-option>
-                    </el-select>
+                <el-form-item label="预计回院时间">
+                    <el-date-picker
+                            v-model="addOneData.expectTime"
+                            type="datetime"
+                            format="yyyy-MM-dd HH:mm:ss"
+                            value-format="yyyy-MM-dd HH:mm:ss"
+                            placeholder="预计回院时间">
+                    </el-date-picker>
                 </el-form-item>
-                <el-form-item label="备注">
-                    <el-input v-model="addOneData.remark" type="textarea" placeholder="备注"></el-input>
+                <el-form-item label="陪同人">
+                    <el-input v-model="addOneData.accompany" placeholder="陪同人姓名"></el-input>
+                </el-form-item>
+                <el-form-item label="联系电话">
+                    <el-input v-model="addOneData.accompanyPhone" placeholder="陪同人联系电话"></el-input>
+                </el-form-item>
+                <el-form-item label="外出原因">
+                    <el-input v-model="addOneData.leaveReason" type="textarea" placeholder="外出原因"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -116,7 +114,7 @@
             </span>
         </el-dialog>
 
-        <el-dialog title="编辑护理等级信息" :visible.sync="updateOneValuablesVisible" width="40%">
+        <el-dialog title="编辑外出记录" :visible.sync="updateOneValuablesVisible" width="40%">
             <el-form
                     ref="updateData"
                     :model="updateData"
@@ -125,7 +123,7 @@
                     :inline="true"
                     label-width="100px">
                 <el-input type="hidden" v-model="updateData.id"></el-input>
-                <el-form-item label="顾客姓名">
+                <el-form-item label="外出人员姓名">
                     <el-select v-model="updateData.cusId" placeholder="请选择顾客">
                         <el-option
                                 v-for="item in cus"
@@ -135,40 +133,41 @@
                         ></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="项目名称">
-                    <el-select v-model="updateData.projectId" placeholder="请选择项目">
-                        <el-option
-                                v-for="item in project"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                        ></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="数量">
-                    <el-input v-model="updateData.num" placeholder="请输入购买数量"></el-input>
-                </el-form-item>
-                <el-form-item label="执行时间">
+                <el-form-item label="外出时间">
                     <el-date-picker
-                            v-model="updateData.projectTime"
+                            v-model="updateData.leaveTime"
                             type="datetime"
                             format="yyyy-MM-dd HH:mm:ss"
                             value-format="yyyy-MM-dd HH:mm:ss"
-                            placeholder="选择日期时间">
+                            placeholder="外出日期时间">
                     </el-date-picker>
                 </el-form-item>
-                <el-form-item label="护理人员">
-                    <el-select v-model="updateData.empId" placeholder="请选择护理人员">
-                        <el-option
-                                v-for="item in emp"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                        ></el-option>
-                    </el-select>
+                <el-form-item label="预计回院时间">
+                    <el-date-picker
+                            v-model="updateData.expectTime"
+                            type="datetime"
+                            format="yyyy-MM-dd HH:mm:ss"
+                            value-format="yyyy-MM-dd HH:mm:ss"
+                            placeholder="预计回院时间">
+                    </el-date-picker>
                 </el-form-item>
-                <el-form-item label="备注">
-                    <el-input v-model="updateData.remark" type="textarea" placeholder="备注"></el-input>
+                <el-form-item label="实际回院时间">
+                    <el-date-picker
+                            v-model="updateData.actualTime"
+                            type="datetime"
+                            format="yyyy-MM-dd HH:mm:ss"
+                            value-format="yyyy-MM-dd HH:mm:ss"
+                            placeholder="实际回院时间">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="陪同人">
+                    <el-input v-model="updateData.accompany" placeholder="陪同人姓名"></el-input>
+                </el-form-item>
+                <el-form-item label="联系电话">
+                    <el-input v-model="updateData.accompanyPhone" placeholder="陪同人联系电话"></el-input>
+                </el-form-item>
+                <el-form-item label="外出原因">
+                    <el-input v-model="updateData.leaveReason" type="textarea" placeholder="外出原因"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -177,37 +176,26 @@
             </span>
         </el-dialog>
 
-        <el-dialog title="项目记录详情信息" :visible.sync="detailsVisible" width="40%">
+        <el-dialog title="审核处理" :visible.sync="auditVisible" width="20%">
             <el-form
-                    :model="detailsData"
+                    ref="auditData"
+                    :model="auditData"
                     size="mini"
                     style="text-align:center"
                     :inline="true"
                     label-width="100px">
-                <el-form-item label="顾客姓名">
-                    <el-input v-model="detailsData.cusName" disabled></el-input>
-                </el-form-item>
-                <el-form-item label="项目名称">
-                    <el-input v-model="detailsData.projectName" disabled></el-input>
-                </el-form-item>
-                <el-form-item label="数量">
-                    <el-input v-model="detailsData.num" disabled></el-input>
-                </el-form-item>
-                <el-form-item label="项目开始时间">
-                    <el-input v-model="detailsData.projectTime" disabled></el-input>
-                </el-form-item>
-                <el-form-item label="护理人员姓名">
-                    <el-input v-model="detailsData.empName" disabled></el-input>
-                </el-form-item>
-                <el-form-item label="备注">
-                    <el-input v-model="detailsData.remark" type="textarea" disabled></el-input>
+                <el-form-item label="审核情况">
+                    <el-radio-group v-model="auditData.audit">
+                        <el-radio :label="1">审核通过</el-radio>
+                        <el-radio :label="2">审核未批准</el-radio>
+                    </el-radio-group>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-        <el-button @click="detailsVisible = false">取 消</el-button>
-      </span>
+                <el-button type="primary" @click="auditSubmit">确 定</el-button>
+                <el-button @click="detailsVisible = false">取 消</el-button>
+            </span>
         </el-dialog>
-
 
     </el-main>
 </template>
@@ -218,24 +206,16 @@
 
     export default {
         methods: {
-            //详情
-            itemDetails(row) {
-                this.detailsData = row;
-                this.openDetailsVisible();
-            },
-            openDetailsVisible() {
-                this.detailsVisible = true;
-            },
             addOne() {
                 this.Visible = true;
             },
             //模糊查询
             selectByLike() {
-                if (this.selectFrom.cusId == " ") {
+                if (this.selectFrom.cusId == "") {
                     this.getTableData(1);
                 } else {
                     let self = this;
-                    self.$axios.get('api/nurseRecord/selectByLike', {
+                    self.$axios.get('api/leave/selectByLike', {
                         params: {
                             cusId: this.selectFrom.cusId,
                             pageSize: 10,
@@ -243,7 +223,7 @@
                         }
                     }).then((result) => {
                         if (result.data.code == 200) {
-                            self.nurseRecordTable = result.data.data.records;
+                            self.leaveTable = result.data.data.records;
                             self.$set(self.page, 'totalCount', result.data.data.total)
                             self.$set(self.page, 'pageSize', result.data.data.size)
                             self.$set(self.page, 'currentPage', result.data.data.current)
@@ -255,7 +235,7 @@
             addOneSubmit() {
                 this.$refs.addOneData.validate((valid) => {
                     if (valid) {
-                        this.$axios.post("api/nurseRecord/insertOne", qs.stringify(this.addOneData)).then((result) => {
+                        this.$axios.post("api/leave/insertOne", qs.stringify(this.addOneData)).then((result) => {
                             if (result.data.code == 200) {
                                 this.$message({
                                     type: "success",
@@ -282,7 +262,7 @@
                 this.updateData.updateBy = JSON.parse(sessionStorage.getItem("user")).userName;
                 this.$refs.updateData.validate((valid) => {
                     if (valid) {
-                        this.$axios.put("api/nurseRecord/updateOne", qs.stringify(this.updateData)).then((result) => {
+                        this.$axios.put("api/leave/updateOne", qs.stringify(this.updateData)).then((result) => {
                             if (result.data.code == 200) {
                                 this.$message({
                                     type: "success",
@@ -290,6 +270,34 @@
                                     message: result.data.msg,
                                 });
                                 this.updateOneValuablesVisible = false;
+                                this.getTableData(this.page.currentPage);
+                            } else {
+                                this.$message({
+                                    type: "error",
+                                    duration: 1000,
+                                    message: result.data.msg,
+                                });
+                            }
+                        });
+                    } else {
+                        return false;
+                    }
+                });
+            },
+            //确认审核情况
+            auditSubmit(){
+                this.auditData.auditPerson = JSON.parse(sessionStorage.getItem("user")).userName;
+                this.auditData.auditTime = this.dateFormat("yyyy-MM-dd HH:mm:ss",new Date());
+                this.$refs.auditData.validate((valid) => {
+                    if (valid) {
+                        this.$axios.put("api/leave/updateOne", qs.stringify(this.auditData)).then((result) => {
+                            if (result.data.code == 200) {
+                                this.$message({
+                                    type: "success",
+                                    duration: 1000,
+                                    message: result.data.msg,
+                                });
+                                this.auditVisible = false;
                                 this.getTableData(this.page.currentPage);
                             } else {
                                 this.$message({
@@ -313,7 +321,7 @@
             deleteOne(id) {
                 this.$axios({
                     method: "delete",
-                    url: "api/nurseRecord/deleteOne",
+                    url: "api/leave/deleteOne",
                     params: {
                         id: id
                     },
@@ -351,7 +359,7 @@
                     console.log(this.ids);
                     this.$axios({
                         method: "delete",
-                        url: "api/nurseRecord/delSelected",
+                        url: "api/leave/delSelected",
                         headers: {
                             "Content-Type": "application/json;charset=UTF-8",
                         },
@@ -389,14 +397,14 @@
             //分页查询
             getTableData(pageNo) {
                 let self = this
-                self.$axios.get('api/nurseRecord/getNurseRecordList', {
+                self.$axios.get('api/leave/getLeaveList', {
                     params: {
                         pageSize: 10,
                         currentPage: pageNo
                     }
                 }).then(res => {
                     if (res.data.code == 200) {
-                        self.nurseRecordTable = res.data.data.records;
+                        self.leaveTable = res.data.data.records;
                         self.$set(self.page, 'totalCount', res.data.data.total)
                         self.$set(self.page, 'pageSize', res.data.data.size)
                         self.$set(self.page, 'currentPage', res.data.data.current)
@@ -407,24 +415,6 @@
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
                 this.getTableData(val);
-            },
-            //获取项目信息
-            getProjectData() {
-                this.$axios({
-                    method: "get",
-                    url: "api/nurseProject/nurseProjectList",
-                }).then((res) => {
-                    if (res.data.code == 200) {
-                        this.projectData = res.data.data;
-                        for (let i = 0; i < this.projectData.length; i++) {
-                            let projectId = {
-                                value: this.projectData[i].id,
-                                label: this.projectData[i].projectName,
-                            }
-                            this.project.push(projectId);
-                        }
-                    }
-                });
             },
             //获取顾客信息
             getCusData() {
@@ -449,72 +439,80 @@
                     }
                 });
             },
-            //获取护理人员名单
-            getEmpData() {
-                this.$axios({
-                    method: "get",
-                    url: "api/nurseRecord/getEmpName",
-                }).then((res) => {
-                    if (res.data.code == 200) {
-                        this.empData = res.data.data;
-                        console.log(this.empData);
-                        for (let i = 0; i < this.empData.length; i++) {
-                            let empId = {
-                                value: this.empData[i].id,
-                                label: this.empData[i].empName,
-                            }
-                            this.emp.push(empId);
-                        }
+            //审核状态
+            auditFormat(row){
+              if (row.audit == 0){
+                  return "未审核"
+              }else if(row.audit == 1){
+                  return "审核通过"
+              }else{
+                  return "审核未批准"
+              }
+            },
+            //审核
+            auditValuables(row){
+                this.auditData = row;
+                this.auditVisible = true;
+            },
+            dateFormat(fmt, date) {
+                let ret;
+                const opt = {
+                    "y+": date.getFullYear().toString(),        // 年
+                    "M+": (date.getMonth() + 1).toString(),     // 月
+                    "d+": date.getDate().toString(),            // 日
+                    "H+": date.getHours().toString(),           // 时
+                    "m+": date.getMinutes().toString(),         // 分
+                    "s+": date.getSeconds().toString()          // 秒
+                    // 有其他格式化字符需求可以继续添加，必须转化成字符串
+                };
+                for (let k in opt) {
+                    ret = new RegExp("(" + k + ")").exec(fmt);
+                    if (ret) {
+                        fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
                     }
-                });
+                }
+                return fmt;
             },
         },
         data() {
             return {
                 pickerOptions: {
-
                 },
-                detailsVisible: false,
                 username: "",
+                title: "",
                 page: {
                     currentPage: 1, // 当前页
                     pageSize: 10, // 每页显示条目个数
                     totalCount: 0 // 总条目数
                 },
                 Visible: false,
-                title: "",
                 addOneData: {
                     createBy: JSON.parse(sessionStorage.getItem("user")).userName,
-                    status: 1
+                    audit: 0,
                 },
                 tableHeight: 0,
                 updateOneValuablesVisible: false,
                 addManyValuablesVisible: false,
-                detailsData: {},
+                auditVisible: false,
                 updateData: {
                     updateBy: "",
                     status: ""
                 },
-                projectData: [],
+                auditData: [],
                 cusData:[],
-                empData:[],
                 tableChecked: [], //选中显示的值
                 ids: [],
                 selectFrom: {
-                    cusId: "",},
+                    cusId: "",
+                },
                 //表格数据
-                nurseRecordTable: [],
-                valuablesDetails: {},
+                leaveTable: [],
                 cus:[],
-                emp:[],
-                project: [],
             };
         },
         created: function () {
             this.getTableData(1);
-            this.getProjectData();
             this.getCusData();
-            this.getEmpData();
             this.addOneData.createBy =JSON.parse(sessionStorage.getItem("user")).userName;
         },
         mounted() {

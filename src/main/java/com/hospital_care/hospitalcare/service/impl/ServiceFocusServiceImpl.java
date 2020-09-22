@@ -6,6 +6,8 @@ import com.hospital_care.hospitalcare.service.ServiceFocusService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -16,5 +18,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ServiceFocusServiceImpl extends ServiceImpl<ServiceFocusMapper, ServiceFocus> implements ServiceFocusService {
+
+    @Override
+    public List<ServiceFocus> findServiceFocusListIfRecordIdNotEmpty() {
+        return this.baseMapper.findServiceFocusListIfRecordIdNotEmpty();
+    }
 
 }

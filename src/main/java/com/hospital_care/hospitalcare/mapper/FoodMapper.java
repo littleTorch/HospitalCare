@@ -3,6 +3,8 @@ package com.hospital_care.hospitalcare.mapper;
 import com.hospital_care.hospitalcare.entity.Food;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -12,5 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2020-09-15
  */
 public interface FoodMapper extends BaseMapper<Food> {
+
+    List<Food> findFoodList();
 
 }

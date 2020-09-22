@@ -31,11 +31,13 @@ public class Customer implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @TableField(fill = FieldFill.INSERT)
     private String createBy;
 
     @TableField(fill = FieldFill.INSERT)
     private String createTime;
 
+    @TableField(fill = FieldFill.UPDATE)
     private String updateBy;
 
     @TableField(fill = FieldFill.UPDATE)
@@ -62,7 +64,7 @@ public class Customer implements Serializable {
     @ApiModelProperty(value = "档案号")
     private String recordId;
 
-    @ApiModelProperty(value = "老人类型")
+    @ApiModelProperty(value = "老人类型（0普通老人、1残疾老人）")
     private String elderType;
 
     @ApiModelProperty(value = "合同到期日期")
@@ -95,5 +97,6 @@ public class Customer implements Serializable {
     @ApiModelProperty(value = "头像存储")
     private String headImg;
 
-
+    @TableField(exist = false)
+    private boolean disabled = false;
 }

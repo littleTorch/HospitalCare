@@ -56,7 +56,7 @@ public class Food implements Serializable {
     private Integer foodType;
 
     @ApiModelProperty(value = "食物价格")
-    private Integer foodPrice;
+    private String foodPrice;
 
     @ApiModelProperty(value = "食物图片")
     private String foodPic;

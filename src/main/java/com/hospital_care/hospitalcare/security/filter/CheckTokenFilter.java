@@ -53,7 +53,7 @@ public class CheckTokenFilter extends OncePerRequestFilter {
             }
         } else {
             //验证token,验证码请求不需要验证token
-            if(!url.equals(icon) &&!url.equals(imgUrl)){
+            if(!url.equals(icon) &&!url.equals(imgUrl) && !url.startsWith("/swagger-ui")){
                 try{
                     validateToken(request);
                 }catch (AuthenticationException e){
