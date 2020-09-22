@@ -35,12 +35,12 @@
             <el-button @click="updateServiceObj(scope.row.id)" type="success" size="mini">设置</el-button>
             <el-popconfirm
                     style="margin-left: 10px;"
-                    title="您确定撤销吗？"
+                    title="您确定删除吗？"
                     icon="el-icon-info"
                     iconColor="red"
                     @onConfirm="deleteCustomer(scope.row.id)"
             >
-              <el-button size="mini" type="danger" slot="reference">撤销</el-button>
+              <el-button size="mini" type="danger" slot="reference">删除</el-button>
             </el-popconfirm>
           </template>
         </el-table-column>

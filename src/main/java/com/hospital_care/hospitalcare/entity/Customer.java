@@ -97,5 +97,6 @@ public class Customer implements Serializable {
     @ApiModelProperty(value = "头像存储")
     private String headImg;
 
-
+    @TableField(exist = false)
+    private boolean disabled = false;
 }

@@ -6,6 +6,8 @@ import com.hospital_care.hospitalcare.service.FoodService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -17,4 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class FoodServiceImpl extends ServiceImpl<FoodMapper, Food> implements FoodService {
 
+    @Override
+    public List<Food> findFoodList() {
+        return this.baseMapper.findFoodList();
+    }
 }
