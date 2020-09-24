@@ -6,11 +6,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hospital_care.hospitalcare.entity.Emp;
 import com.hospital_care.hospitalcare.entity.User;
 import com.hospital_care.hospitalcare.entity.role.Role;
 import com.hospital_care.hospitalcare.entity.role.vo.ParmVo;
 import com.hospital_care.hospitalcare.result.ResultUtils;
 import com.hospital_care.hospitalcare.result.ResultVo;
+import com.hospital_care.hospitalcare.service.EmpService;
 import com.hospital_care.hospitalcare.service.RoleService;
 import com.hospital_care.hospitalcare.service.UserService;
 import io.swagger.annotations.Api;
@@ -39,6 +41,8 @@ import java.util.List;
 public class UserController {
 
     @Autowired
+    private EmpService empService;
+    @Autowired
     private UserService userService;
     @Autowired
     private RoleService roleService;
@@ -52,7 +56,22 @@ public class UserController {
         page.setCurrent(parm.getCurrentPage());
         page.setSize(parm.getPageSize());
         IPage<User> userList = userService.page(page);
+        List<Emp> empList = empService.list();
+        List<User> records = userList.getRecords();
+        for (User user : records) {
+            for (Emp emp : empList) {
+                if (emp.getId().equals(user)){
+
+                }
+            }
+        }
         return ResultUtils.success("成功", userList);
+    }
+
+    @ApiOperation("获取员工表信息")
+    @GetMapping("/getEmpList")
+    public List<Emp> getEmpList(){
+        return empService.list();
     }
 
 

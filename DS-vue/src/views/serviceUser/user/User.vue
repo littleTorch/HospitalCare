@@ -14,7 +14,7 @@
             </el-form-item>
           </el-col>
           <el-button @click="selectByLike" style="margin-left:20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
-          <el-button @click="addUserVisible = true" size="mini" type="primary" icon="el-icon-plus">新增</el-button>
+          <el-button @click="addOpen" size="mini" type="primary" icon="el-icon-plus">新增</el-button>
         </el-row>
       </el-form>
       <el-table
@@ -27,10 +27,11 @@
       >
         <el-table-column prop="username" label="用户名"></el-table-column>
         <el-table-column :formatter="sexFTR" prop="sex" label="性别"></el-table-column>
-        <el-table-column prop="userRoot" label="权限等级"></el-table-column>
-        <el-table-column prop="userTell" label="联系方式"></el-table-column>
-        <el-table-column prop="userIcon" label="头像"></el-table-column>
-        <el-table-column prop="userNickname" label="昵称"></el-table-column>
+        <el-table-column prop="phone" label="联系方式"></el-table-column>
+        <el-table-column prop="email" label="邮箱"></el-table-column>
+        <el-table-column prop="empName" label="所属员工"></el-table-column>
+        <!--<el-table-column prop="userIcon" label="头像"></el-table-column>
+        <el-table-column prop="userNickname" label="昵称"></el-table-column>-->
         <el-table-column label="操作" align="center" width="250">
           <template slot-scope="scope">
             <el-button @click="editUser(scope.row)" size="mini" type="primary">编辑</el-button>
@@ -59,26 +60,41 @@
 
       <el-dialog title="新增用户" :visible.sync="addUserVisible" width="30%">
         <el-form :inline="true" :rules="rules" size="mini" :model="addForm" ref="addForm" label-width="80px">
-          <el-form-item label="用户名" prop="userName">
-            <el-input v-model="addForm.userName"></el-input>
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="addForm.username"></el-input>
           </el-form-item>
+          <br>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="addForm.password"></el-input>
+          </el-form-item>
+          <br>
           <el-form-item label="性别" prop="sex">
             <el-radio-group v-model="addForm.sex">
               <el-radio :label="1">男</el-radio>
               <el-radio :label="0">女</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="昵称" prop="userNickname">
-            <el-input v-model="addForm.userNickname"></el-input>
+          <br>
+          <!--<el-form-item label="昵称" prop="userNickname">
+                     <el-input v-model="addForm.userNickname"></el-input>
+                   </el-form-item>-->
+          <el-form-item label="联系方式" prop="phone">
+            <el-input v-model="addForm.phone"></el-input>
           </el-form-item>
-          <el-form-item label="联系方式" prop="userTell">
-            <el-input v-model="addForm.userTell"></el-input>
+          <br>
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="addForm.email"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="userPassword">
-            <el-input v-model="addForm.userPassword"></el-input>
-          </el-form-item>
-          <el-form-item label="权限等级" prop="userRoot">
-            <el-input v-model="addForm.userRoot"></el-input>
+          <br>
+          <el-form-item label="员工姓名" prop="empId">
+            <el-select v-model="addForm.empId" clearable placeholder="请选择">
+              <el-option
+                      v-for="item in empList"
+                      :key="item.id"
+                      :label="item.empName"
+                      :value="item.id">
+              </el-option>
+            </el-select>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -146,7 +162,7 @@
 export default {
   methods: {
     sexFTR(row){
-      if(row.sex=="1"){
+      if(row.sex=="0"){
         return "男"
       }else{
         return "女"
@@ -165,6 +181,13 @@ export default {
       }).then((result) => {
         this.tableData = result.data.data;
       });
+    },
+
+    async addOpen(){
+      this.$axios("api/user/getEmpList").then(res => {
+        this.empList = res.data;
+      });
+      this.addUserVisible = true;
     },
 
     //确认新增用户
@@ -423,6 +446,9 @@ export default {
         userName: "",
         userTell: "",
       },
+
+      empList: [],
+
       addUserVisible: false,
       updateUserVisible: false,
       addForm: {sex: 1},
