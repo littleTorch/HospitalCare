@@ -6,11 +6,10 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital_care.hospitalcare.entity.Bed;
 import com.hospital_care.hospitalcare.entity.Checkin;
-import com.hospital_care.hospitalcare.entity.Checkout;
+import com.hospital_care.hospitalcare.entity.checkout.Checkout;
 import com.hospital_care.hospitalcare.entity.Customer;
-import com.hospital_care.hospitalcare.entity.bed.BedVo;
-import com.hospital_care.hospitalcare.entity.checkout.CheckoutAddVo;
-import com.hospital_care.hospitalcare.entity.checkout.CheckoutEditVo;
+import com.hospital_care.hospitalcare.entity.checkout.vo.CheckoutAddVo;
+import com.hospital_care.hospitalcare.entity.checkout.vo.CheckoutEditVo;
 import com.hospital_care.hospitalcare.entity.role.vo.ParmVo;
 import com.hospital_care.hospitalcare.result.ResultUtils;
 import com.hospital_care.hospitalcare.result.ResultVo;
@@ -45,18 +44,7 @@ public class CheckoutController {
     @Autowired
     private CustomerService customerService;
 
-    @ApiOperation("获取-t_customer-表信息")
-    @GetMapping("/getCustomerList")
-    public List<Customer> index(){
-        List<Checkin> checkinList = checkinService.list();
-        List<Integer> cusIds = new ArrayList<>();
-        for (Checkin checkin : checkinList) {
-            cusIds.add(checkin.getCusId());
-        }
-        return customerService.list(Wrappers.<Customer>lambdaQuery().in(Customer::getId, cusIds).eq(Customer::getIsDeleted, 0));
-    }
-
-    @ApiOperation("获取入住表床位信息")
+    /*@ApiOperation("获取入住表床位信息")
     @GetMapping("/getBedList")
     public List<BedVo> getBedList(){
         List<Checkin> checkinList = checkinService.list();
@@ -122,7 +110,7 @@ public class CheckoutController {
             });
         }
         return bedVoList2;
-    }
+    }*/
 
     @ApiOperation("点击添加获取退住登记整合信息")
     @GetMapping("/getCheckoutAddVoList")
@@ -201,7 +189,6 @@ public class CheckoutController {
 
     @ApiOperation("编辑一个退住信息")
     @PostMapping("/checkoutEdit")
-    //public ResultVo checkoutEdit(CheckoutVo checkoutEditVo, Customer customer, Bed bed){
     public ResultVo checkoutEdit(CheckoutEditVo checkoutEditVo){
         Checkout checkout = new Checkout();
         checkout.setId(checkoutEditVo.getId());

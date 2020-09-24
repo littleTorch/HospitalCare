@@ -1,4 +1,4 @@
-package com.hospital_care.hospitalcare.entity.checkout;
+package com.hospital_care.hospitalcare.entity.checkout.vo;
 
 import lombok.Data;
 

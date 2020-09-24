@@ -2,9 +2,9 @@ package com.hospital_care.hospitalcare.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hospital_care.hospitalcare.entity.Checkout;
+import com.hospital_care.hospitalcare.entity.checkout.Checkout;
 import com.hospital_care.hospitalcare.entity.bed.BedVo;
-import com.hospital_care.hospitalcare.entity.checkout.CheckoutAddVo;
+import com.hospital_care.hospitalcare.entity.checkout.vo.CheckoutAddVo;
 import com.hospital_care.hospitalcare.entity.role.vo.ParmVo;
 import com.hospital_care.hospitalcare.result.ResultVo;
 import org.junit.Test;
@@ -30,11 +30,6 @@ public class CheckoutControllerTest {
         ResultVo checkoutList = checkoutController.getCheckoutList(parmVo);
         IPage<Checkout> checkoutIPage = (IPage<Checkout>) checkoutList.getData();
         System.out.println(JSON.toJSON(checkoutIPage.getRecords()));
-    }
-
-    @Test
-    public void getBedList(){
-        List<BedVo> bedList = checkoutController.getBedList();
     }
 
     @Test

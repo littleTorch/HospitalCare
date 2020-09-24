@@ -94,15 +94,6 @@
             </el-form-item>
           </el-row>
 
-          <!--<el-row>
-            <el-form-item label="住宿信息：">
-              <el-cascader
-                      v-model="checkoutAddData.bedInfo"
-                      :options="bedList"
-                      @change="handleChange"></el-cascader>
-            </el-form-item>
-          </el-row>-->
-
           <el-row>
             <el-form-item label="退住申请日期：" prop="checkoutDate" label-width="100">
               <el-date-picker
@@ -400,15 +391,6 @@
         }
       },
 
-      checkoutStatusF(row){
-        // console.log(JSON.stringify(row));return;
-        switch(row.customer.checkoutStatus){
-          case 0: return "未退住";
-          case 1: return "退住中";
-          case 2: return "已退住";
-        }
-      },
-
       isEnableCheckoutEdit(row){
         if (row.audit != 0) {
           return true
@@ -438,10 +420,6 @@
             }
           })
         });
-
-        /*await this.$axios("api/checkout/getBedList").then(res => {
-          this.bedList = res.data;
-        });*/
         this.checkoutAddVisible = true;
         // this.$refs.checkoutAddData.resetFields();
       },
@@ -450,16 +428,6 @@
         this.$refs.checkoutAddData.validate(valid => {
           if (valid){
             this.checkoutAddData.createBy = this.userName;
-            /*this.checkoutAddData.floor = this.checkoutAddData.bedInfo[0];
-            this.checkoutAddData.roomNo = this.checkoutAddData.bedInfo[1];
-            this.checkoutAddData.bedNo = this.checkoutAddData.bedInfo[2];*/
-            /*this.checkoutAddVoList.forEach(x => {
-              if (x.cusId == this.checkoutAddData.cusId){
-                this.checkoutAddData.floor = x.floor;
-                this.checkoutAddData.roomNo = x.roomNo;
-                this.checkoutAddData.bedNo = x.bedNo;
-              }
-            });*/
             this.$axios.post("api/checkout/addCheckout",qs.stringify(this.checkoutAddData)).then(res => {
               if (res.data.code == 200){
                 this.$message({
@@ -769,24 +737,7 @@
 
         value: "",
 
-        customerList: [],
         checkoutAddVoList: [],
-        bedList: [],
-
-        checkoutStatusS: [
-          {
-            value: 0,
-            label: "未退住"
-          },
-          {
-            value: 1,
-            label: "退住中"
-          },
-          {
-            value: 2,
-            label: "已退住"
-          }
-        ],
 
         checkoutTypeS: [
           {

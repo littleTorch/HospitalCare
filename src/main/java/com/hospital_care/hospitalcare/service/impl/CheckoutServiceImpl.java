@@ -1,6 +1,6 @@
 package com.hospital_care.hospitalcare.service.impl;
 
-import com.hospital_care.hospitalcare.entity.Checkout;
+import com.hospital_care.hospitalcare.entity.checkout.Checkout;
 import com.hospital_care.hospitalcare.mapper.CheckoutMapper;
 import com.hospital_care.hospitalcare.service.CheckoutService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

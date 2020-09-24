@@ -1,6 +1,6 @@
 package com.hospital_care.hospitalcare.mapper;
 
-import com.hospital_care.hospitalcare.entity.Checkout;
+import com.hospital_care.hospitalcare.entity.checkout.Checkout;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

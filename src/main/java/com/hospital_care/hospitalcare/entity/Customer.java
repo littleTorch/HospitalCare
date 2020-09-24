@@ -98,10 +98,4 @@ public class Customer implements Serializable {
     @ApiModelProperty(value = "头像存储")
     private String headImg;
 
-    @ApiModelProperty(value = "退住状态（0未退住，2退住中，3已退住）")
-    private Integer checkoutStatus;
-
-    @TableField(exist = false)
-    private boolean disabled = false;
-
 }
