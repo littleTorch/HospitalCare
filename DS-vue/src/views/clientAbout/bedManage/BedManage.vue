@@ -40,12 +40,12 @@
             <el-table-column align="center" prop="floor" label="宿舍楼层"></el-table-column>
             <el-table-column align="center" prop="roomNo" label="宿舍号"></el-table-column>
             <el-table-column align="center" prop="bedNo" label="床位号"></el-table-column>
-            <el-table-column
-                    align="center"
-                    :formatter="stateFormat"
-                    prop="bedStatus"
-                    label="当前状态"
-            ></el-table-column>
+<!--            <el-table-column-->
+<!--                    align="center"-->
+<!--                    :formatter="stateFormat"-->
+<!--                    prop="bedStatus"-->
+<!--                    label="当前状态"-->
+<!--            ></el-table-column>-->
             <el-table-column align="center" :formatter="typeFormat" prop="positionType" label="房间类型"></el-table-column>
             <el-table-column label="操作" width="250" align="center">
                 <template slot-scope="scope">
@@ -99,12 +99,12 @@
                     </el-radio-group>
                 </el-form-item>
                 <br/>
-                <el-form-item label="房间类型：">
-                    <el-radio-group v-model="addOneForm.bedStatus">
-                        <el-radio :label="0">空</el-radio>
-                        <el-radio :label="1">使用中</el-radio>
-                    </el-radio-group>
-                </el-form-item>
+<!--                <el-form-item label="房间类型：">-->
+<!--                    <el-radio-group v-model="addOneForm.bedStatus">-->
+<!--                        <el-radio :label="0">空</el-radio>-->
+<!--                        <el-radio :label="1">使用中</el-radio>-->
+<!--                    </el-radio-group>-->
+<!--                </el-form-item>-->
                 <br/>
                 <el-form-item label="备注：">
                     <el-input type="textarea" v-model="addOneForm.remark"/>
@@ -141,12 +141,12 @@
                     </el-radio-group>
                 </el-form-item>
                 <br/>
-                <el-form-item label="房间类型：">
-                    <el-radio-group v-model="updateOneForm.bedStatus">
-                        <el-radio :label="0">空</el-radio>
-                        <el-radio :label="1">使用中</el-radio>
-                    </el-radio-group>
-                </el-form-item>
+<!--                <el-form-item label="房间类型：">-->
+<!--                    <el-radio-group v-model="updateOneForm.bedStatus">-->
+<!--                        <el-radio :label="0">空</el-radio>-->
+<!--                        <el-radio :label="1">使用中</el-radio>-->
+<!--                    </el-radio-group>-->
+<!--                </el-form-item>-->
                 <br/>
                 <el-form-item label="备注：">
                     <el-input type="textarea" v-model="updateOneForm.remark"/>
