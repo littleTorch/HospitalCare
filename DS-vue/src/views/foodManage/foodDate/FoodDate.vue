@@ -96,6 +96,7 @@
         methods: {
 
             findUser(cusName){
+                this.week=[];
                 this.$axios({
                     method: "post",
                     url: "api/foodDate/foodDateList",

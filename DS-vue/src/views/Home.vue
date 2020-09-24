@@ -32,7 +32,12 @@
           <tabs></tabs>
           <router-view></router-view>
         </el-main>
-        <el-footer class="foot" height="35px">广东理工职业颐养院</el-footer>
+        <el-footer class="foot" height="35px">
+          <strong>Copyright &copy; 2019-2077 <a style="text-decoration:none;color: #ffd04b" href="#">广东理工职业学院18移动应用开发班</a>.</strong>All rights reserved.
+<!--          gdpi@2020 广东理工职业学院 18级移动应用开发 香山问道小组。All right project.-->
+<!--        <br/>-->
+<!--          POWERED BY hospital-care v0.0.1-->
+        </el-footer>
       </el-container>
     </el-container>
   </el-container>
@@ -136,5 +141,6 @@ export default {
   line-height: 35px;
   color: #fff;
   font-size: 12px;
+  text-align: center;
 }
 </style>

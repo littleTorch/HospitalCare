@@ -70,7 +70,7 @@
             </el-col>
             <el-col :span="17">
                 <el-card shadow="always">
-                    <span>基本资料</span>aq
+                    <span>基本资料</span>
                     <el-divider></el-divider>
                     <el-tabs v-model="activeName" @tab-click="handleClick">
                         <el-tab-pane label="用户资料" name="用户资料">
