@@ -54,8 +54,8 @@
                 :total="foodData.length"
         ></el-pagination>
 
-        <el-dialog title="新增食物表" :visible.sync="addOneFoodVisible" width="40%">
-            <el-form size="mini" ref="addOne" style="text-align:center" :model="addOne" :inline="true" label-width="100px">
+        <el-dialog title="新增食物表" :visible.sync="addOneFoodVisible" width="50%">
+            <el-form size="mini" ref="addOne" style="text-align:left" :model="addOne" :inline="true" label-width="100px">
                 <el-form-item label="食物名称">
                     <el-input v-model="addOne.foodName" placeholder="请输入食物名称"></el-input>
                 </el-form-item>
@@ -73,9 +73,11 @@
                 <el-form-item label="食物标签">
                     <el-input v-model="addOne.foodTag" placeholder="请输入食物标签"></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="食物价格">
                     <el-input v-model="addOne.foodPrice" placeholder="请输入食物价格"></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="食物图片">
                     <el-input v-model="addOne.foodPic" placeholder="请输入食物图片"></el-input>
                 </el-form-item>
@@ -95,8 +97,8 @@
       </span>
         </el-dialog>
 
-        <el-dialog disabled title="食物详情表" :visible.sync="detailFoodVisible" width="40%">
-            <el-form size="mini" ref="foodDetail" style="text-align:center" :model="foodDetail" :inline="true" label-width="100px">
+        <el-dialog title="食物详情表" :visible.sync="detailFoodVisible" width="50%">
+            <el-form size="mini" ref="foodDetail" style="text-align:left" :model="foodDetail" :inline="true" label-width="100px" disabled>
                 <el-form-item label="食物名称">
                     <el-input v-model="foodDetail.foodName" placeholder="请输入食物名称" ></el-input>
                 </el-form-item>
@@ -114,9 +116,11 @@
                 <el-form-item label="食物标签">
                     <el-input v-model="foodDetail.foodTag" placeholder="请输入食物标签" ></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="食物价格">
                     <el-input v-model="foodDetail.foodPrice" placeholder="请输入食物价格" ></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="食物图片">
                     <el-input v-model="foodDetail.foodPic" placeholder="请输入食物图片" ></el-input>
                 </el-form-item>
@@ -129,14 +133,14 @@
 
                 </el-form-item>
 
-            </el-form>
+            </el-form >
             <span slot="footer" class="dialog-footer">
         <el-button @click="detailFoodVisible = false">取 消</el-button>
       </span>
         </el-dialog>
 
-        <el-dialog title="修改食物表" :visible.sync="updateFoodVisible" width="40%">
-            <el-form size="mini" ref="updateFoodData" style="text-align:center" :model="updateFoodData" :inline="true" label-width="100px">
+        <el-dialog title="修改食物表" :visible.sync="updateFoodVisible" width="50%">
+            <el-form size="mini" ref="updateFoodData" style="text-align:left" :model="updateFoodData" :inline="true" label-width="100px">
                 <el-form-item label="食物名称">
                     <el-input v-model="updateFoodData.foodName" placeholder="请输入食物名称" ></el-input>
                 </el-form-item>
@@ -200,9 +204,14 @@
                 addOneFoodVisible: false,
                 detailFoodVisible: false,
                 updateFoodVisible: false,
-                addOne: {},
-                foodDetail: {},
-                updateFoodData: {},
+                addOne: {
+                    foodPic: "mifan.jpg"
+                },
+                foodDetail: {
+                },
+                updateFoodData: {
+
+                },
             };
         },
         methods: {

@@ -16,7 +16,7 @@
 
 
     <select id="selLikeFood" resultType="com.hospital_care.hospitalcare.entity.Food">
-        select * from t_food where food_name like '%' #{foodName} '%'
+        select * from t_food where food_name like ('%' #{foodName} '%') and food_tag like ('%' #{foodTag} '%')
     </select>
 
     <select id="selLike" resultType="com.hospital_care.hospitalcare.entity.Food">

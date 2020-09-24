@@ -99,7 +99,7 @@ public class FoodManageController {
         int i = foodMapper.insert(food);
         //System.out.println(i);
         if (i>0){
-            Food selLikeFood = foodMapper.selLikeFood(foodDateManage.getFoodName());
+            Food selLikeFood = foodMapper.selLikeFood(foodDateManage.getFoodName(),foodDateManage.getFoodTag());
             foodDate.setFoodId(selLikeFood.getId());
             //System.out.println(foodDate);
             int insert = foodDateMapper.insert(foodDate);
@@ -146,7 +146,7 @@ public class FoodManageController {
         int i = foodMapper.insert(food);
 
         if (i>0){
-            Food selLikeFood = foodMapper.selLikeFood(foodDateManage.getFoodName());
+            Food selLikeFood = foodMapper.selLikeFood(foodDateManage.getFoodName(),foodDateManage.getFoodTag());
             foodDate.setFoodId(selLikeFood.getId());
             //System.out.println(foodDate);
             int update = foodDateMapper.updateById(foodDate);

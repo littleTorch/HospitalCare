@@ -20,7 +20,7 @@
         <el-table v-if="user!=''"  ref="findManageData" tooltip-effect="dark" :data="findManageData.slice((currentPage-1) * pageSize ,currentPage * pageSize)" @selection-change="handleSelectionChange" size="mini" :height="tableHeight" border style="width: 100%">
 
             <el-table-column align="center" type="selection" width="43"></el-table-column>
-            <el-table-column align="center" :formatter="nameFormat" prop="date" label="档案号" ></el-table-column>
+            <el-table-column align="center" :formatter="nameFormat" prop="" label="档案号" ></el-table-column>
             <el-table-column align="center" :formatter="dateFormat" prop="date" label="星期" ></el-table-column>
             <el-table-column align="center" :formatter="dayFormat" prop="day" label="所处时间段" ></el-table-column>
             <el-table-column label="食物" width="170" align="center">
@@ -59,11 +59,12 @@
                 v-if="user!=''"
         ></el-pagination>
 
-        <el-dialog title="新增膳食日历数据" :visible.sync="addFoodDateVisible" width="40%">
-            <el-form size="mini" ref="addOne" style="text-align:center" :model="addOne" :inline="true" label-width="100px">
+        <el-dialog title="新增膳食日历数据" :visible.sync="addFoodDateVisible" width="60%">
+            <el-form size="mini" ref="addOne" style="text-align:left" :model="addOne" :inline="true" label-width="100px">
                 <el-form-item label="档案编号">
                     <el-input v-model="addOne.recordId" placeholder="请输入档案编号"></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="星期">
                     <el-radio-group v-model="addOne.date">
                         <el-radio :label="0">星期日</el-radio>
@@ -77,6 +78,7 @@
                     </el-radio-group>
 
                 </el-form-item>
+                <br />
                 <el-form-item label="所处时间段">
                     <el-radio-group v-model="addOne.day">
                         <el-radio :label="0">早餐</el-radio>
@@ -85,9 +87,11 @@
                     </el-radio-group>
 
                 </el-form-item>
+                <br />
                 <el-form-item label="食物名称">
                     <el-input v-model="addOne.foodName" placeholder="请输入食物名称" ></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="食物类型">
                     <el-radio-group v-model="addOne.foodType">
                         <el-radio :label="0">大荤</el-radio>
@@ -99,12 +103,15 @@
                     </el-radio-group>
 
                 </el-form-item>
+                <br />
                 <el-form-item label="食物标签">
                     <el-input v-model="addOne.foodTag" placeholder="请输入食物标签" ></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="食物价格">
                     <el-input v-model="addOne.foodPrice" placeholder="请输入食物价格" ></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="食物图片">
                     <el-input v-model="addOne.foodPic" placeholder="请输入食物图片" ></el-input>
                 </el-form-item>
@@ -124,12 +131,13 @@
       </span>
         </el-dialog>
 
-        <el-dialog title="食物详情数据" :visible.sync="detailFoodVisible" width="40%">
+        <el-dialog title="食物详情数据" :visible.sync="detailFoodVisible" width="60%">
 
-            <el-form disabled size="mini" ref="foodDetail" style="text-align:center" :model="foodDetail" :inline="true" label-width="100px">
+            <el-form disabled size="mini" ref="foodDetail" style="text-align:left" :model="foodDetail" :inline="true" label-width="100px">
                 <el-form-item label="食物名称">
                     <el-input v-model="foodDetail.foodName" placeholder="请输入食物名称" ></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="食物类型">
                     <el-radio-group v-model="foodDetail.foodType">
                         <el-radio :label="0">大荤</el-radio>
@@ -141,12 +149,15 @@
                     </el-radio-group>
 
                 </el-form-item>
+                <br />
                 <el-form-item label="食物标签">
                     <el-input v-model="foodDetail.foodTag" placeholder="请输入食物标签" ></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="食物价格">
                     <el-input v-model="foodDetail.foodPrice" placeholder="请输入食物价格" ></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="食物图片">
                     <el-input v-model="foodDetail.foodPic" placeholder="请输入食物图片" ></el-input>
                 </el-form-item>
@@ -166,12 +177,13 @@
             </span>
         </el-dialog>
 
-        <el-dialog title="修改当前膳食数据" :visible.sync="updateFoodVisible" width="40%">
+        <el-dialog title="修改当前膳食数据" :visible.sync="updateFoodVisible" width="60%">
 
-            <el-form size="mini" ref="updateFoodData" style="text-align:center" :model="updateFoodData" :inline="true" label-width="100px">
+            <el-form size="mini" ref="updateFoodData" style="text-align:left" :model="updateFoodData" :inline="true" label-width="100px">
                 <el-form-item label="id">
                     <el-input disabled v-model="updateFoodData.id" placeholder="请输入id"></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="星期">
                     <el-radio-group v-model="updateFoodData.date">
                         <el-radio :label="0">星期日</el-radio>
@@ -185,6 +197,7 @@
                     </el-radio-group>
 
                 </el-form-item>
+                <br />
                 <el-form-item label="所处时间段">
                     <el-radio-group v-model="updateFoodData.day">
                         <el-radio :label="0">早餐</el-radio>
@@ -193,9 +206,11 @@
                     </el-radio-group>
 
                 </el-form-item>
+                <br />
                 <el-form-item label="食物名称">
                     <el-input v-model="updateFoodDataObj.foodName" placeholder="请输入食物名称" ></el-input>
                 </el-form-item>
+                <br />
                 <el-form-item label="食物类型">
                     <el-radio-group v-model="updateFoodDataObj.foodType">
                         <el-radio :label="0">大荤</el-radio>
@@ -258,11 +273,16 @@
                 addFoodDateVisible: false,
                 detailFoodVisible: false,
                 updateFoodVisible: false,
-                addOne: {},
+                addOne: {
+                    recordId: "",
+                    foodPic: "taozi.jpg"
+                },
                 findManageData: [],
                 foodDetail: {},
                 updateFoodData: {},
-                updateFoodDataObj: {},
+                updateFoodDataObj: {
+                    foodPic: "mifan.jpg",
+                },
                 reId: "",
             };
         },
@@ -289,15 +309,15 @@
             dateFormat(row) {
                 if (row.date == 0) {
                     return "星期日";
-                } else if (row.foodType == 1) {
+                } else if (row.date == 1) {
                     return "星期一";
-                } else if (row.foodType == 2){
+                } else if (row.date == 2){
                     return "星期二";
-                } else if (row.foodType == 3){
+                } else if (row.date == 3){
                     return "星期三";
-                } else if (row.foodType == 4){
+                } else if (row.date == 4){
                     return "星期四";
-                } else if (row.foodType == 5){
+                } else if (row.date == 5){
                     return "星期五";
                 } else{
                     return "星期六";
@@ -312,9 +332,7 @@
                     return "晚餐";
                 }
             },
-            foodFormat(row){
-               return row.food.foodName
-            },
+
             nameFormat(row){
                 return this.reId
             },
@@ -336,16 +354,18 @@
 
                 }).then((res) => {
                     //console.log(res)
-                    this.reId = this.foodManage.recordId
-                    this.foodManage.recordId = "";
+
                     if (res.data.code == 200){
                         this.$message({
                             type: "success",
                             duration: 1000,
                             message: res.data.msg
-                        })
+                        });
+                        this.addOne.recordId = this.foodManage.recordId;
+                        this.reId =  this.foodManage.recordId;
                         this.findManageData = res.data.data;
                         this.user = "user";
+                        //this.findManageData.recordId = this.foodManage.recordId;
                         //console.log(this.findManageData)
 
                     } else {

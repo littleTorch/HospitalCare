@@ -15,7 +15,7 @@
         <el-carousel height="360px" width="1107px"  :interval="3000" direction="vertical" v-if="user!=''" >
            <el-carousel-item v-for="(date,index) in week" :key="index"  style="text-align: center;">
 
-               <h2 style="margin: 5px;">这是本周第1天的膳食</h2>
+               <h2 style="margin: 5px;">这是本周第{{index+1}}天的膳食</h2>
                 <el-row style="display: flex; justify-content: center;" >
                    <div class="food-class" v-if="date[0].day == 0"  >
                            <h1>早餐</h1>
@@ -78,6 +78,12 @@
                 user: "",
                 week: [],
                 sunday: [],
+                monday: [],
+                tuesday: [],
+                wednesday: [],
+                thursday: [],
+                friday: [],
+                saturday: [],
             }
         },
         methods: {
@@ -91,7 +97,6 @@
                     }
                 }).then((res) => {
                     //console.log(res)
-                    this.findUserDate.recordId = "";
                     if (res.data.code == 200){
                         this.$message({
                             type: "success",
@@ -102,17 +107,70 @@
                         this.user = "user";
                         //console.log(this.foodDate)
                         let a = [];
+                        let b = [];
+                        let c = [];
+                        let d = [];
+                        let e = [];
+                        let f = [];
+                        let g = [];
+
                         for (let v of Object.values(this.foodDate)) {
                             if (v.date == 0){
                                 //console.log(v)
                                 a.push(v)
                             }
+                            else if (v.date == 1){
+                                //console.log(v)
+                                b.push(v)
+                            }else if (v.date == 2){
+                                //console.log(v)
+                                c.push(v)
+                            }else if (v.date == 3){
+                                //console.log(v)
+                                d.push(v)
+                            }else if (v.date == 4){
+                                //console.log(v)
+                                e.push(v)
+                            }else if (v.date == 5){
+                                //console.log(v)
+                                f.push(v)
+                            }else if (v.date == 6){
+                                //console.log(v)
+                                g.push(v)
+                            }
+
                         }
                         //console.log(a)
                         this.sunday = a;
-                        this.week.push(this.sunday);
+                        this.monday = b;
+                        this.tuesday = c;
+                        this.wednesday = d;
+                        this.thursday = e;
+                        this.friday = f;
+                        this.saturday = g;
+                        if (this.sunday.length > 0){
+                            this.week.push(this.sunday);
+                        }
+                        if (this.monday.length > 0){
+                            this.week.push(this.monday);
+                        }
+                        if(this.tuesday.length > 0){
+                            this.week.push(this.tuesday);
+                        }
+                        if(this.wednesday.length > 0){
+                            this.week.push(this.wednesday);
+                        }
+                        if(this.thursday.length > 0){
+                            this.week.push(this.thursday);
+                        }
+                        if(this.friday.length > 0){
+                            this.week.push(this.friday);
+                        }
+                        if(this.saturday.length > 0){
+                            this.week.push(this.saturday);
+                        }
 
-                        console.log(this.week)
+                        //console.log(this.week)
                     } else {
                         this.$message({
                             type: "error",
