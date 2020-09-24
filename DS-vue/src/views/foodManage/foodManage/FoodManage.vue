@@ -7,7 +7,7 @@
                 <el-row>
                     <el-col :span="5">
 
-                        <el-form-item style="font-size: 15px" label="档案号:">
+                        <el-form-item style="font-size: 15px" label="姓名:">
                             <el-select v-model="foodManage.cusName" placeholder="请选择客户">
                                 <el-option
                                         v-for="item in cusNames"
@@ -68,8 +68,8 @@
 
         <el-dialog title="新增膳食日历数据" :visible.sync="addFoodDateVisible" width="60%">
             <el-form size="mini" ref="addOne" style="text-align:left" :model="addOne" :inline="true" label-width="100px">
-                <el-form-item label="档案编号">
-                    <el-input v-model="addOne.cusName" placeholder="请输入档案编号"></el-input>
+                <el-form-item label="客户姓名">
+                    <el-input v-model="addOne.cusName" placeholder="" disabled></el-input>
                 </el-form-item>
                 <br />
                 <el-form-item label="星期">
@@ -418,7 +418,7 @@
                                 });
                                 this.addFoodDateVisible = false;
                                 this.$refs.addOne.resetFields(); // 刷新表单
-                                this.getFoodList();
+                                this.findFoodManage(this.addOne.cusName);
                                 this.addOne={};
                             } else {
                                 this.$message({
@@ -468,6 +468,7 @@
                                 });
                                 this.updateFoodVisible = false;
                                 this.$refs.updateFoodData.resetFields(); // 刷新表单
+                                this.findFoodManage(this.addOne.cusName);
                                 this.updateFoodData={};
                             } else {
                                 this.$message({
@@ -496,7 +497,7 @@
                             duration: 1000,
                             message: result.data.msg,
                         });
-
+                        this.findFoodManage(this.addOne.cusName);
                     } else {
                         this.$message({
                             type: "error",

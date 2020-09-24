@@ -7,7 +7,9 @@
            :collapse="isCollapse"
            unique-opened>
     <el-menu-item index="2">
-      <el-avatar src="https://gss3.bdstatic.com/84oSdTum2Q5BphGlnYG/timg?wapp&quality=80&size=b150_150&subsize=20480&cut_x=0&cut_w=0&cut_y=0&cut_h=0&sec=1369815402&srctrace&di=3d64b4492c4231c8bfa8b8bb4e482b38&wh_rate=null&src=http%3A%2F%2Fimgsrc.baidu.com%2Fforum%2Fpic%2Fitem%2Ff11f3a292df5e0fe612723ba5d6034a85edf724a.jpg"></el-avatar>
+      <i>
+        <el-avatar src="https://gss3.bdstatic.com/84oSdTum2Q5BphGlnYG/timg?wapp&quality=80&size=b150_150&subsize=20480&cut_x=0&cut_w=0&cut_y=0&cut_h=0&sec=1369815402&srctrace&di=3d64b4492c4231c8bfa8b8bb4e482b38&wh_rate=null&src=http%3A%2F%2Fimgsrc.baidu.com%2Fforum%2Fpic%2Fitem%2Ff11f3a292df5e0fe612723ba5d6034a85edf724a.jpg"></el-avatar>
+      </i>
       <span slot="title" style="margin-left: 10px">后台管理系统</span>
     </el-menu-item>
     <menu-item :menuList="menuList"></menu-item>
