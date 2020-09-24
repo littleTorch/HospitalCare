@@ -118,7 +118,7 @@
           </el-row>
 
           <el-row>
-            <el-form-item label="退住原因：" prop="checkoutReason" label-width="100">
+            <el-form-item label="退住原因：" label-width="100">
               <el-input
                       type="textarea"
                       :rows="2"

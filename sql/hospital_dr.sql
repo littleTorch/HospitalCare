@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2020-09-22 15:46:52
+Date: 2020-09-24 20:27:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -61,7 +61,7 @@ INSERT INTO `permission` VALUES ('17', '0', null, '系统管理', 'hc:system', '
 INSERT INTO `permission` VALUES ('18', '17', null, '角色管理', 'hc:role', '/role', 'role', '/system/role/Role', '0', '1', 'el-icon-s-operation', null, null, null, null);
 INSERT INTO `permission` VALUES ('19', '17', null, '权限管理', 'hc:permission', '/permission', 'permission', '/system/permission/Permission', '1', '1', 'el-icon-s-operation', null, null, null, null);
 INSERT INTO `permission` VALUES ('20', '0', null, '客户相关', 'hc:clientAbout', '/clientAbout', '', null, '6', '0', 'el-icon-receiving', null, null, null, null);
-INSERT INTO `permission` VALUES ('21', '20', null, '客户管理', 'hc:client', '/client', null, '/clientAbout/client/Client', '1', '1', 'el-icon-s-operation', null, null, null, null);
+INSERT INTO `permission` VALUES ('21', '20', null, '客户管理', 'hc:client', '/client', 'client', '/clientAbout/client/Client', '1', '1', 'el-icon-s-operation', null, null, null, null);
 INSERT INTO `permission` VALUES ('22', '6', null, '食物管理', 'hc:food', '/food', 'food', '/foodManage/food/Food', '2', '1', 'el-icon-s-operation', null, null, null, null);
 
 -- ----------------------------
@@ -305,7 +305,7 @@ CREATE TABLE `t_checkin` (
   `checkin_date` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '入住日期',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_checkin
@@ -314,12 +314,13 @@ INSERT INTO `t_checkin` VALUES ('1', null, null, null, null, '1', '5', '4', '202
 INSERT INTO `t_checkin` VALUES ('2', null, null, null, null, '1', '1', '5', '2020-09-21', null);
 INSERT INTO `t_checkin` VALUES ('3', null, '2020-09-21 22:45:47', 'root', null, '1', '2', '6', null, null);
 INSERT INTO `t_checkin` VALUES ('4', null, '2020-09-21 22:55:24', 'root', null, '1', '3', '7', '2020-09-21 22:55:24', null);
-INSERT INTO `t_checkin` VALUES ('5', null, '2020-09-21 23:00:00', 'root', '2020-09-21 23:57:12', '0', '1', '9', '2020-09-26', null);
-INSERT INTO `t_checkin` VALUES ('6', null, '2020-09-21 23:00:06', 'root', null, '0', '2', '5', '2020-09-21 23:00:06', null);
+INSERT INTO `t_checkin` VALUES ('5', null, '2020-09-21 23:00:00', 'root', '2020-09-24 19:17:26', '0', '1', '4', '2020-09-26', null);
+INSERT INTO `t_checkin` VALUES ('6', null, '2020-09-21 23:00:06', 'root', '2020-09-24 19:17:44', '0', '2', '5', '2020-09-20', null);
 INSERT INTO `t_checkin` VALUES ('7', null, '2020-09-21 23:00:56', 'root', null, '1', '1', '8', '2020-09-21 23:00:56', null);
 INSERT INTO `t_checkin` VALUES ('8', null, '2020-09-21 23:01:03', 'root', null, '1', '5', '8', '2020-09-21 23:01:03', null);
-INSERT INTO `t_checkin` VALUES ('9', null, '2020-09-21 23:14:43', 'root', null, '0', '3', '6', '2020-09-21 23:14:43', null);
+INSERT INTO `t_checkin` VALUES ('9', null, '2020-09-21 23:14:43', 'root', '2020-09-24 19:17:52', '0', '3', '6', '2020-09-20', null);
 INSERT INTO `t_checkin` VALUES ('10', null, '2020-09-21 23:14:52', 'root', '2020-09-21 23:57:18', '0', '5', '12', '2020-09-09', null);
+INSERT INTO `t_checkin` VALUES ('11', null, '2020-09-24 19:17:16', 'root', null, '0', '4', '7', '2020-09-24', null);
 
 -- ----------------------------
 -- Table structure for `t_checkout`
@@ -377,14 +378,16 @@ CREATE TABLE `t_customer` (
   `blood_type` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '血型',
   `head_img` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '头像存储',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_customer
 -- ----------------------------
 INSERT INTO `t_customer` VALUES ('1', '0', '2020-06-23', '0', '2020-06-23', '0', null, '张三', '0', '60', '445556xxxxxxxxxx', 'xxx001', '患病老人', '2022-12-31', '123456789000', '轻度老年痴呆', '偶尔会有轻度症状发生，需要专人照看', '1960-06-30', '168cm', '58kg', '0', 'o', null);
-INSERT INTO `t_customer` VALUES ('2', '0', '2020-06-23', '0', '2020-06-23', '0', null, '李四', '0', '62', '423191xxxxxxxxxxxx', 'xxx002', '正常老人', '2022-12-31', '1234567890', '正常', '无', '1958-09-25', '155cm', '45kg', '1', 'a', null);
+INSERT INTO `t_customer` VALUES ('2', '0', '2020-06-23', null, '2020-09-24 19:42:21', '0', null, '李四', '0', '62', '423191xxxxxxxxxxxx', 'xxx002', '1', '2022-12-31', '1234567890', '正常', '无', '1958-09-25', '155cm', '45kg', '1', 'a', null);
 INSERT INTO `t_customer` VALUES ('3', '0', '2020-07-01', '0', '2020-07-01', '0', null, '王五', '1', '60', '448521xxxxxxxxxx', 'xxx003', '患病老人', '2024-12-31', '1234569870', '腿部三级残疾', '腿脚不便，需要搀扶', '1960-09-25', '148cm', '40kg', '0', 'ab', null);
+INSERT INTO `t_customer` VALUES ('4', '0', '2020-07-01', '0', '2020-07-01', '0', null, '马六', '0', '60', '448521xxxxxxxxxx', 'xxx005', '正常老人', '2024-12-31', '1234569870', '正常', '无', '1958-09-25', '148cm', '40kg', '0', 'a', null);
+INSERT INTO `t_customer` VALUES ('5', '0', '2020-07-01', '0', '2020-07-01', '0', null, '田七', '0', '62', '448521xxxxxxxxxx', 'xxx005', '正常老人', '2024-12-31', '1234569870', '正常', '无', '1958-09-25', '148cm', '40kg', '0', 'a', null);
 
 -- ----------------------------
 -- Table structure for `t_emp`
@@ -539,15 +542,16 @@ CREATE TABLE `t_leave` (
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_leave
 -- ----------------------------
 INSERT INTO `t_leave` VALUES ('1', '2020-09-21', '0', null, null, '1', '健身运动', '2020-09-21 17:30:00', '2020-09-21 19:00:00', '2020-09-21 18:45:00', '刘大哥', '123456789', '0', '1', '2020-09-21 15:00:00', null, '0');
 INSERT INTO `t_leave` VALUES ('3', '2020-09-22', '0', null, null, '2', '去医院', '2020-09-21 17:30:00', '2020-09-21 19:00:00', '', '张大叔', '123456798', '0', '2', '2020-09-21 15:00:00', null, '0');
-INSERT INTO `t_leave` VALUES ('5', '2020-09-21 21:06:10', 'root', '2020-09-21 21:45:55', 'root', '3', '0.0.', '2020-09-24 00:00:00', '2020-09-26 00:00:00', '', '刘xx', '123564498', '', null, '', null, '0');
+INSERT INTO `t_leave` VALUES ('5', '2020-09-21 21:06:10', 'root', '2020-09-21 21:45:55', 'root', '3', '0.0.', '2020-09-24 00:00:00', '2020-09-26 00:00:00', '', '刘xx', '123564498', '', null, '', null, '1');
 INSERT INTO `t_leave` VALUES ('6', '2020-09-21 21:07:51', 'root', '2020-09-21 21:40:06', '', '3', '13', '2020-08-11 00:00:00', '2020-09-23 00:00:00', '', 'xx', '131654', 'root', '2', '2020-09-21 21:40:06', null, '0');
+INSERT INTO `t_leave` VALUES ('7', '2020-09-24 19:27:00', 'root', '2020-09-24 19:33:10', 'root', '4', '逛街', '2020-09-24 19:25:37', '2020-09-26 00:00:00', '2020-09-25 00:00:00', 'erhahan', '100010', 'root', '1', '2020-09-24 19:27:14', null, '0');
 
 -- ----------------------------
 -- Table structure for `t_nurse_level`
@@ -564,7 +568,7 @@ CREATE TABLE `t_nurse_level` (
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_nurse_level
@@ -578,6 +582,7 @@ INSERT INTO `t_nurse_level` VALUES ('11', '2020-09-17 20:04:27', 'root', '2020-0
 INSERT INTO `t_nurse_level` VALUES ('12', '2020-09-17 20:04:31', 'root', '2020-09-17 20:13:41', 'root', '1', '2', null, '1');
 INSERT INTO `t_nurse_level` VALUES ('13', '2020-09-17 20:51:51', 'root', null, null, '5', '4', null, '1');
 INSERT INTO `t_nurse_level` VALUES ('14', '2020-09-22 10:58:28', 'root', null, null, '3', '4', null, '0');
+INSERT INTO `t_nurse_level` VALUES ('15', '2020-09-24 19:13:25', 'root', null, null, '2', '4', null, '0');
 
 -- ----------------------------
 -- Table structure for `t_nurse_project`
@@ -604,8 +609,8 @@ CREATE TABLE `t_nurse_project` (
 -- ----------------------------
 INSERT INTO `t_nurse_project` VALUES ('1', '2020-09-15', '0', '2020-09-15', '0', '理发', '15元/次', '单剪', '0', '1', null, '0');
 INSERT INTO `t_nurse_project` VALUES ('2', '2020-09-15', '0 ', '2020-09-15', '0 ', '指甲护理', '10元/次', '修理手脚指甲', '0', '1', null, '0');
-INSERT INTO `t_nurse_project` VALUES ('3', '2020-09-15', '0', '2020-09-15', '0', '身体清洁', '20元/次', '搓澡', '1', '1', null, '0');
-INSERT INTO `t_nurse_project` VALUES ('4', '2020-09-17 20:51:13', 'root', '2020-09-17 21:04:19', 'root', '三高检查', '50元/次', '检查老人的高血压、高血糖、高血脂项目', '1', '2', null, '0');
+INSERT INTO `t_nurse_project` VALUES ('3', '2020-09-15', '0', '2020-09-24 19:13:54', 'root', '身体清洁', '20元/次', '搓澡', '1', '1', null, '0');
+INSERT INTO `t_nurse_project` VALUES ('4', '2020-09-17 20:51:13', 'root', '2020-09-24 19:13:49', 'root', '三高检查', '50元/次', '检查老人的高血压、高血糖、高血脂项目', '1', '1', null, '0');
 
 -- ----------------------------
 -- Table structure for `t_nurse_record`
@@ -626,7 +631,7 @@ CREATE TABLE `t_nurse_record` (
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_nurse_record
@@ -636,6 +641,9 @@ INSERT INTO `t_nurse_record` VALUES ('2', '2020-09-18', '0', null, null, '2', '1
 INSERT INTO `t_nurse_record` VALUES ('3', '2020-09-21 19:42:01', 'root', null, null, '1', '2', '1', '2020-09-21T16:00:00.000Z', '手脚都需', '3', null, '1');
 INSERT INTO `t_nurse_record` VALUES ('4', '2020-09-21 19:44:39', 'root', null, null, '2', '4', '1', '2020-09-22T02:00:00.000Z', '无', '3', null, '1');
 INSERT INTO `t_nurse_record` VALUES ('5', '2020-09-21 19:47:11', 'root', '2020-09-21 19:51:13', 'root', '3', '1', '2', '2020-09-22 02:02:00', '333', '3', null, '1');
+INSERT INTO `t_nurse_record` VALUES ('6', '2020-09-24 19:14:19', 'root', null, null, '3', '4', '1', '2020-09-24 19:14:14', null, '3', null, '0');
+INSERT INTO `t_nurse_record` VALUES ('7', '2020-09-24 19:18:15', 'root', null, null, '4', '3', '1', '2020-09-24 19:18:12', null, '3', null, '0');
+INSERT INTO `t_nurse_record` VALUES ('8', '2020-09-24 19:38:47', 'root', null, null, '1', '4', '1', '2020-09-09 00:00:00', null, '3', null, '0');
 
 -- ----------------------------
 -- Table structure for `t_service_focus`
@@ -655,11 +663,14 @@ CREATE TABLE `t_service_focus` (
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `is_deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_service_focus
 -- ----------------------------
+INSERT INTO `t_service_focus` VALUES ('1', '2020-09-24 19:36:02', 'root', '2020-09-24 19:39:37', '', '4', '1', '2020-09-23 00:00:00', '2020-10-04 00:00:00', '', null, '0');
+INSERT INTO `t_service_focus` VALUES ('2', '2020-09-24 19:39:01', 'root', '2020-09-24 19:39:40', '', '2', '2', '2020-09-11 00:00:00', '2020-10-23 00:00:00', '', null, '0');
+INSERT INTO `t_service_focus` VALUES ('3', '2020-09-24 19:59:02', 'root', null, null, '2', '4', '2020-09-01 00:00:00', '2020-10-31 00:00:00', null, null, '0');
 
 -- ----------------------------
 -- Table structure for `t_service_obj`

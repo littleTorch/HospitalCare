@@ -35,16 +35,16 @@
                 border>
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="cusName" label="外出人员姓名"></el-table-column>
-            <el-table-column prop="leaveTime" width="95" label="外出时间" sortable></el-table-column>
-            <el-table-column prop="expectTime" width="95" label="预计回院" sortable></el-table-column>
-            <el-table-column prop="actualTime" width="95" label="实际回院" sortable></el-table-column>
+            <el-table-column prop="leaveTime" width="95" label="外出时间" sortable show-overflow-tooltip></el-table-column>
+            <el-table-column prop="expectTime" width="95" label="预计回院" sortable show-overflow-tooltip></el-table-column>
+            <el-table-column prop="actualTime" width="95" label="实际回院" sortable show-overflow-tooltip></el-table-column>
             <el-table-column prop="accompany" label="陪同人"></el-table-column>
-            <el-table-column prop="accompanyPhone" label="陪同人联系电话"></el-table-column>
-            <el-table-column prop="leaveReason" label="外出原因"></el-table-column>
+            <el-table-column prop="accompanyPhone" width="110" label="陪同人联系电话" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="leaveReason" label="外出原因" show-overflow-tooltip></el-table-column>
             <el-table-column prop="auditPerson" label="审批人"></el-table-column>
             <el-table-column prop="audit" label="审批状态" :formatter="auditFormat"></el-table-column>
-            <el-table-column prop="auditTime" width="95" label="审批时间" sortable></el-table-column>
-            <el-table-column label="操作" width="250" align="center">
+            <el-table-column prop="auditTime" width="95" label="审批时间" sortable show-overflow-tooltip></el-table-column>
+            <el-table-column label="操作" width="220" align="center">
                 <template slot-scope="scope">
                     <el-button :disabled="scope.row.audit == 0 ? false: true" size="mini" type="success" @click="auditValuables(scope.row)">审核</el-button>
                     <el-button size="mini" type="success" @click="updateValuables(scope.row)">编辑</el-button>

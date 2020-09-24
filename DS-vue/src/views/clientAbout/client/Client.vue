@@ -40,7 +40,7 @@
          <el-table-column align="center" prop="cusName" label="客户名"></el-table-column>
          <el-table-column align="center" prop="cusAge" label="年龄"></el-table-column>
          <el-table-column align="center" prop="expirationDate" label="合同到期日期"></el-table-column>
-         <el-table-column align="center" prop="elderType" label="老人类型"></el-table-column>
+<!--         <el-table-column align="center" prop="elderType" label="老人类型"></el-table-column>-->
          <el-table-column align="center" :formatter="typeFormat" prop="cusSex" label="性别"></el-table-column>
          <el-table-column label="操作" width="250" align="center">
             <template slot-scope="scope">
