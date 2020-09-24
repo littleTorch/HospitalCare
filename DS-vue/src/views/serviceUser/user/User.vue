@@ -5,12 +5,12 @@
         <el-row>
           <el-col :span="4">
             <el-form-item label="用户名">
-              <el-input v-model="searchForm.userName" placeholder="请输入用户名"></el-input>
+              <el-input v-model="searchForm.username" placeholder="请输入用户名"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="联系方式">
-              <el-input v-model="searchForm.userTell" placeholder="请输入联系方式"></el-input>
+              <el-input v-model="searchForm.phone" placeholder="请输入联系方式"></el-input>
             </el-form-item>
           </el-col>
           <el-button @click="selectByLike" style="margin-left:20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
@@ -105,8 +105,26 @@
 
       <el-dialog title="编辑用户" :visible.sync="updateUserVisible" width="30%">
         <el-form :inline="true" size="mini" :model="updateForm" ref="updateForm" label-width="80px">
+          <el-form-item label="用户id">
+            <el-input v-model="updateForm.id" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="创建时间">
+            <el-input v-model="updateForm.createTime" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="创建者">
+            <el-input v-model="updateForm.createBy" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="更新时间">
+            <el-input v-model="updateForm.updateTime" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="更新者">
+            <el-input v-model="updateForm.updateBy" disabled></el-input>
+          </el-form-item>
           <el-form-item label="用户名">
             <el-input v-model="updateForm.username"></el-input>
+          </el-form-item>
+          <el-form-item label="密码">
+            <el-input v-model="updateForm.password" disabled></el-input>
           </el-form-item>
           <el-form-item label="性别">
             <el-radio-group v-model="updateForm.sex">
@@ -114,17 +132,25 @@
               <el-radio :label="0">女</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="昵称">
+          <!--<el-form-item label="昵称">
             <el-input v-model="updateForm.userNickname"></el-input>
-          </el-form-item>
+          </el-form-item>-->
           <el-form-item label="联系方式">
-            <el-input v-model="updateForm.userTell"></el-input>
+            <el-input v-model="updateForm.phone"></el-input>
           </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="updateForm.userPassword" disabled></el-input>
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="updateForm.email"></el-input>
           </el-form-item>
-          <el-form-item label="权限等级">
-            <el-input v-model="updateForm.userRoot"></el-input>
+          <br>
+          <el-form-item label="员工姓名" prop="empId">
+            <el-select v-model="updateForm.empId" clearable placeholder="请选择">
+              <el-option
+                      v-for="item in empList"
+                      :key="item.id"
+                      :label="item.empName"
+                      :value="item.id">
+              </el-option>
+            </el-select>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -175,8 +201,8 @@ export default {
         method: "get",
         url: "api/user/selectByLike",
         params: {
-          userName: this.searchForm.userName,
-          userTell: this.searchForm.userTell
+          username: this.searchForm.username,
+          phone: this.searchForm.phone
         },
       }).then((result) => {
         this.tableData = result.data.data;
@@ -194,6 +220,7 @@ export default {
     addUser() {
       this.$refs.addForm.validate(valid => {
         if (valid){
+          this.addForm.createBy = this.userName;
           this.$axios.post('api/user/addUser', qs.stringify(this.addForm)).then((result) => {
             if (result.data.code == 200) {
               this.$message({
@@ -225,11 +252,11 @@ export default {
     updateUser(){
       this.$refs.updateForm.validate(valid => {
         if (valid){
+          this.updateForm.updateBy = this.userName;
           this.$axios.post('api/user/updateSaveUser', qs.stringify(this.updateForm)).then((result) => {
             if (result.data.code == 200) {
               this.$message({
                 type: "success",
-                duration: 1000,
                 message: result.data.msg,
               });
               this.updateUserVisible = false;
@@ -237,7 +264,6 @@ export default {
             } else {
               this.$message({
                 type: "error",
-                duration: 1000,
                 message: result.data.msg,
               });
             }
@@ -443,8 +469,8 @@ export default {
       tableHeight: 0,
       //搜索数据绑定
       searchForm: {
-        userName: "",
-        userTell: "",
+        username: "",
+        phone: "",
       },
 
       empList: [],
@@ -456,6 +482,7 @@ export default {
       //表格数据
       tableData: [],
       userId: "",
+      userName: JSON.parse(sessionStorage.getItem("user")).userName,
       //当前选中的行
       currentRow: "",
       //要分配角色的用户id

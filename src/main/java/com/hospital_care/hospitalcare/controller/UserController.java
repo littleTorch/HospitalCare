@@ -10,6 +10,7 @@ import com.hospital_care.hospitalcare.entity.Emp;
 import com.hospital_care.hospitalcare.entity.User;
 import com.hospital_care.hospitalcare.entity.role.Role;
 import com.hospital_care.hospitalcare.entity.role.vo.ParmVo;
+import com.hospital_care.hospitalcare.entity.user.vo.UserVo;
 import com.hospital_care.hospitalcare.result.ResultUtils;
 import com.hospital_care.hospitalcare.result.ResultVo;
 import com.hospital_care.hospitalcare.service.EmpService;
@@ -60,8 +61,8 @@ public class UserController {
         List<User> records = userList.getRecords();
         for (User user : records) {
             for (Emp emp : empList) {
-                if (emp.getId().equals(user)){
-
+                if (emp.getId().equals(user.getEmpId())){
+                    user.setEmpName(emp.getEmpName());
                 }
             }
         }
@@ -99,15 +100,24 @@ public class UserController {
 
     @ApiOperation("编辑用户保存")
     @PostMapping("/updateSaveUser")
-    public ResultVo updateSaveUser(User user){
-        System.out.println("updateSaveUser: "+user.toString());
+    public ResultVo updateSaveUser(UserVo userVo){
+        System.out.println("updateSaveUser: "+userVo.toString());
         //判断用户是否存在
-        User user1 = userService.getUserByUserName(user.getUsername());
-        if (user1 != null){
-            if (user1.getId()!=user.getId()){
+        User temp = userService.getUserByUserName(userVo.getUsername());
+        if (temp != null){
+            if (temp.getId()!=userVo.getId()){
                 return ResultUtils.error("用户名已经存在!");
             }
         }
+        User user = new User();
+        user.setId(userVo.getId());
+        user.setUpdateBy(userVo.getUpdateBy());
+        user.setUsername(userVo.getUsername());
+        //user.setPassword(userVo.getPassword());
+        user.setSex(userVo.getSex());
+        user.setEmail(userVo.getEmail());
+        user.setPhone(userVo.getPhone());
+        user.setEmpId(userVo.getEmpId());
         boolean b = userService.updateById(user);
         if(b){
             return ResultUtils.success("编辑成功");
@@ -130,9 +140,11 @@ public class UserController {
     @ApiOperation("模糊查询")
     @GetMapping("/selectByLike")
     public ResultVo selectByLike(User user){
-        LambdaQueryWrapper<User> lambdaQuery = Wrappers.lambdaQuery();
-        lambdaQuery.like(User::getUsername, user.getUsername()).like(User::getPhone, user.getPhone());
-        List<User> list = userService.list(lambdaQuery);
+        //LambdaQueryWrapper<User> lambdaQuery = Wrappers.lambdaQuery();
+        //lambdaQuery.like(User::getUsername, user.getUsername()).like(User::getPhone, user.getPhone());
+        QueryWrapper<User> query = Wrappers.query();
+        query.like("username", "%"+user.getUsername()+"%").like("phone", "%"+user.getPhone()+"%");
+        List<User> list = userService.list(query);
         return ResultUtils.success("查询成功",list);
     }
 

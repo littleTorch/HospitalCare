@@ -83,7 +83,7 @@ public class User implements Serializable, UserDetails {
     Collection<? extends GrantedAuthority> authorities;
 
     @TableField(exist = false)
-    private String cusName;
+    private String empName;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
