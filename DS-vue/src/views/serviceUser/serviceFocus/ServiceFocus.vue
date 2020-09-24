@@ -338,11 +338,8 @@
                   message: result.data.msg,
                 });
                 this.serviceFocusAddVisible = false;
-                if (((this.page.totalCount - 1) % this.page.pageSize == 0) && (this.page.currentPage != 1)) {
-                  this.getTableData(this.page.currentPage - 1);
-                } else {
-                  this.getTableData(this.page.currentPage);
-                }
+                let num = parseInt(this.page.totalCount/this.page.pageSize)+1;
+                this.getTableData(num);
               } else {
                 this.$message({
                   type: "error",

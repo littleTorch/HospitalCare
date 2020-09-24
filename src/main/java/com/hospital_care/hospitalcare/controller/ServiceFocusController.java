@@ -43,7 +43,7 @@ public class ServiceFocusController {
     @ApiOperation("后端获取-t_customer-表信息")
     @GetMapping("/getCustomerList")
     public List<Customer> index(){
-        return customerService.list(Wrappers.<Customer>lambdaQuery().ne(Customer::getRecordId, null).or().ne(Customer::getRecordId, ""));
+        return customerService.list(Wrappers.<Customer>lambdaQuery().ne(Customer::getRecordId, null).or().ne(Customer::getRecordId, "").eq(Customer::getIsDeleted,0));
     }
 
     @ApiOperation("分页查询服务关注的信息")

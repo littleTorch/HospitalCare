@@ -59,7 +59,7 @@
         <el-form
                 :model="serviceObjDetails"
                 size="mini"
-                style="text-align:center"
+                style="text-align:left"
                 :inline="true"
                 label-width="100px"
                 disabled
@@ -162,7 +162,7 @@
         <el-form
                 :model="serviceObjUpdateData"
                 size="mini"
-                style="text-align:center"
+                style="text-align:left"
                 :inline="true"
                 label-width="100px"
         >

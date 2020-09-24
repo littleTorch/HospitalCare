@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.Objects;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -74,4 +76,16 @@ public class Bed implements Serializable {
     @TableField(exist = false)
     private Integer cusId;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Bed)) return false;
+        Bed bed = (Bed) o;
+        return Objects.equals(floor, bed.floor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(floor);
+    }
 }
