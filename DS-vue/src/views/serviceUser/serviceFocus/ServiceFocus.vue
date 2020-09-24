@@ -26,7 +26,7 @@
         <el-table-column align="center" prop="projectName" label="护理项目"></el-table-column>
         <el-table-column align="center" prop="serveStart" label="服务购买日期" sortable></el-table-column>
         <el-table-column align="center" prop="serveEnd" label="服务到期日期" sortable></el-table-column>
-        <el-table-column align="center" prop="elderType" :formatter="elderTypeF" label="老人类型"></el-table-column>
+<!--        <el-table-column align="center" prop="elderType" :formatter="elderTypeF" label="老人类型"></el-table-column>-->
         <el-table-column align="center" prop="remark" label="备注"></el-table-column>
         <el-table-column label="操作" width="300" align="center">
           <template slot-scope="scope">
@@ -103,18 +103,18 @@
                 </el-date-picker>
               </el-form-item>
           </el-row>
-          <el-row>
-            <el-form-item label="老人类型" prop="elderType">
-              <el-select v-model="serviceFocusAdd.elderType" placeholder="请选择">
-                <el-option
-                        v-for="item in elderTypeS"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-row>
+<!--          <el-row>-->
+<!--            <el-form-item label="老人类型" prop="elderType">-->
+<!--              <el-select v-model="serviceFocusAdd.elderType" placeholder="请选择">-->
+<!--                <el-option-->
+<!--                        v-for="item in elderTypeS"-->
+<!--                        :key="item.value"-->
+<!--                        :label="item.label"-->
+<!--                        :value="item.value">-->
+<!--                </el-option>-->
+<!--              </el-select>-->
+<!--            </el-form-item>-->
+<!--          </el-row>-->
           <el-row>
             <el-form-item label="备注">
               <el-input v-model="serviceFocusAdd.remark"></el-input>
@@ -128,7 +128,7 @@
       </span>
       </el-dialog>
 
-      <el-dialog title="服务关注详情" :visible.sync="serviceFocusDetailsVisible" width="40%">
+      <el-dialog title="服务关注详情" :visible.sync="serviceFocusDetailsVisible" width="50%">
         <el-form
                 :model="serviceFocusDetails"
                 size="mini"

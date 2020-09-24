@@ -109,7 +109,7 @@ public class ServiceFocusController {
     @ApiOperation("添加一条服务关注信息")
     @GetMapping("/addServiceFocus")
     public ResultVo addServiceFocus(ServiceFocus serviceFocus, String elderType){
-        if (elderType!=null){
+//        if (elderType!=null){
             boolean save = serviceFocusService.save(serviceFocus);
             Customer customer = new Customer();
             customer.setElderType(elderType);
@@ -117,7 +117,7 @@ public class ServiceFocusController {
             if (save && update){
                 return ResultUtils.success("添加成功");
             }
-        }
+//        }
         return ResultUtils.error("添加失败");
     }
 

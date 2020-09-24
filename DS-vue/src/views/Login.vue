@@ -50,7 +50,7 @@
                             <el-button @click="submit()" class="my-button" type="primary">登录</el-button>
                         </el-col>
                         <el-col :span="12">
-                            <el-button class="my-button">重置</el-button>
+                            <el-button @click="renewly" class="my-button">重置</el-button>
                         </el-col>
                     </el-row>
                 </el-form-item>
@@ -139,6 +139,10 @@
             this.init();
         },    
         methods: {
+            renewly(){
+                this.reset();
+                this.$refs['loginForm'].resetFields();
+            },
             // renewalImage() {
             //     this.imageUrl = 'http://localhost:8081/login/image?t=' + new Date().getTime();
             // },
