@@ -6,11 +6,18 @@
             <el-form size="mini" :model="foodManage" label-width="80px">
                 <el-row>
                     <el-col :span="5">
+
                         <el-form-item style="font-size: 15px" label="档案号:">
-                            <el-input v-model="foodManage.recordId" placeholder="请输入患者档案号"></el-input>
+                            <el-select v-model="foodManage.cusName" placeholder="请选择客户">
+                                <el-option
+                                        v-for="item in cusNames"
+                                        :key="item.cusName"
+                                        :value="item.cusName"
+                                ></el-option>
+                            </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-button @click="findFoodManage(foodManage.recordId)"  style="margin-left: 20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
+                    <el-button @click="findFoodManage(foodManage.cusName)"  style="margin-left: 20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
                     <el-button @click="addDetail" size="mini" type="primary" icon="el-icon-plus">新增食物日历</el-button>
                 </el-row>
             </el-form>
@@ -62,7 +69,7 @@
         <el-dialog title="新增膳食日历数据" :visible.sync="addFoodDateVisible" width="60%">
             <el-form size="mini" ref="addOne" style="text-align:left" :model="addOne" :inline="true" label-width="100px">
                 <el-form-item label="档案编号">
-                    <el-input v-model="addOne.recordId" placeholder="请输入档案编号"></el-input>
+                    <el-input v-model="addOne.cusName" placeholder="请输入档案编号"></el-input>
                 </el-form-item>
                 <br />
                 <el-form-item label="星期">
@@ -263,7 +270,7 @@
                 currentPage: 1,
                 //搜索框数据绑定
                 foodManage: {
-                    recordId: "",
+                    cusName: "",
                 },
                 // 表格高度
                 tableHeight: 0,
@@ -274,8 +281,8 @@
                 detailFoodVisible: false,
                 updateFoodVisible: false,
                 addOne: {
-                    recordId: "",
-                    foodPic: "taozi.jpg"
+                    cusName: "",
+                    foodPic: "mifan.jpg"
                 },
                 findManageData: [],
                 foodDetail: {},
@@ -284,6 +291,7 @@
                     foodPic: "mifan.jpg",
                 },
                 reId: "",
+                cusNames: [],
             };
         },
         methods: {
@@ -334,7 +342,7 @@
             },
 
             nameFormat(row){
-                return this.reId
+                return this.cusName
             },
             details(food){
                 //console.log(food);
@@ -343,13 +351,13 @@
                 this.detailFoodVisible = true;
             },
 
-            findFoodManage(recordId){
+            findFoodManage(cusName){
                 //console.log(recordId)
                 this.$axios({
                     method: "post",
                     url: "api/foodManage/foodManageList",
                     params: {
-                        recordId: recordId,
+                        cusName: cusName,
                     }
 
                 }).then((res) => {
@@ -361,8 +369,8 @@
                             duration: 1000,
                             message: res.data.msg
                         });
-                        this.addOne.recordId = this.foodManage.recordId;
-                        this.reId =  this.foodManage.recordId;
+                        this.addOne.cusName = this.foodManage.cusName;
+                        this.cusName =  this.foodManage.cusName;
                         this.findManageData = res.data.data;
                         this.user = "user";
                         //this.findManageData.recordId = this.foodManage.recordId;
@@ -386,7 +394,7 @@
                 this.$refs.addOne.validate((valid) => {
                     if(valid){
                         var data = new FormData();
-                        data.append('recordId',this.addOne.recordId);
+                        data.append('cusName',this.addOne.cusName);
                         data.append('date',this.addOne.date);
                         data.append('day',this.addOne.day);
                         data.append('foodName',this.addOne.foodName);
@@ -498,7 +506,19 @@
                     }
                 });
             },
+            getCustomer(){
+                this.$axios({
+                    method: "post",
+                    url: "api/foodDate/foodAllCustomer"
+                }).then((result) =>{
+                    this.cusNames = result.data.data;
+                    console.log(this.cusNames);
+                })
 
+            }
+        },
+        created: function () {
+            this.getCustomer();
         },
         mounted() {
             this.$nextTick(() => {

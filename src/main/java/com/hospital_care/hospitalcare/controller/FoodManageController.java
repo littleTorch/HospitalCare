@@ -45,15 +45,15 @@ public class FoodManageController {
 
     @ApiOperation("查询一个用户的膳食日历")
     @PostMapping("/foodManageList")
-    public ResultVo findOneFoodData(String recordId){
+    public ResultVo findOneFoodData(String cusName){
         //System.out.println(recordId);
         QueryWrapper<Customer> wrapper1 = new QueryWrapper<>();
-        wrapper1.like("record_id", recordId);
+        wrapper1.like("cus_name", cusName);
         Customer customer = customerMapper.selectOne(wrapper1);
         //System.out.println(customer);
 
         QueryWrapper<FoodManage> wrapper2 = new QueryWrapper<>();
-        wrapper1.like("cus_id", customer.getId());
+        wrapper1.like("cus_name", customer.getCusName());
         List<FoodManage> foodManages = foodManageMapper.selectList(wrapper2);
 
         List<FoodDate> foodDateList = new ArrayList<>();
@@ -80,7 +80,7 @@ public class FoodManageController {
     public ResultVo addOneFoodDate(FoodDateManage foodDateManage){
         //System.out.println(foodDateManage);
         QueryWrapper<Customer> wrapper1 = new QueryWrapper<>();
-        wrapper1.like("record_id", foodDateManage.getRecordId());
+        wrapper1.like("cus_name", foodDateManage.getCusName());
         Customer customer = customerMapper.selectOne(wrapper1);
 
         FoodDate foodDate = new FoodDate();

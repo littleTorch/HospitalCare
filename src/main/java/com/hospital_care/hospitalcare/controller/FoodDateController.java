@@ -25,7 +25,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -53,10 +55,10 @@ public class FoodDateController {
 
     @ApiOperation("查询一个用户的膳食日历")
     @PostMapping("/foodDateList")
-    public ResultVo findOneFoodData(String recordId){
+    public ResultVo findOneFoodData(String cusName){
 
         QueryWrapper<Customer> wrapper1 = new QueryWrapper<>();
-        wrapper1.like("record_id", recordId);
+        wrapper1.like("cus_name", cusName);
         Customer customer = customerMapper.selectOne(wrapper1);
         //System.out.println(customer);
 
@@ -340,6 +342,24 @@ public class FoodDateController {
         //System.out.println(foodDateSumList);
 
         return new ResultVo("查询成功",200,foodDateSumList);
+    }
+
+    @ApiOperation("找到所有用户")
+    @PostMapping("/foodAllCustomer")
+    public ResultVo findAllCustomer(){
+
+        List<Customer> customers = customerMapper.selectList(null);
+
+        List<Map<String,Object>> mapList = new ArrayList<>();
+
+        for (Customer customer : customers) {
+            Map<String,Object> map = new HashMap<>();
+            map.put("cusName",customer.getCusName());
+            mapList.add(map);
+        }
+
+        return new ResultVo("",200,mapList);
+
     }
 
     @ApiOperation("获取食物图片")

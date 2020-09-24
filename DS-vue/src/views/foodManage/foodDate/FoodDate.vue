@@ -5,11 +5,17 @@
         <el-form size="mini" :model="findUserDate" label-width="80px">
             <el-row>
                 <el-col :span="5">
-                    <el-form-item style="font-size: 10px" label="档案号:">
-                        <el-input v-model="findUserDate.recordId" placeholder="请输入患者档案号"></el-input>
+                    <el-form-item style="font-size: 10px" label="客户:">
+                        <el-select v-model="findUserDate.cusName" placeholder="请选择客户">
+                            <el-option
+                                    v-for="item in cusNames"
+                                    :key="item.cusName"
+                                    :value="item.cusName"
+                            ></el-option>
+                        </el-select>
                     </el-form-item>
                 </el-col>
-                <el-button @click="findUser(findUserDate.recordId)"  style="margin-left: 20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
+                <el-button @click="findUser(findUserDate.cusName)"  style="margin-left: 20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
             </el-row>
         </el-form>
         <el-carousel height="360px" width="1107px"  :interval="3000" direction="vertical" v-if="user!=''" >
@@ -72,7 +78,7 @@
             return {
                 updateFoodVisible: false,
                 findUserDate: {
-                    recordId: "",
+                    cusName: "",
                 },
                 foodDate: [],
                 user: "",
@@ -84,16 +90,17 @@
                 thursday: [],
                 friday: [],
                 saturday: [],
+                cusNames: []
             }
         },
         methods: {
 
-            findUser(recordId){
+            findUser(cusName){
                 this.$axios({
                     method: "post",
                     url: "api/foodDate/foodDateList",
                     params: {
-                        recordId: recordId,
+                        cusName: cusName,
                     }
                 }).then((res) => {
                     //console.log(res)
@@ -180,9 +187,21 @@
                     }
                 })
             },
+            getCustomer(){
+                this.$axios({
+                    method: "post",
+                    url: "api/foodDate/foodAllCustomer"
+                }).then((result) =>{
+                     this.cusNames = result.data.data;
+                    console.log(this.cusNames);
+                })
+
+            }
 
         },
-
+        created: function () {
+            this.getCustomer();
+        },
 
     }
 </script>

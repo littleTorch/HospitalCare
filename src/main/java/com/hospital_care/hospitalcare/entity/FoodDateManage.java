@@ -15,7 +15,7 @@ public class FoodDateManage {
 
     private Integer id;
 
-    private String recordId;
+    private String cusName;
 
     private Integer date;
 
