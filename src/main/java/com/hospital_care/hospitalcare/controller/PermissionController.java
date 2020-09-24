@@ -130,9 +130,9 @@ public class PermissionController {
 
     @ApiOperation("模糊查询")
     @GetMapping("/selectByLike")
-    public ResultVo selectByLike(String name){
+    public ResultVo selectByLike(String label){
         QueryWrapper<Permission> query = new QueryWrapper<>();
-        query.lambda().like(Permission::getName, name).orderByAsc(Permission::getOrderNum);
+        query.lambda().like(Permission::getLabel, label).orderByAsc(Permission::getOrderNum);
         List<Permission> list = permissionService.list(query);
         List<Permission> menuList = null;
         if(list.size() > 0){

@@ -4,11 +4,11 @@
       <el-row>
         <el-col :span="4">
           <el-form-item label="名称:">
-            <el-input v-model="selectFrom.name" placeholder="请输入权限名称"></el-input>
+            <el-input v-model="selectFrom.label" placeholder="请输入权限名称"></el-input>
           </el-form-item>
         </el-col>
         <el-button
-          @click="selectByLike(selectFrom.name)"
+          @click="selectByLike(selectFrom.label)"
           style="margin-left: 20px;"
           size="mini"
           type="primary"
@@ -147,12 +147,12 @@ export default {
     },
 
     //模糊查询
-    selectByLike(name) {
+    selectByLike(label) {
       this.$axios({
         method: "get",
         url: "api/permission/selectByLike",
         params: {
-          name: name,
+          label: label,
         },
       }).then((result) => {
         console.log(result.data.code)
@@ -362,7 +362,7 @@ export default {
       },
       addForm: [],
       permissions: [],
-      selectFrom: {name: ''},
+      selectFrom: {label: ''},
       //表格数据
       tableTreeDdata: [],
     };
