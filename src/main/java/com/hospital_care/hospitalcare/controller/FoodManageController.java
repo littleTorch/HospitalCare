@@ -99,14 +99,14 @@ public class FoodManageController {
         int i = foodMapper.insert(food);
         //System.out.println(i);
         if (i>0){
-            Food selLikeFood = foodMapper.selLikeFood(foodDateManage.getFoodName(),foodDateManage.getFoodTag());
-            foodDate.setFoodId(selLikeFood.getId());
+            List<Food> selLikeFood = foodMapper.selLikeFood(foodDateManage.getFoodName(),foodDateManage.getFoodTag());
+            foodDate.setFoodId(selLikeFood.get(0).getId());
             //System.out.println(foodDate);
             int insert = foodDateMapper.insert(foodDate);
             if (insert>0) {
                 QueryWrapper<FoodDate> wrapper2 = new QueryWrapper<>();
                 //System.out.println(selLikeFood.getId() + " " + foodDateManage.getDate() + " " + foodDateManage.getDay());
-                wrapper2.like("food_id", selLikeFood.getId()).like("date",
+                wrapper2.like("food_id", selLikeFood.get(0).getId()).like("date",
                         foodDateManage.getDate()).like("day", foodDateManage.getDay());
                 FoodDate foodDate1 = foodDateMapper.selectOne(wrapper2);
                 //System.out.println(foodDate1);
@@ -146,8 +146,8 @@ public class FoodManageController {
         int i = foodMapper.insert(food);
 
         if (i>0){
-            Food selLikeFood = foodMapper.selLikeFood(foodDateManage.getFoodName(),foodDateManage.getFoodTag());
-            foodDate.setFoodId(selLikeFood.getId());
+            List<Food> selLikeFood = foodMapper.selLikeFood(foodDateManage.getFoodName(),foodDateManage.getFoodTag());
+            foodDate.setFoodId(selLikeFood.get(0).getId());
             //System.out.println(foodDate);
             int update = foodDateMapper.updateById(foodDate);
             if (update>0) {

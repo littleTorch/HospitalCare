@@ -327,7 +327,7 @@
                     return "星期四";
                 } else if (row.date == 5){
                     return "星期五";
-                } else{
+                } else if (row.date == 6){
                     return "星期六";
                 }
             },
@@ -364,24 +364,15 @@
                     //console.log(res)
 
                     if (res.data.code == 200){
-                        this.$message({
-                            type: "success",
-                            duration: 1000,
-                            message: res.data.msg
-                        });
+
                         this.addOne.cusName = this.foodManage.cusName;
                         this.cusName =  this.foodManage.cusName;
                         this.findManageData = res.data.data;
                         this.user = "user";
+
                         //this.findManageData.recordId = this.foodManage.recordId;
                         //console.log(this.findManageData)
 
-                    } else {
-                        this.$message({
-                            type: "error",
-                            duration: 1000,
-                            message: res.data.msg
-                        })
                     }
                 })
             },
@@ -417,9 +408,11 @@
                                     message: result.data.msg,
                                 });
                                 this.addFoodDateVisible = false;
-                                this.$refs.addOne.resetFields(); // 刷新表单
+                                //this.$refs.addOne.resetFields(); // 刷新表单
                                 this.findFoodManage(this.addOne.cusName);
-                                this.addOne={};
+                                this.addOne={
+                                    foodPic: "mifan.jpg",
+                                };
                             } else {
                                 this.$message({
                                     type: "error",
@@ -469,7 +462,9 @@
                                 this.updateFoodVisible = false;
                                 this.$refs.updateFoodData.resetFields(); // 刷新表单
                                 this.findFoodManage(this.addOne.cusName);
-                                this.updateFoodData={};
+                                this.updateFoodData={
+                                    foodPic: "mifan.jpg",
+                                };
                             } else {
                                 this.$message({
                                     type: "error",
@@ -513,7 +508,7 @@
                     url: "api/foodDate/foodAllCustomer"
                 }).then((result) =>{
                     this.cusNames = result.data.data;
-                    console.log(this.cusNames);
+                    //console.log(this.cusNames);
                 })
 
             }

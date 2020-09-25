@@ -22,7 +22,7 @@ public interface FoodMapper extends BaseMapper<Food> {
 
     List<Food> selLike(String foodName);
 
-    Food selLikeFood(String foodName,String foodTag);
+    List<Food> selLikeFood(String foodName,String foodTag);
 
     int addFood(Food food);
 
