@@ -9,10 +9,7 @@ import com.hospital_care.hospitalcare.mapper.FoodManageMapper;
 import com.hospital_care.hospitalcare.mapper.FoodMapper;
 import com.hospital_care.hospitalcare.result.ResultVo;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -162,7 +159,7 @@ public class FoodManageController {
 
     }
 
-    @ApiOperation("修改一个用户的膳食日历")
+    @ApiOperation("删除一个用户的膳食日历")
     @PostMapping("/deleteOne")
     public ResultVo deleteOne(String foodDateId){
 
@@ -183,6 +180,31 @@ public class FoodManageController {
         return new ResultVo("删除失败", 200, null);
     }
 
+
+    @ApiOperation("删除一个用户的膳食日历")
+    @DeleteMapping(value = "/delete",produces = {"application/json;charset=utf-8"})
+    public ResultVo delete(@RequestBody String[] ids){
+        System.out.println(ids);
+        for (String id : ids) {
+            QueryWrapper<FoodManage> wrapper = new QueryWrapper<>();
+            wrapper.like("food_date_id",id);
+
+            FoodManage foodManage = foodManageMapper.selectOne(wrapper);
+            int i1 = foodManageMapper.deleteById(foodManage.getId());
+            System.out.println(i1);
+            if (i1>0){
+                int i = foodDateMapper.deleteById(id);
+                if (i > 0) {
+                    System.out.println(i);
+                    return new ResultVo("删除成功", 200, null);
+                }
+            }
+        }
+
+
+
+        return new ResultVo("删除失败", 200, null);
+    }
 
 }
 

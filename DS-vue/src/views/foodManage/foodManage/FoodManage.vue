@@ -19,6 +19,7 @@
                     </el-col>
                     <el-button @click="findFoodManage(foodManage.cusName)"  style="margin-left: 20px;" size="mini" type="primary" icon="el-icon-search">查询</el-button>
                     <el-button @click="addDetail" size="mini" type="primary" icon="el-icon-plus">新增食物日历</el-button>
+                    <el-button @click="deleteList(tableChecked)" size="mini" type="primary" icon="el-icon-delete">批量删除</el-button>
                 </el-row>
             </el-form>
         </el-header>
@@ -27,7 +28,7 @@
         <el-table v-if="user!=''"  ref="findManageData" tooltip-effect="dark" :data="findManageData.slice((currentPage-1) * pageSize ,currentPage * pageSize)" @selection-change="handleSelectionChange" size="mini" :height="tableHeight" border style="width: 100%">
 
             <el-table-column align="center" type="selection" width="43"></el-table-column>
-            <el-table-column align="center" :formatter="nameFormat" prop="" label="档案号" ></el-table-column>
+            <el-table-column align="center" :formatter="nameFormat" prop="" label="客户名字" ></el-table-column>
             <el-table-column align="center" :formatter="dateFormat" prop="date" label="星期" ></el-table-column>
             <el-table-column align="center" :formatter="dayFormat" prop="day" label="所处时间段" ></el-table-column>
             <el-table-column label="食物" width="170" align="center">
@@ -501,6 +502,44 @@
                         });
                     }
                 });
+            },
+            deleteList(){
+                //console.log(this.tableChecked);
+                this.$confirm('是否删除所选信息?','提示',{
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                }).then(()=>{
+                    this.tableChecked.forEach(id =>{
+                        this.ids.push(id.id);
+                    });
+                    //console.log(this.ids);
+                    this.$axios({
+                        method: "delete",
+                        url: "api/foodManage/delete",
+                        headers: {
+                            'Content-Type': 'application/json;charset=UTF-8'
+                        },
+                        data: JSON.stringify(this.ids),
+                    }).then((result) => {
+                        if (result.data.code == 200) {
+                            this.$message({
+                                type: "success",
+                                duration: 1000,
+                                message: result.data.msg,
+                            });
+                            this.findFoodManage(this.addOne.cusName);
+                            this.ids = [];
+
+                        } else {
+                            this.$message({
+                                type: "error",
+                                duration: 1000,
+                                message: result.data.msg,
+                            });
+                        }
+                    });
+                })
             },
             getCustomer(){
                 this.$axios({
