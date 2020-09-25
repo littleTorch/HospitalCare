@@ -4,6 +4,7 @@ package com.hospital_care.hospitalcare.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hospital_care.hospitalcare.Utils.StrDateSDF;
 import com.hospital_care.hospitalcare.entity.Bed;
 import com.hospital_care.hospitalcare.entity.Checkin;
 import com.hospital_care.hospitalcare.entity.checkout.Checkout;
@@ -21,6 +22,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -120,6 +123,7 @@ public class CheckoutController {
         for (Checkin checkin : checkinList) {
             CheckoutAddVo checkoutAddVo = new CheckoutAddVo();
             Customer customer = customerService.getById(checkin.getCusId());
+            if (customer==null)continue;
             Bed bed = bedService.getById(checkin.getBedId());
             checkoutAddVo.setCusId(customer.getId());
             checkoutAddVo.setCusName(customer.getCusName());
@@ -179,7 +183,7 @@ public class CheckoutController {
 
     @ApiOperation("新增一条退住登记信息")
     @PostMapping("/addCheckout")
-    public ResultVo addCheckout(Checkout checkout){
+    public ResultVo addCheckout(Checkout checkout) throws ParseException {
         boolean save = checkoutService.save(checkout);
         if (save){
             return ResultUtils.success("登记成功");

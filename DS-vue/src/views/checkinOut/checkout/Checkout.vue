@@ -99,6 +99,8 @@
               <el-date-picker
                       v-model="checkoutAddData.checkoutDate"
                       type="datetime"
+                      format="yyyy-MM-dd HH:mm:ss"
+                      value-format="yyyy-MM-dd HH:mm:ss"
                       placeholder="选择退住日期时间">
               </el-date-picker>
             </el-form-item>
